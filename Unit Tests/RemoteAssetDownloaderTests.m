@@ -28,20 +28,58 @@
     assertThat(self.testDownloader, is(notNilValue()));
 }
 
-- (void) testShouldRequireURL
+- (void) testShouldRequireDownloadPath
 {
-    assertThat(self.testDownloader.URL, is(notNilValue()));
+//    assertThat(self.testDownloader.URL, is(notNilValue()));
+    @try 
+    {
+        self.testDownloader.fileManager = [NSFileManager defaultManager];
+        self.testDownloader.URL = [NSURL fileURLWithPath:@"~"];
+        [self.testDownloader beginDownload];
+    }
+    @catch (NSException *e) 
+    {
+        assertThat([e name], is(equalTo(@"NSInternalInconsistencyException")));
+        return;
+    }
+    
+    GHFail(@"Should have thrown an exception");
 }
 
 - (void) testShouldRequreFileManager
 {
-    assertThat(self.testDownloader.fileManager, is(notNilValue()));
-    [self.testDownloader beginDownload];
+//    assertThat(self.testDownloader.fileManager, is(notNilValue()));
+    @try 
+    {
+        self.testDownloader.downloadPath = @"~";
+        self.testDownloader.URL = [NSURL fileURLWithPath:@"~"];
+        [self.testDownloader beginDownload];
+    }
+    @catch (NSException *e) 
+    {
+        assertThat([e name], is(equalTo(@"NSInternalInconsistencyException")));
+        return;
+    }
+    
+    GHFail(@"Should have thrown an exception");
 }
 
-- (void) testShouldRequireDownloadPath
+- (void) testShouldRequireURL
 {
-    assertThat(nil, is(notNilValue()));
+//    assertThat(nil, is(notNilValue()));
+    @try 
+    {
+        self.testDownloader.fileManager = [NSFileManager defaultManager];
+        self.testDownloader.downloadPath = @"~";
+        [self.testDownloader beginDownload];
+    }
+    @catch (NSException *e) 
+    {
+        assertThat([e name], is(equalTo(@"NSInternalInconsistencyException")));
+        return;
+    }
+    
+    GHFail(@"Should have thrown an exception");
 }
 
 - (void) testShouldDownloadCreateNewFileWhenItDoesNotExist

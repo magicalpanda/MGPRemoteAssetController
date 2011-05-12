@@ -25,6 +25,9 @@
 
 - (void) beginDownload
 {
+    NSAssert(self.downloadPath, @"downloadPath is not set");
+    NSAssert(self.URL, @"URL is not set");
+    NSAssert(self.fileManager, @"fileManager is not set");
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
