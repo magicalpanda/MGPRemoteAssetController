@@ -1,0 +1,529 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D3623260D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.m */; };
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		C7044BFC135930270012F27A /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BF0135930270012F27A /* GHUnitIOS.framework */; };
+		C7044BFD135930270012F27A /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BF1135930270012F27A /* OCHamcrestIOS.framework */; };
+		C7044BFE135930270012F27A /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BFA135930270012F27A /* libOCMock.a */; };
+		C7044C56135930930012F27A /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7044C55135930930012F27A /* GHUnitIOSTestMain.m */; };
+		C7C5E4DD1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4DC1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m */; };
+		C7C5E4DF1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4DE1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib */; };
+		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
+		C7C5E4E51378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */; };
+		C7C5E4E61378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */; };
+		C7C5E4E91378A7AA005EA662 /* RemoteAssetDownloaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E81378A7AA005EA662 /* RemoteAssetDownloaderTests.m */; };
+		C7C5E4EE1378A886005EA662 /* MGPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */; };
+		C7C5E4F11378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
+		C7C5E4F21378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C7044BDE13592DDE0012F27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D6058900D05DD3D006BFB54;
+			remoteInfo = MGPRemoteAssetController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetControllerAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetControllerAppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* MGPRemoteAssetController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGPRemoteAssetController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* MGPRemoteAssetController_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetController_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* MGPRemoteAssetController-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MGPRemoteAssetController-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C7044BD813592DD90012F27A /* MGPRemoteAssetControllerTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGPRemoteAssetControllerTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7044BDA13592DD90012F27A /* MGPRemoteAssetControllerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MGPRemoteAssetControllerTests-Info.plist"; path = "../../MGPRemoteAssetControllerTests-Info.plist"; sourceTree = "<group>"; };
+		C7044BF0135930270012F27A /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
+		C7044BF1135930270012F27A /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
+		C7044BF4135930270012F27A /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		C7044BF5135930270012F27A /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		C7044BF6135930270012F27A /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		C7044BF7135930270012F27A /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		C7044BF8135930270012F27A /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		C7044BF9135930270012F27A /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		C7044BFA135930270012F27A /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		C7044C55135930930012F27A /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitIOSTestMain.m; sourceTree = "<group>"; };
+		C7C5E4DB1378A713005EA662 /* MGPRemoteAssetDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetDownloadViewController.h; sourceTree = "<group>"; };
+		C7C5E4DC1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloadViewController.m; sourceTree = "<group>"; };
+		C7C5E4DE1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetDownloadView~iphone.xib"; sourceTree = "<group>"; };
+		C7C5E4E01378A761005EA662 /* MGPRemoteAssetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetTableViewCell.h; sourceTree = "<group>"; };
+		C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetTableViewCell.m; sourceTree = "<group>"; };
+		C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetTableViewCell~ipad.xib"; sourceTree = "<group>"; };
+		C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetTableViewCell~iphone.xib"; sourceTree = "<group>"; };
+		C7C5E4E71378A7AA005EA662 /* RemoteAssetDownloaderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAssetDownloaderTests.h; sourceTree = "<group>"; };
+		C7C5E4E81378A7AA005EA662 /* RemoteAssetDownloaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteAssetDownloaderTests.m; sourceTree = "<group>"; };
+		C7C5E4EC1378A886005EA662 /* MGPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPTableViewCell.h; sourceTree = "<group>"; };
+		C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPTableViewCell.m; sourceTree = "<group>"; };
+		C7C5E4EF1378A8AA005EA662 /* MGPRemoteAssetDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetDownloader.h; sourceTree = "<group>"; };
+		C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloader.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7044BD613592DD90012F27A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7044BFC135930270012F27A /* GHUnitIOS.framework in Frameworks */,
+				C7044BFD135930270012F27A /* OCHamcrestIOS.framework in Frameworks */,
+				C7044BFE135930270012F27A /* libOCMock.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C7C5E4EB1378A806005EA662 /* Remote Asset Controller */,
+				C7C5E4EA1378A7E8005EA662 /* Download View Controller */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* MGPRemoteAssetController.app */,
+				C7044BD813592DD90012F27A /* MGPRemoteAssetControllerTests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				C7044C721359328B0012F27A /* Unit Tests */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				C7044A9413592B2C0012F27A /* Frameworks */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* MGPRemoteAssetController_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				8D1107310486CEB800E47090 /* MGPRemoteAssetController-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		C7044A9413592B2C0012F27A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C7044BEF135930270012F27A /* Testing */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		C7044BEF135930270012F27A /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				C7044BDA13592DD90012F27A /* MGPRemoteAssetControllerTests-Info.plist */,
+				C7044C55135930930012F27A /* GHUnitIOSTestMain.m */,
+				C7044BF0135930270012F27A /* GHUnitIOS.framework */,
+				C7044BF1135930270012F27A /* OCHamcrestIOS.framework */,
+				C7044BF2135930270012F27A /* OCMock */,
+			);
+			path = Testing;
+			sourceTree = "<group>";
+		};
+		C7044BF2135930270012F27A /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				C7044BF3135930270012F27A /* Headers */,
+				C7044BFA135930270012F27A /* libOCMock.a */,
+			);
+			path = OCMock;
+			sourceTree = "<group>";
+		};
+		C7044BF3135930270012F27A /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				C7044BF4135930270012F27A /* NSNotificationCenter+OCMAdditions.h */,
+				C7044BF5135930270012F27A /* OCMArg.h */,
+				C7044BF6135930270012F27A /* OCMConstraint.h */,
+				C7044BF7135930270012F27A /* OCMock.h */,
+				C7044BF8135930270012F27A /* OCMockObject.h */,
+				C7044BF9135930270012F27A /* OCMockRecorder.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		C7044C721359328B0012F27A /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C7C5E4E71378A7AA005EA662 /* RemoteAssetDownloaderTests.h */,
+				C7C5E4E81378A7AA005EA662 /* RemoteAssetDownloaderTests.m */,
+			);
+			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		C7C5E4EA1378A7E8005EA662 /* Download View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C7C5E4EC1378A886005EA662 /* MGPTableViewCell.h */,
+				C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */,
+				1D3623240D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.h */,
+				1D3623250D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.m */,
+				C7C5E4DB1378A713005EA662 /* MGPRemoteAssetDownloadViewController.h */,
+				C7C5E4DC1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m */,
+				C7C5E4DE1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib */,
+				C7C5E4E01378A761005EA662 /* MGPRemoteAssetTableViewCell.h */,
+				C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */,
+				C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */,
+				C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */,
+			);
+			name = "Download View Controller";
+			sourceTree = "<group>";
+		};
+		C7C5E4EB1378A806005EA662 /* Remote Asset Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C7C5E4EF1378A8AA005EA662 /* MGPRemoteAssetDownloader.h */,
+				C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */,
+			);
+			name = "Remote Asset Controller";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* MGPRemoteAssetController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MGPRemoteAssetController" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MGPRemoteAssetController;
+			productName = Testing;
+			productReference = 1D6058910D05DD3D006BFB54 /* MGPRemoteAssetController.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C7044BD713592DD90012F27A /* MGPRemoteAssetControllerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C7044BDD13592DD90012F27A /* Build configuration list for PBXNativeTarget "MGPRemoteAssetControllerTests" */;
+			buildPhases = (
+				C7044BD413592DD90012F27A /* Resources */,
+				C7044BD513592DD90012F27A /* Sources */,
+				C7044BD613592DD90012F27A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C7044BDF13592DDE0012F27A /* PBXTargetDependency */,
+			);
+			name = MGPRemoteAssetControllerTests;
+			productName = MGPRemoteAssetControllerTests;
+			productReference = C7044BD813592DD90012F27A /* MGPRemoteAssetControllerTests.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MGPRemoteAssetController" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* MGPRemoteAssetController */,
+				C7044BD713592DD90012F27A /* MGPRemoteAssetControllerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
+				C7C5E4DF1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib in Resources */,
+				C7C5E4E51378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib in Resources */,
+				C7C5E4E61378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7044BD413592DD90012F27A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.m in Sources */,
+				C7C5E4DD1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m in Sources */,
+				C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */,
+				C7C5E4EE1378A886005EA662 /* MGPTableViewCell.m in Sources */,
+				C7C5E4F11378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7044BD513592DD90012F27A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7044C56135930930012F27A /* GHUnitIOSTestMain.m in Sources */,
+				C7C5E4E91378A7AA005EA662 /* RemoteAssetDownloaderTests.m in Sources */,
+				C7C5E4F21378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C7044BDF13592DDE0012F27A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D6058900D05DD3D006BFB54 /* MGPRemoteAssetController */;
+			targetProxy = C7044BDE13592DDE0012F27A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MGPRemoteAssetController_Prefix.pch;
+				INFOPLIST_FILE = "MGPRemoteAssetController-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				PRODUCT_NAME = MGPRemoteAssetController;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MGPRemoteAssetController_Prefix.pch;
+				INFOPLIST_FILE = "MGPRemoteAssetController-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/Frameworks/Library\"",
+				);
+				PRODUCT_NAME = MGPRemoteAssetController;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		C7044BDB13592DD90012F27A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks/Testing\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Frameworks/Testing/OCMock/Headers\"";
+				INFOPLIST_FILE = "MGPRemoteAssetControllerTests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks/Testing/OCMock\"",
+				);
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-all_load",
+					"-ObjC",
+					"-force_load",
+					"\"$(PROJECT_DIR)/Frameworks/Testing/OCMock/libOCMock.a\"",
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+					"-framework",
+					CoreGraphics,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = MGPRemoteAssetControllerTests;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C7044BDC13592DD90012F27A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks/Testing\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "MGPRemoteAssetControllerTests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks/Testing/OCMock\"",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = MGPRemoteAssetControllerTests;
+				SDKROOT = iphoneos;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MGPRemoteAssetController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MGPRemoteAssetController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C7044BDD13592DD90012F27A /* Build configuration list for PBXNativeTarget "MGPRemoteAssetControllerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7044BDB13592DD90012F27A /* Debug */,
+				C7044BDC13592DD90012F27A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
