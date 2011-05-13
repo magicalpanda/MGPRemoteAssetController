@@ -16,6 +16,7 @@
 
 @implementation MGPRemoteAssetDownloader
 
+@synthesize delegate = delegate_;
 @synthesize connection = connection_;
 @synthesize writeHandle = writeHandle_;
 @synthesize URL = URL_;
@@ -24,6 +25,7 @@
 
 - (void) dealloc
 {
+    self.delegate = nil;
     self.connection = nil;
     self.writeHandle = nil;
     self.URL = nil;
@@ -60,18 +62,26 @@
 
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-
+    if ([self.delegate respondsToSelector:@selector(downloader:didBeginDownloadingURL:)])
+    {
+        [self.delegate downloader:self didBeginDownloadingURL:self.URL];
+    }
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [self.writeHandle writeData:data];
 }
 
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection
 {
     self.connection = nil;
     [self.writeHandle closeFile];
+    
+    if ([self.delegate respondsToSelector:@selector(downloader:didCompleteDownloadingURL:)])
+    {
+        [self.delegate downloader:self didCompleteDownloadingURL:self.URL];
+    }
 }
 
 @end

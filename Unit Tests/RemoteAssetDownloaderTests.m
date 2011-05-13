@@ -192,7 +192,23 @@ static id mockFileHandle_;
 
 - (void) testShouldSendBeginDownloadNotificationWhenDownloadHasBeginAndDataHasBeenWritten
 {
-    assertThat(nil, is(notNilValue()));
+    NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
+    self.testDownloader.downloadPath = downloadPath;
+    self.testDownloader.fileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
+    NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
+    self.testDownloader.URL = testUrl;
+
+    id downloaderDelegate = [OCMockObject mockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
+    [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didBeginDownloadingURL:)];
+    [[downloaderDelegate expect] downloader:self.testDownloader didBeginDownloadingURL:testUrl];
+    self.testDownloader.delegate = downloaderDelegate;
+    
+    
+    
+    [self.testDownloader beginDownload];
+    [self.testDownloader connection:nil didReceiveResponse:nil];
+    
+    [downloaderDelegate verify];
 }
 
 - (void) testShouldSendProgressCallbacksWhileDownloading
@@ -202,7 +218,25 @@ static id mockFileHandle_;
 
 - (void) testShouldSendCompletionNotificationWhenDownloadCompletedSuccessfully
 {
-    assertThat(nil, is(notNilValue()));   
+    NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
+    self.testDownloader.downloadPath = downloadPath;
+    self.testDownloader.fileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
+    NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
+    self.testDownloader.URL = testUrl;
+    
+    id downloaderDelegate = [OCMockObject mockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
+    [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didBeginDownloadingURL:)];
+    [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didCompleteDownloadingURL:)];
+    [[downloaderDelegate stub] downloader:self.testDownloader didBeginDownloadingURL:testUrl];
+    [[downloaderDelegate expect] downloader:self.testDownloader didCompleteDownloadingURL:testUrl];
+    self.testDownloader.delegate = downloaderDelegate;
+    
+    [self.testDownloader beginDownload];
+    [self.testDownloader connection:nil didReceiveResponse:nil];
+    [self.testDownloader connection:nil didReceiveData:nil];
+    [self.testDownloader connectionDidFinishLoading:nil];
+    
+    [downloaderDelegate verify];
 }
 
 @end

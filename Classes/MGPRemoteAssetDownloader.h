@@ -8,11 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+@class MGPRemoteAssetDownloader;
+
+@protocol MGPRemoteAssetDownloaderDelegate <NSObject>
+@optional
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader didBeginDownloadingURL:(NSURL *)url;
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url;
+
+@end
 
 @interface MGPRemoteAssetDownloader : NSObject {
     
 }
 
+@property (nonatomic, assign) id<MGPRemoteAssetDownloaderDelegate> delegate;
 @property (nonatomic, copy) NSString *downloadPath;
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, retain) NSFileManager *fileManager;
