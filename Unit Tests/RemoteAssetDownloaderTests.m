@@ -213,7 +213,26 @@ static id mockFileHandle_;
 
 - (void) testShouldSendProgressCallbacksWhileDownloading
 {
-    assertThat(nil, is(notNilValue()));
+    NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
+    self.testDownloader.downloadPath = downloadPath;
+    self.testDownloader.fileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
+    NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
+    self.testDownloader.URL = testUrl;
+    
+    id downloaderDelegate = [OCMockObject mockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
+    [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didBeginDownloadingURL:)];
+    [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didCompleteDownloadingURL:)];
+    [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:dataDidProgress:remaining:)];
+    [[downloaderDelegate stub] downloader:self.testDownloader didBeginDownloadingURL:testUrl];
+    [[downloaderDelegate stub] downloader:self.testDownloader didCompleteDownloadingURL:testUrl];
+    [[downloaderDelegate expect] downloader:self.testDownloader dataDidProgress:[OCMArg any] remaining:[OCMArg any]];
+    self.testDownloader.delegate = downloaderDelegate;
+    
+    [self.testDownloader beginDownload];
+    [self.testDownloader connection:nil didReceiveResponse:nil];
+    [self.testDownloader connection:nil didReceiveData:nil];
+    [self.testDownloader connection:nil didReceiveData:nil];
+    [self.testDownloader connectionDidFinishLoading:nil];
 }
 
 - (void) testShouldSendCompletionNotificationWhenDownloadCompletedSuccessfully
