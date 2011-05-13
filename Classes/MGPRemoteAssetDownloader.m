@@ -6,16 +6,26 @@
 //  Copyright 2011 Magical Panda Software LLC. All rights reserved.
 //
 
+static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.;
+
 #import "MGPRemoteAssetDownloader.h"
 
 @interface MGPRemoteAssetDownloader ()
 
 @property (nonatomic, retain) NSFileHandle *writeHandle;
 @property (nonatomic, retain) NSURLConnection *connection;
+@property (nonatomic, assign) NSTimeInterval requestTimeout;
+
+@property (nonatomic, assign) unsigned long long currentFileSize;
+@property (nonatomic, assign) long long expectedFileSize;
+
 @end
 
 @implementation MGPRemoteAssetDownloader
 
+@synthesize currentFileSize = currentFileSize_;
+@synthesize expectedFileSize = expectedFileSize_;
+@synthesize requestTimeout = requestTimeout_;
 @synthesize delegate = delegate_;
 @synthesize connection = connection_;
 @synthesize writeHandle = writeHandle_;
@@ -34,6 +44,16 @@
     [super dealloc];
 }
 
+- (id) init
+{
+    self = [super init];
+    if (self)
+    {
+        self.requestTimeout = kMGPRemoteAssetDownloaderDefaultRequestTimeout;
+    }
+    return self;
+}
+
 - (void) beginDownload
 {
     NSAssert(self.downloadPath, @"downloadPath is not set");
@@ -48,7 +68,7 @@
     NSString *expandedPath = [self.downloadPath stringByExpandingTildeInPath];
     self.writeHandle = [NSFileHandle fileHandleForWritingAtPath:expandedPath];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.URL cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:30];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.URL cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:self.requestTimeout];
     
     NSDictionary *attributes = [self.fileManager attributesOfItemAtPath:self.downloadPath error:nil];
     if ([attributes fileSize] > 0)
@@ -56,8 +76,11 @@
         [request addValue:[NSString stringWithFormat:@"bytes=%ull-", [attributes fileSize]] forHTTPHeaderField:@"Range"];
         [self.writeHandle seekToEndOfFile];
     }
+    self.currentFileSize = [attributes fileSize];
 
-//    self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+#ifndef __TESTING__
+    self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+#endif
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -66,11 +89,21 @@
     {
         [self.delegate downloader:self didBeginDownloadingURL:self.URL];
     }
+
+    self.expectedFileSize = [response expectedContentLength];
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [self.writeHandle writeData:data];
+    self.currentFileSize += [data length];
+    
+    if ([self.delegate respondsToSelector:@selector(downloader:dataDidProgress:remaining:)])
+    {
+        NSNumber *progress = [NSNumber numberWithFloat:self.currentFileSize / (self.expectedFileSize ?: 1)];
+        NSNumber *bytesRemaining = [NSNumber numberWithFloat:self.expectedFileSize - self.currentFileSize];
+        [self.delegate downloader:self dataDidProgress:progress remaining:bytesRemaining];
+    }
 }
 
 - (void) connectionDidFinishLoading:(NSURLConnection *)connection
@@ -82,6 +115,11 @@
     {
         [self.delegate downloader:self didCompleteDownloadingURL:self.URL];
     }
+}
+
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    
 }
 
 @end

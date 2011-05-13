@@ -466,6 +466,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks/Testing/OCMock\"",
 				);
+				OTHER_CFLAGS = "-D__TESTING__";
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-all_load",
