@@ -7,6 +7,7 @@
 //
 
 #import "RemoteAssetDownloaderTests.h"
+#import "MGPRemoteAssetDownloader.h"
 
 static id mockFileHandle_;
 

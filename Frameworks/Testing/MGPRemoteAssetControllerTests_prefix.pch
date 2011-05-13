@@ -1,0 +1,17 @@
+//
+// Prefix header for all source files of the 'MGPRemoteAssetControllerTests' target in the 'MGPRemoteAssetController' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
+
+#import <GHUnitIOS/GHUnit.h>
+#import "OCMock.h"
+#define HC_SHORTHAND
+#import <OCHamcrestIOS/OCHamcrestIOS.h>
+
+
+#import "TestHelpers.h"
+#import "GHTestCase+Swizzle.h"

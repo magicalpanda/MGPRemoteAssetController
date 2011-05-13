@@ -8,14 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <GHUnitIOS/GHUnit.h>
-#import "OCMock.h"
-#define HC_SHORTHAND
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-
-#import "MGPRemoteAssetDownloader.h"
-#import "TestHelpers.h"
-#import "GHTestCase+Swizzle.h"
+@class MGPRemoteAssetDownloader;
 
 @interface RemoteAssetDownloaderTests : GHTestCase {
     

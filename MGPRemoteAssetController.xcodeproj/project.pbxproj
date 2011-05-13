@@ -29,6 +29,7 @@
 		C7C5E4F11378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
 		C7C5E4F21378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
 		C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */; };
+		C7EF65A0137CF768003F7856 /* RemoteAssetControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,9 @@
 		C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloader.m; sourceTree = "<group>"; };
 		C7EF6555137CC7B8003F7856 /* GHTestCase+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHTestCase+Swizzle.h"; sourceTree = "<group>"; };
 		C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHTestCase+Swizzle.m"; sourceTree = "<group>"; };
+		C7EF659E137CF767003F7856 /* RemoteAssetControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAssetControllerTests.h; sourceTree = "<group>"; };
+		C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteAssetControllerTests.m; sourceTree = "<group>"; };
+		C7EF65A2137CF7F8003F7856 /* MGPRemoteAssetControllerTests_prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetControllerTests_prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +175,7 @@
 		C7044BEF135930270012F27A /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				C7EF65A2137CF7F8003F7856 /* MGPRemoteAssetControllerTests_prefix.pch */,
 				C7044BDA13592DD90012F27A /* MGPRemoteAssetControllerTests-Info.plist */,
 				C7044C55135930930012F27A /* GHUnitIOSTestMain.m */,
 				C7044BF0135930270012F27A /* GHUnitIOS.framework */,
@@ -209,6 +214,8 @@
 				C7B1E16B137C2D86002935F9 /* Fixtures */,
 				C7C5E4E71378A7AA005EA662 /* RemoteAssetDownloaderTests.h */,
 				C7C5E4E81378A7AA005EA662 /* RemoteAssetDownloaderTests.m */,
+				C7EF659E137CF767003F7856 /* RemoteAssetControllerTests.h */,
+				C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -359,6 +366,7 @@
 				C7C5E4F21378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */,
 				C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */,
 				C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */,
+				C7EF65A0137CF768003F7856 /* RemoteAssetControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,7 +465,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/Frameworks/Testing/$(PROJECT_NAME)Tests_prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Frameworks/Testing/OCMock/Headers\"";
 				INFOPLIST_FILE = "MGPRemoteAssetControllerTests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -500,7 +508,7 @@
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/Frameworks/Testing/$(PROJECT_NAME)Tests_prefix.pch";
 				INFOPLIST_FILE = "MGPRemoteAssetControllerTests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
