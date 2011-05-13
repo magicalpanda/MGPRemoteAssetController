@@ -17,6 +17,8 @@
 		C7044BFD135930270012F27A /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BF1135930270012F27A /* OCHamcrestIOS.framework */; };
 		C7044BFE135930270012F27A /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BFA135930270012F27A /* libOCMock.a */; };
 		C7044C56135930930012F27A /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7044C55135930930012F27A /* GHUnitIOSTestMain.m */; };
+		C7B1E16C137C2D86002935F9 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = C7B1E16B137C2D86002935F9 /* Fixtures */; };
+		C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1E171137C2EB5002935F9 /* TestHelpers.m */; };
 		C7C5E4DD1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4DC1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m */; };
 		C7C5E4DF1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4DE1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib */; };
 		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
@@ -26,6 +28,7 @@
 		C7C5E4EE1378A886005EA662 /* MGPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */; };
 		C7C5E4F11378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
 		C7C5E4F21378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
+		C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		C7044BF9135930270012F27A /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		C7044BFA135930270012F27A /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 		C7044C55135930930012F27A /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitIOSTestMain.m; sourceTree = "<group>"; };
+		C7B1E16B137C2D86002935F9 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = "<group>"; };
+		C7B1E170137C2EB5002935F9 /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestHelpers.h; path = Fixtures/TestHelpers.h; sourceTree = "<group>"; };
+		C7B1E171137C2EB5002935F9 /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestHelpers.m; path = Fixtures/TestHelpers.m; sourceTree = "<group>"; };
 		C7C5E4DB1378A713005EA662 /* MGPRemoteAssetDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetDownloadViewController.h; sourceTree = "<group>"; };
 		C7C5E4DC1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloadViewController.m; sourceTree = "<group>"; };
 		C7C5E4DE1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetDownloadView~iphone.xib"; sourceTree = "<group>"; };
@@ -74,6 +80,8 @@
 		C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPTableViewCell.m; sourceTree = "<group>"; };
 		C7C5E4EF1378A8AA005EA662 /* MGPRemoteAssetDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetDownloader.h; sourceTree = "<group>"; };
 		C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloader.m; sourceTree = "<group>"; };
+		C7EF6555137CC7B8003F7856 /* GHTestCase+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHTestCase+Swizzle.h"; sourceTree = "<group>"; };
+		C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHTestCase+Swizzle.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +205,8 @@
 		C7044C721359328B0012F27A /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C7EF6558137CC918003F7856 /* Helpers */,
+				C7B1E16B137C2D86002935F9 /* Fixtures */,
 				C7C5E4E71378A7AA005EA662 /* RemoteAssetDownloaderTests.h */,
 				C7C5E4E81378A7AA005EA662 /* RemoteAssetDownloaderTests.m */,
 			);
@@ -228,6 +238,17 @@
 				C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */,
 			);
 			name = "Remote Asset Controller";
+			sourceTree = "<group>";
+		};
+		C7EF6558137CC918003F7856 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C7B1E170137C2EB5002935F9 /* TestHelpers.h */,
+				C7B1E171137C2EB5002935F9 /* TestHelpers.m */,
+				C7EF6555137CC7B8003F7856 /* GHTestCase+Swizzle.h */,
+				C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,6 +330,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7B1E16C137C2D86002935F9 /* Fixtures in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +357,8 @@
 				C7044C56135930930012F27A /* GHUnitIOSTestMain.m in Sources */,
 				C7C5E4E91378A7AA005EA662 /* RemoteAssetDownloaderTests.m in Sources */,
 				C7C5E4F21378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */,
+				C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */,
+				C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +461,7 @@
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Frameworks/Testing/OCMock/Headers\"";
 				INFOPLIST_FILE = "MGPRemoteAssetControllerTests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks/Testing/OCMock\"",
@@ -457,6 +482,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = MGPRemoteAssetControllerTests;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -476,6 +502,7 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
 				INFOPLIST_FILE = "MGPRemoteAssetControllerTests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks/Testing/OCMock\"",
@@ -489,6 +516,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = MGPRemoteAssetControllerTests;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				ZERO_LINK = NO;
 			};
 			name = Release;

@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *downloadPath;
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, retain) NSFileManager *fileManager;
+@property (nonatomic, readonly, retain) NSFileHandle *writeHandle;
 
 - (void) beginDownload;
 

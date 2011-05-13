@@ -14,6 +14,8 @@
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
 
 #import "MGPRemoteAssetDownloader.h"
+#import "TestHelpers.h"
+#import "GHTestCase+Swizzle.h"
 
 @interface RemoteAssetDownloaderTests : GHTestCase {
     
