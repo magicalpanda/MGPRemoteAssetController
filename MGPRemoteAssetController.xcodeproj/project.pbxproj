@@ -30,6 +30,8 @@
 		C7C5E4F21378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
 		C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */; };
 		C7EF65A0137CF768003F7856 /* RemoteAssetControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */; };
+		C7EF65A5137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */; };
+		C7EF65A6137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,8 @@
 		C7EF659E137CF767003F7856 /* RemoteAssetControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAssetControllerTests.h; sourceTree = "<group>"; };
 		C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteAssetControllerTests.m; sourceTree = "<group>"; };
 		C7EF65A2137CF7F8003F7856 /* MGPRemoteAssetControllerTests_prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetControllerTests_prefix.pch; sourceTree = "<group>"; };
+		C7EF65A3137CF97B003F7856 /* MGPRemoteAssetDownloadsController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MGPRemoteAssetDownloadsController.h; sourceTree = "<group>"; };
+		C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloadsController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +247,8 @@
 			children = (
 				C7C5E4EF1378A8AA005EA662 /* MGPRemoteAssetDownloader.h */,
 				C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */,
+				C7EF65A3137CF97B003F7856 /* MGPRemoteAssetDownloadsController.h */,
+				C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */,
 			);
 			name = "Remote Asset Controller";
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 				C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */,
 				C7C5E4EE1378A886005EA662 /* MGPTableViewCell.m in Sources */,
 				C7C5E4F11378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */,
+				C7EF65A5137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +374,7 @@
 				C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */,
 				C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */,
 				C7EF65A0137CF768003F7856 /* RemoteAssetControllerTests.m in Sources */,
+				C7EF65A6137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

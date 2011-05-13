@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class MGPRemoteAssetDownloadsController;
 
 @interface RemoteAssetControllerTests : GHTestCase {
     
 }
+
+@property (nonatomic, retain) MGPRemoteAssetDownloadsController *testController;
 
 @end
