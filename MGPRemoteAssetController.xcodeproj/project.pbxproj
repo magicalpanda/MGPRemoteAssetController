@@ -12,15 +12,13 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		28AD733F0D9D9553002E5188 /* MainWindow~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow~iphone.xib */; };
 		C7044BFC135930270012F27A /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BF0135930270012F27A /* GHUnitIOS.framework */; };
 		C7044BFD135930270012F27A /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BF1135930270012F27A /* OCHamcrestIOS.framework */; };
 		C7044BFE135930270012F27A /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BFA135930270012F27A /* libOCMock.a */; };
 		C7044C56135930930012F27A /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7044C55135930930012F27A /* GHUnitIOSTestMain.m */; };
 		C7B1E16C137C2D86002935F9 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = C7B1E16B137C2D86002935F9 /* Fixtures */; };
 		C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1E171137C2EB5002935F9 /* TestHelpers.m */; };
-		C7C5E4DD1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4DC1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m */; };
-		C7C5E4DF1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4DE1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib */; };
 		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
 		C7C5E4E51378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */; };
 		C7C5E4E61378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */; };
@@ -28,6 +26,12 @@
 		C7C5E4EE1378A886005EA662 /* MGPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */; };
 		C7C5E4F11378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
 		C7C5E4F21378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
+		C7CC2FC2137E5FF10025E8E4 /* MGPRemoteAssetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CC2FC0137E5FF10025E8E4 /* MGPRemoteAssetViewController.m */; };
+		C7CC2FC3137E5FF10025E8E4 /* MGPRemoteAssetView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7CC2FC1137E5FF10025E8E4 /* MGPRemoteAssetView~iphone.xib */; };
+		C7CC2FC5137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7CC2FC4137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib */; };
+		C7CC2FC9137E61030025E8E4 /* MGPFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */; };
+		C7CC2FCA137E61030025E8E4 /* MGPFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */; };
+		C7CC2FCC137EFEFF0025E8E4 /* MainWindow~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7CC2FCB137EFEFF0025E8E4 /* MainWindow~ipad.xib */; };
 		C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */; };
 		C7EF65A0137CF768003F7856 /* RemoteAssetControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */; };
 		C7EF65A5137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */; };
@@ -51,7 +55,7 @@
 		1D6058910D05DD3D006BFB54 /* MGPRemoteAssetController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGPRemoteAssetController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		28AD733E0D9D9553002E5188 /* MainWindow~iphone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "MainWindow~iphone.xib"; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MGPRemoteAssetController_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetController_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MGPRemoteAssetController-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MGPRemoteAssetController-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -70,9 +74,6 @@
 		C7B1E16B137C2D86002935F9 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = "<group>"; };
 		C7B1E170137C2EB5002935F9 /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestHelpers.h; path = Fixtures/TestHelpers.h; sourceTree = "<group>"; };
 		C7B1E171137C2EB5002935F9 /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestHelpers.m; path = Fixtures/TestHelpers.m; sourceTree = "<group>"; };
-		C7C5E4DB1378A713005EA662 /* MGPRemoteAssetDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetDownloadViewController.h; sourceTree = "<group>"; };
-		C7C5E4DC1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloadViewController.m; sourceTree = "<group>"; };
-		C7C5E4DE1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetDownloadView~iphone.xib"; sourceTree = "<group>"; };
 		C7C5E4E01378A761005EA662 /* MGPRemoteAssetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetTableViewCell.h; sourceTree = "<group>"; };
 		C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetTableViewCell.m; sourceTree = "<group>"; };
 		C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetTableViewCell~ipad.xib"; sourceTree = "<group>"; };
@@ -83,12 +84,19 @@
 		C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPTableViewCell.m; sourceTree = "<group>"; };
 		C7C5E4EF1378A8AA005EA662 /* MGPRemoteAssetDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetDownloader.h; sourceTree = "<group>"; };
 		C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloader.m; sourceTree = "<group>"; };
+		C7CC2FBF137E5FF10025E8E4 /* MGPRemoteAssetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetViewController.h; sourceTree = "<group>"; };
+		C7CC2FC0137E5FF10025E8E4 /* MGPRemoteAssetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetViewController.m; sourceTree = "<group>"; };
+		C7CC2FC1137E5FF10025E8E4 /* MGPRemoteAssetView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetView~iphone.xib"; sourceTree = "<group>"; };
+		C7CC2FC4137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetView~ipad.xib"; sourceTree = "<group>"; };
+		C7CC2FC7137E61030025E8E4 /* MGPFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPFileCache.h; sourceTree = "<group>"; };
+		C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPFileCache.m; sourceTree = "<group>"; };
+		C7CC2FCB137EFEFF0025E8E4 /* MainWindow~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow~ipad.xib"; sourceTree = "<group>"; };
 		C7EF6555137CC7B8003F7856 /* GHTestCase+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHTestCase+Swizzle.h"; sourceTree = "<group>"; };
 		C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHTestCase+Swizzle.m"; sourceTree = "<group>"; };
 		C7EF659E137CF767003F7856 /* RemoteAssetControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAssetControllerTests.h; sourceTree = "<group>"; };
 		C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteAssetControllerTests.m; sourceTree = "<group>"; };
 		C7EF65A2137CF7F8003F7856 /* MGPRemoteAssetControllerTests_prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetControllerTests_prefix.pch; sourceTree = "<group>"; };
-		C7EF65A3137CF97B003F7856 /* MGPRemoteAssetDownloadsController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MGPRemoteAssetDownloadsController.h; sourceTree = "<group>"; };
+		C7EF65A3137CF97B003F7856 /* MGPRemoteAssetDownloadsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetDownloadsController.h; sourceTree = "<group>"; };
 		C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetDownloadsController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,7 +167,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				28AD733E0D9D9553002E5188 /* MainWindow~iphone.xib */,
+				C7CC2FCB137EFEFF0025E8E4 /* MainWindow~ipad.xib */,
 				8D1107310486CEB800E47090 /* MGPRemoteAssetController-Info.plist */,
 			);
 			name = Resources;
@@ -227,17 +236,11 @@
 		C7C5E4EA1378A7E8005EA662 /* Download View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C7CC2FC6137E60840025E8E4 /* MGPRemoteAssetView */,
 				C7C5E4EC1378A886005EA662 /* MGPTableViewCell.h */,
 				C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */,
 				1D3623240D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.m */,
-				C7C5E4DB1378A713005EA662 /* MGPRemoteAssetDownloadViewController.h */,
-				C7C5E4DC1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m */,
-				C7C5E4DE1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib */,
-				C7C5E4E01378A761005EA662 /* MGPRemoteAssetTableViewCell.h */,
-				C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */,
-				C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */,
-				C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */,
 			);
 			name = "Download View Controller";
 			sourceTree = "<group>";
@@ -249,8 +252,25 @@
 				C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */,
 				C7EF65A3137CF97B003F7856 /* MGPRemoteAssetDownloadsController.h */,
 				C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */,
+				C7CC2FC7137E61030025E8E4 /* MGPFileCache.h */,
+				C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */,
 			);
 			name = "Remote Asset Controller";
+			sourceTree = "<group>";
+		};
+		C7CC2FC6137E60840025E8E4 /* MGPRemoteAssetView */ = {
+			isa = PBXGroup;
+			children = (
+				C7C5E4E01378A761005EA662 /* MGPRemoteAssetTableViewCell.h */,
+				C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */,
+				C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */,
+				C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */,
+				C7CC2FBF137E5FF10025E8E4 /* MGPRemoteAssetViewController.h */,
+				C7CC2FC0137E5FF10025E8E4 /* MGPRemoteAssetViewController.m */,
+				C7CC2FC1137E5FF10025E8E4 /* MGPRemoteAssetView~iphone.xib */,
+				C7CC2FC4137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib */,
+			);
+			name = MGPRemoteAssetView;
 			sourceTree = "<group>";
 		};
 		C7EF6558137CC918003F7856 /* Helpers */ = {
@@ -332,10 +352,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				C7C5E4DF1378A737005EA662 /* MGPRemoteAssetDownloadView~iphone.xib in Resources */,
+				28AD733F0D9D9553002E5188 /* MainWindow~iphone.xib in Resources */,
 				C7C5E4E51378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib in Resources */,
 				C7C5E4E61378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib in Resources */,
+				C7CC2FC3137E5FF10025E8E4 /* MGPRemoteAssetView~iphone.xib in Resources */,
+				C7CC2FC5137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib in Resources */,
+				C7CC2FCC137EFEFF0025E8E4 /* MainWindow~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,11 +378,12 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MGPRemoteAssetControllerAppDelegate.m in Sources */,
-				C7C5E4DD1378A713005EA662 /* MGPRemoteAssetDownloadViewController.m in Sources */,
 				C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */,
 				C7C5E4EE1378A886005EA662 /* MGPTableViewCell.m in Sources */,
 				C7C5E4F11378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */,
 				C7EF65A5137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */,
+				C7CC2FC2137E5FF10025E8E4 /* MGPRemoteAssetViewController.m in Sources */,
+				C7CC2FC9137E61030025E8E4 /* MGPFileCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +398,7 @@
 				C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */,
 				C7EF65A0137CF768003F7856 /* RemoteAssetControllerTests.m in Sources */,
 				C7EF65A6137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */,
+				C7CC2FCA137E61030025E8E4 /* MGPFileCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,11 +427,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MGPRemoteAssetController_Prefix.pch;
 				INFOPLIST_FILE = "MGPRemoteAssetController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 				);
 				PRODUCT_NAME = MGPRemoteAssetController;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -423,12 +449,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MGPRemoteAssetController_Prefix.pch;
 				INFOPLIST_FILE = "MGPRemoteAssetController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(SRCROOT)/Frameworks/Library\"",
 				);
 				PRODUCT_NAME = MGPRemoteAssetController;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
