@@ -13,4 +13,9 @@
     
 }
 
++ (UINib *) nib;
+
++ (id) cellForTableView:(UITableView *)tableView fromNib:(UINib *)nib;
++ (id) cellForTableView:(UITableView *)tableView;
+
 @end

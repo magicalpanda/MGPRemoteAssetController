@@ -11,24 +11,24 @@
 
 @implementation MGPTableViewCell
 
-- (NSString *) nibName 
++ (NSString *) nibName 
 {
     return NSStringFromClass([self class]);
 }
 
-- (NSString *) cellIdentifier
++ (NSString *) cellIdentifier
 {
     return NSStringFromClass([self class]);
 }
 
-- (UINib *) nib
++ (UINib *) nib
 {
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     UINib *nib = [UINib nibWithNibName:[self nibName] bundle:bundle];
     return nib;
 }
 
-- (UITableViewCell *) cellForTableView:(UITableView *)tableView fromNib:(UINib *)nib
++ (id) cellForTableView:(UITableView *)tableView fromNib:(UINib *)nib
 {
     NSString *cellIdentifier = [self cellIdentifier];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -42,13 +42,13 @@
     return cell;
 }
 
-- (UITableViewCell *) cellForTableView:(UITableView *)tableView
++ (id) cellForTableView:(UITableView *)tableView
 {
     NSString *cellIdentifier = [self cellIdentifier];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
-        cell = [[[[self class] alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        cell = [[[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
     }
     
     return cell;
