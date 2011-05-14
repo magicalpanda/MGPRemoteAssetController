@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MGPRemoteAssetViewController : UIViewController {
-    
-}
+@interface MGPRemoteAssetViewController : UIViewController {}
+
+@property (nonatomic, retain) IBOutlet UITableView *downloadList;
 
 @end
