@@ -13,6 +13,7 @@ extern NSString * const kMGPRADownloadsControllerDownloadRemovedNotifiction;
 extern NSString * const kMGPRADownloadsControllerDownloadPausedNotifiction;
 extern NSString * const kMGPRADownloadsControllerDownloadResumedNotifiction;
 extern NSString * const kMGPRADownloadsControllerDownloadFailedNotifiction;
+extern NSString * const kMGPRADownloadsControllerDownloadCompletedNotification;
 
 @interface MGPRemoteAssetDownloadsController : NSObject {
     

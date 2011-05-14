@@ -45,7 +45,10 @@
                selector:@selector(downloaderWasAdded:) 
                    name:kMGPRADownloadsControllerDownloadAddedNotification
                  object:self.downloadController];
-                                
+    [center addObserver:self 
+               selector:@selector(downloaderDidComplete:) 
+                   name:kMGPRADownloadsControllerDownloadCompletedNotification 
+                 object:self.downloadController];          
 }
 
 - (void) removeFromNotifications
@@ -61,19 +64,29 @@
     [self registerForNotifications];
 }
 
--(void)viewDidUnload
+- (void) viewDidUnload
 {
     self.downloadList = nil;
     [self removeFromNotifications];
     [super viewDidUnload];
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+- (void) downloaderWasAdded:(NSNotification *)notification
+{
+    //add to bottom of tableview
+}
+
+- (void) downloaderDidComplete:(NSNotification *)notification
+{
+    //find indexpath, remove cell at indexPath
+}
+
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return YES;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.downloadController.activeDownloads count];
 }
@@ -85,7 +98,7 @@
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 130;
 }
