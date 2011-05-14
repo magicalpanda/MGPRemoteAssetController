@@ -29,6 +29,13 @@
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, retain) NSFileManager *fileManager;
 @property (nonatomic, readonly, retain) NSFileHandle *writeHandle;
+@property (nonatomic, readonly, copy) NSString *fileName;
+
+@property (nonatomic, readonly, assign) float downloadProgress;
+@property (nonatomic, readonly, assign) long long expectedFileSize;
+
+//estimated download speed
+//estimated completion time
 
 - (void) beginDownload;
 

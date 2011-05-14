@@ -17,6 +17,7 @@
 		C7044BFD135930270012F27A /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BF1135930270012F27A /* OCHamcrestIOS.framework */; };
 		C7044BFE135930270012F27A /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7044BFA135930270012F27A /* libOCMock.a */; };
 		C7044C56135930930012F27A /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7044C55135930930012F27A /* GHUnitIOSTestMain.m */; };
+		C71CC506137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */; };
 		C7B1E16C137C2D86002935F9 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = C7B1E16B137C2D86002935F9 /* Fixtures */; };
 		C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1E171137C2EB5002935F9 /* TestHelpers.m */; };
 		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
@@ -71,6 +72,8 @@
 		C7044BF9135930270012F27A /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		C7044BFA135930270012F27A /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 		C7044C55135930930012F27A /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitIOSTestMain.m; sourceTree = "<group>"; };
+		C71CC504137F1D71008F156A /* MGPRemoteAssetViewController+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGPRemoteAssetViewController+Testing.h"; sourceTree = "<group>"; };
+		C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGPRemoteAssetViewController+Testing.m"; sourceTree = "<group>"; };
 		C7B1E16B137C2D86002935F9 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = "<group>"; };
 		C7B1E170137C2EB5002935F9 /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestHelpers.h; path = Fixtures/TestHelpers.h; sourceTree = "<group>"; };
 		C7B1E171137C2EB5002935F9 /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestHelpers.m; path = Fixtures/TestHelpers.m; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				C7CC2FC0137E5FF10025E8E4 /* MGPRemoteAssetViewController.m */,
 				C7CC2FC1137E5FF10025E8E4 /* MGPRemoteAssetView~iphone.xib */,
 				C7CC2FC4137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib */,
+				C71CC504137F1D71008F156A /* MGPRemoteAssetViewController+Testing.h */,
+				C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */,
 			);
 			name = MGPRemoteAssetView;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				C7EF65A5137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */,
 				C7CC2FC2137E5FF10025E8E4 /* MGPRemoteAssetViewController.m in Sources */,
 				C7CC2FC9137E61030025E8E4 /* MGPFileCache.m in Sources */,
+				C71CC506137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
