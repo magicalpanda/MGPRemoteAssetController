@@ -119,7 +119,17 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    
+    [self.writeHandle closeFile];
 }
+
+//- (void) pause
+//{
+//    [self.connection cancel];
+//}
+//
+//- (void) resume
+//{
+//    
+//}
 
 @end
