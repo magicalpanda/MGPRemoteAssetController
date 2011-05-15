@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class MGPRemoteAssetDownloader;
+
 extern NSString * const kMGPRADownloadsControllerDownloadAddedNotification;
+extern NSString * const kMGPRADownloadsControlelrDownloadStartedNotification;
 extern NSString * const kMGPRADownloadsControllerDownloadRemovedNotifiction;
 extern NSString * const kMGPRADownloadsControllerDownloadPausedNotifiction;
 extern NSString * const kMGPRADownloadsControllerDownloadResumedNotifiction;
@@ -20,5 +23,11 @@ extern NSString * const kMGPRADownloadsControllerDownloadCompletedNotification;
 }
 
 @property (nonatomic, readonly) NSSet *activeDownloads;
+
+- (MGPRemoteAssetDownloader *) downloadAssetAtURL:(NSURL *)url;
+- (MGPRemoteAssetDownloader *) downloadImageAssetAtURL:(NSURL *)url;
+- (MGPRemoteAssetDownloader *) downloadAudioAssetAtURL:(NSURL *)url;
+- (MGPRemoteAssetDownloader *) downloadVideoAssetAtURL:(NSURL *)url;
+- (MGPRemoteAssetDownloader *) downloadCoreDataStoreAssetAtURL:(NSURL *)url;
 
 @end
