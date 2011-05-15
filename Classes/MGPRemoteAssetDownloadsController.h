@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class MGPRemoteAssetDownloader;
+#import "MGPRemoteAssetDownloader.h"
 
 extern NSString * const kMGPRADownloadsControllerDownloadAddedNotification;
 extern NSString * const kMGPRADownloadsControlelrDownloadStartedNotification;
@@ -18,7 +17,8 @@ extern NSString * const kMGPRADownloadsControllerDownloadResumedNotifiction;
 extern NSString * const kMGPRADownloadsControllerDownloadFailedNotifiction;
 extern NSString * const kMGPRADownloadsControllerDownloadCompletedNotification;
 
-@interface MGPRemoteAssetDownloadsController : NSObject {
+
+@interface MGPRemoteAssetDownloadsController : NSObject<MGPRemoteAssetDownloaderDelegate> {
     
 }
 

@@ -28,12 +28,27 @@
     [super dealloc];
 }
 
+- (void) setupViewController
+{
+    self.downloadController = [[[MGPRemoteAssetDownloadsController alloc] init] autorelease];    
+}
+
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) 
     {
-        self.downloadController = [[[MGPRemoteAssetDownloadsController alloc] init] autorelease];
+        [self setupViewController];
+    }
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        [self setupViewController];
     }
     return self;
 }
@@ -57,6 +72,9 @@
     [center removeObserver:self
                       name:kMGPRADownloadsControllerDownloadAddedNotification
                     object:self.downloadController];
+    [center removeObserver:self
+                      name:kMGPRADownloadsControllerDownloadCompletedNotification 
+                    object:self.downloadController];
 }
 
 - (void) viewDidLoad
@@ -73,7 +91,7 @@
 
 - (void) downloaderWasAdded:(NSNotification *)notification
 {
-    //add to bottom of tableview
+    [self.downloadList reloadData];
 }
 
 - (void) downloaderDidComplete:(NSNotification *)notification

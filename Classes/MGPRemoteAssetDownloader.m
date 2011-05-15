@@ -6,9 +6,12 @@
 //  Copyright 2011 Magical Panda Software LLC. All rights reserved.
 //
 
-static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.;
-
 #import "MGPRemoteAssetDownloader.h"
+#import "NSString+MD5.h"
+
+NSString * const kMGPDownloaderKey = @"kMGPDownloaderKey";
+
+static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.;
 
 @interface MGPRemoteAssetDownloader ()
 
@@ -21,6 +24,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @property (nonatomic, assign) float downloadProgress;
 @property (nonatomic, assign) unsigned long long currentFileSize;
 @property (nonatomic, assign) long long expectedFileSize;
+@property (nonatomic, readonly) NSString *targetFile;
 
 - (void) resume;
 
@@ -68,43 +72,56 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     return self;
 }
 
+- (NSString *) targetFile
+{
+    return [self.downloadPath stringByAppendingPathComponent:[[self.URL absoluteString] mgp_md5]];
+}
+
 - (void) beginDownload
 {
     NSAssert(self.downloadPath, @"downloadPath is not set");
     NSAssert(self.URL, @"URL is not set");
     NSAssert(self.fileManager, @"fileManager is not set");
     
+
     if (![self.fileManager fileExistsAtPath:self.downloadPath])
     {
-        [self.fileManager createFileAtPath:self.downloadPath contents:nil attributes:nil];
+        if (![self.fileManager createDirectoryAtPath:self.downloadPath withIntermediateDirectories:YES attributes:nil error:nil])
+        {
+            NSLog(@"Unable to create cache directory: %@", self.downloadPath);
+        }
     }
     
-    NSString *expandedPath = [self.downloadPath stringByExpandingTildeInPath];
-    self.writeHandle = [NSFileHandle fileHandleForWritingAtPath:expandedPath];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.URL cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:self.requestTimeout];
-    
-    NSDictionary *attributes = [self.fileManager attributesOfItemAtPath:self.downloadPath error:nil];
-    if ([attributes fileSize] > 0)
+    if (![self.fileManager fileExistsAtPath:self.targetFile])
     {
-        [request addValue:[NSString stringWithFormat:@"bytes=%ull-", [attributes fileSize]] forHTTPHeaderField:@"Range"];
-        [self.writeHandle seekToEndOfFile];
+        if (![self.fileManager createFileAtPath:self.targetFile contents:nil attributes:nil])
+        {
+            NSLog(@"Unable to create cache download file: %@", self.targetFile);
+        }
     }
+
+    NSDictionary *attributes = [self.fileManager attributesOfItemAtPath:self.targetFile error:nil];
     self.currentFileSize = [attributes fileSize];
-    self.request = request;
     
     [self resume];
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    self.expectedFileSize = [response expectedContentLength];
+    self.fileName = [response suggestedFilename];
+
+    self.writeHandle = [NSFileHandle fileHandleForWritingAtPath:self.targetFile];
+    
+    if (self.currentFileSize > 0)
+    {
+        [self.writeHandle seekToEndOfFile];
+    }
+    
     if ([self.delegate respondsToSelector:@selector(downloader:didBeginDownloadingURL:)])
     {
         [self.delegate downloader:self didBeginDownloadingURL:self.URL];
-    }
-
-    self.expectedFileSize = [response expectedContentLength];
-    self.fileName = [response suggestedFilename];
+    } 
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -138,6 +155,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     [self.writeHandle closeFile];
+    self.connection = nil;
 }
 
 - (void) pause
@@ -147,10 +165,20 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (void) resume
 {
-//TODO: check in here for existing file, seek to end, etc
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.URL 
+                                                           cachePolicy:NSURLCacheStorageNotAllowed 
+                                                       timeoutInterval:self.requestTimeout];
+    
+    if (self.currentFileSize > 0)
+    {
+        [request addValue:[NSString stringWithFormat:@"bytes=%ull-", self.currentFileSize] forHTTPHeaderField:@"Range"];
+    }
+    
+    self.request = request;
     
 #ifndef __TESTING__
     self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+    [self.connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 #endif
 
 }

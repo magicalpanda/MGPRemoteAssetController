@@ -46,6 +46,7 @@
 - (void) testShouldNotifyWhenDownloadCompletes
 {
     GHFail(@"Not Implemented");
+    
 }
 
 @end

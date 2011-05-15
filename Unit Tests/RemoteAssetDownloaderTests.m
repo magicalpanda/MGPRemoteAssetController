@@ -8,6 +8,7 @@
 
 #import "RemoteAssetDownloaderTests.h"
 #import "MGPRemoteAssetDownloader.h"
+#import "NSString+MD5.h"
 
 static id mockFileHandle_;
 
@@ -96,18 +97,17 @@ static id mockFileHandle_;
 {
     NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
     NSFileManager *testFileManager = [NSFileManager defaultManager];    
-    MGPRemoteAssetDownloader *testDownloader = [[MGPRemoteAssetDownloader alloc] init];
     
-    testDownloader.downloadPath = downloadPath;
-    testDownloader.URL = [NSURL URLWithString:@""];
-    testDownloader.fileManager = testFileManager;
+    self.testDownloader.downloadPath = downloadPath;
+    self.testDownloader.URL = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
+    self.testDownloader.fileManager = testFileManager;
     
     
-    [testDownloader beginDownload];
+    [self.testDownloader beginDownload];
     NSURLResponse *testResponse = [[NSURLResponse alloc] initWithURL:nil MIMEType:@"text/html" expectedContentLength:123 textEncodingName:nil];
-    [testDownloader connection:nil didReceiveResponse:testResponse];
+    [self.testDownloader connection:nil didReceiveResponse:testResponse];
     
-    assertThat(testDownloader.writeHandle, is(notNilValue()));
+    assertThat(self.testDownloader.writeHandle, is(notNilValue()));
     
     [testFileManager removeItemAtPath:downloadPath error:nil];
 }
@@ -119,14 +119,18 @@ static id mockFileHandle_;
 
 - (void) testShouldWriteDataToFileDuringDownload
 {
+    NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
     NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
+    NSString *expectedOutfileFileName = [[testUrl absoluteString] mgp_md5];
+    NSString *expectedOutputFilePath = [downloadPath stringByAppendingPathComponent:expectedOutfileFileName];
 
-    id mockFileManager = [OCMockObject mockForClass:[NSFileManager class]];
-    [[[mockFileManager stub] andReturnValue:[NSNumber numberWithBool:NO]] fileExistsAtPath:downloadPath];
-    [[mockFileManager expect] createFileAtPath:downloadPath contents:[OCMArg isNil] attributes:[OCMArg any]];
+    id mockFileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
+
+//    [[[mockFileManager stub] andReturnValue:[NSNumber numberWithBool:NO]] fileExistsAtPath:expectedOutputFilePath];
+    [[mockFileManager expect] createFileAtPath:expectedOutputFilePath contents:[OCMArg isNil] attributes:[OCMArg any]];
     
     NSDictionary *fileAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:@"NSFileSize"];
-    [[[mockFileManager expect] andReturn:fileAttributes] attributesOfItemAtPath:downloadPath error:nil];
+    [[[mockFileManager expect] andReturn:fileAttributes] attributesOfItemAtPath:expectedOutputFilePath error:nil];
     
     id mockFileHandler = [OCMockObject mockForClass:[NSFileHandle class]];
     mockFileHandle_ = [mockFileHandler retain];
@@ -154,13 +158,20 @@ static id mockFileHandle_;
 
 - (void) testShouldResumeWritingDataToEndOfFileAfterInterruption
 {
+    NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
     NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
+    NSString *expectedOutfileFileName = [[testUrl absoluteString] mgp_md5];
+    NSString *expectedOutputFilePath = [downloadPath stringByAppendingPathComponent:expectedOutfileFileName];
+
     NSDictionary *fileAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:123] forKey:@"NSFileSize"];
     
-    id mockFileManager = [OCMockObject mockForClass:[NSFileManager class]];
-    [[[mockFileManager stub] andReturnValue:[NSNumber numberWithBool:NO]] fileExistsAtPath:downloadPath];
-    [[[mockFileManager expect] andReturn:fileAttributes] attributesOfItemAtPath:downloadPath error:nil];
-    [[mockFileManager expect] createFileAtPath:downloadPath contents:[OCMArg isNil] attributes:[OCMArg any]];
+    id mockFileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
+//    BOOL isDir;
+//    [[[mockFileManager stub] andReturnValue:[NSNumber numberWithBool:NO]] fileExistsAtPath:downloadPath isDirectory:nil];
+//    [[[mockFileManager stub] andReturnValue:[NSNumber numberWithBool:NO]] fileExistsAtPath:expectedOutputFilePath];
+    [[[mockFileManager expect] andReturn:fileAttributes] attributesOfItemAtPath:expectedOutputFilePath error:nil];
+    [[mockFileManager expect] createFileAtPath:expectedOutputFilePath contents:[OCMArg isNil] attributes:[OCMArg any]];
+
     
     id mockFileHandler = [OCMockObject mockForClass:[NSFileHandle class]];
     mockFileHandle_ = mockFileHandler;
@@ -171,8 +182,9 @@ static id mockFileHandle_;
     
     self.testDownloader.downloadPath = downloadPath;
     self.testDownloader.fileManager = mockFileManager;
-    self.testDownloader.URL = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
-    
+
+    self.testDownloader.URL = testUrl;
+        
     [self.testDownloader beginDownload];
     [self.testDownloader connection:nil didReceiveResponse:nil];
     [self.testDownloader connection:nil didReceiveData:[TestHelpers dataForFixtureNamed:@"nsbrief_logo.png"]];

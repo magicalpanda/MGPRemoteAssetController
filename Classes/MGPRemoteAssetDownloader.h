@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const kMGPDownloaderKey;
+
 @class MGPRemoteAssetDownloader;
 
 @protocol MGPRemoteAssetDownloaderDelegate <NSObject>
@@ -24,7 +26,7 @@
     
 }
 
-@property (nonatomic, assign) id<MGPRemoteAssetDownloaderDelegate> delegate;
+@property (nonatomic, assign) NSObject<MGPRemoteAssetDownloaderDelegate> *delegate;
 @property (nonatomic, copy) NSString *downloadPath;
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, retain) NSFileManager *fileManager;

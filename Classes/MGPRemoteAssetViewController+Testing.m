@@ -7,13 +7,15 @@
 //
 
 #import "MGPRemoteAssetViewController+Testing.h"
-
+#import "MGPRemoteAssetViewController.h"
+#import "MGPRemoteAssetDownloadsController.h"
 
 @implementation MGPRemoteAssetViewController (MGPRemoteAssetViewController_Testing)
 
 - (IBAction) beginNextDownload;
 {
-    
+    NSURL *url = [NSURL URLWithString:@"http://cl.ly/0D3L282D12162B2u0v1H/Magical_Core_Data.key"];
+    [self.downloadController downloadAssetAtURL:url];
 }
 
 @end
