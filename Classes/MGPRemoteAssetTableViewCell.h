@@ -22,6 +22,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *bytesDownloaded;
 @property (nonatomic, retain) IBOutlet UILabel *timeRemaining;
 @property (nonatomic, retain) IBOutlet UILabel *url;
+@property (nonatomic, retain) IBOutlet UILabel *bandwidth;
 @property (nonatomic, retain) IBOutlet UIProgressView *downloadProgress;
 
 - (IBAction) pauseDownload:(id)sender;

@@ -42,6 +42,9 @@ extern NSString * const kMGPDownloaderKey;
 @property (nonatomic, assign, readonly) float downloadProgress;
 @property (nonatomic, assign, readonly) unsigned long long currentFileSize;
 @property (nonatomic, assign, readonly) long long expectedFileSize;
+@property (nonatomic, assign, readonly) float bandwidth;
+@property (nonatomic, assign, readonly) unsigned long long bytesRemaining;
+@property (nonatomic, assign, readonly) NSTimeInterval timeRemaining;
 
 //estimated download speed
 //estimated completion time

@@ -32,6 +32,11 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @property (nonatomic, readonly) NSString *targetFile;
 @property (nonatomic, assign) BOOL serverAllowsResume;
 
+@property (nonatomic, assign) float bandwidth;
+@property (nonatomic, assign) unsigned long long bytesRemaining;
+@property (nonatomic, assign) NSTimeInterval timeRemaining;
+
+
 - (void) resume;
 
 @end
@@ -39,6 +44,10 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @implementation MGPRemoteAssetDownloader
 
 @synthesize delegate = delegate_;
+
+@synthesize timeRemaining = timeRemaining_;
+@synthesize bandwidth = bandwidth_;
+@synthesize bytesRemaining = bytesRemaining_;
 
 @synthesize lastDataReceiveTime = lastDataReceiveTime_;
 @synthesize serverAllowsResume = serverAllowsResume;
@@ -140,12 +149,18 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
     self.serverAllowsResume = [[headers valueForKey:@"Accept-Ranges"] isEqual:@"bytes"];
     self.writeHandle = [NSFileHandle fileHandleForWritingAtPath:self.targetFile];
-
+    
+    if (self.currentFileSize >= self.expectedFileSize) 
+    {
+        self.currentFileSize = 0;
+        [self.writeHandle truncateFileAtOffset:0];
+    }
+    
     if (([headers valueForKey:@"Content-Range"]) && (self.currentFileSize > 0))
     {
         [self.writeHandle seekToEndOfFile];
     }
-    
+
     if (self.currentFileSize == 0 && [self.delegate respondsToSelector:@selector(downloader:didBeginDownloadingURL:)])
     {
         [self.delegate downloader:self didBeginDownloadingURL:self.URL];
@@ -158,11 +173,11 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (NSDictionary *) receivedDataSummary:(NSData *)data
 {
-    NSNumber *progress = [NSNumber numberWithFloat:self.downloadProgress];
+    NSNumber *progress = [NSNumber numberWithFloat:((float)self.currentFileSize / (float)(self.expectedFileSize ?: 1))];
     NSNumber *bytesRemaining = [NSNumber numberWithFloat:self.expectedFileSize - self.currentFileSize];
     
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-    NSTimeInterval timeDelta = self.lastDataReceiveTime - currentTime;
+    NSTimeInterval timeDelta = currentTime - self.lastDataReceiveTime;
     float estimatedBandwidth = (float)[data length] / (timeDelta ?: 1);
     
     NSNumber *estBandwidth = [NSNumber numberWithFloat:estimatedBandwidth];
@@ -171,9 +186,13 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     NSDictionary *summary = [NSDictionary dictionaryWithObjectsAndKeys:
                              progress, kMGPProgressKey, 
                              bytesRemaining, kMGPBytesRemainingKey, 
+                             estTimeRemaining, kMGPTimeRemainingKey,
                              estBandwidth, kMGPEstimatedBandwidthKey,
-                             estTimeRemaining, kMGPEstimatedBandwidthKey,
                              nil];
+    
+    self.lastDataReceiveTime = currentTime;
+    
+    DDLogVerbose(@"Download Status: %@", summary);
     
     return summary;
 }
@@ -184,12 +203,15 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     [self.writeHandle synchronizeFile];
     
     self.currentFileSize += [data length];
-    self.downloadProgress = ((float)self.currentFileSize / (float)(self.expectedFileSize ?: 1));
+    
+    NSDictionary *summary = [self receivedDataSummary:data];
+    self.downloadProgress = [[summary valueForKey:kMGPProgressKey] floatValue];
+    self.bytesRemaining = [[summary valueForKey:kMGPBytesRemainingKey] unsignedLongLongValue];
+    self.timeRemaining = [[summary valueForKey:kMGPTimeRemainingKey] doubleValue];
+    self.bandwidth = [[summary valueForKey:kMGPEstimatedBandwidthKey] floatValue];
     
     if ([self.delegate respondsToSelector:@selector(downloader:dataDidProgress:remaining:)])
     {
-        NSDictionary *summary = [self receivedDataSummary:data];
-
         [self.delegate downloader:self 
                   dataDidProgress:[summary valueForKey:kMGPProgressKey]
                         remaining:[summary valueForKey:kMGPBytesRemainingKey]];

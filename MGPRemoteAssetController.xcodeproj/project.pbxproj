@@ -40,6 +40,8 @@
 		C7A6D10B1380EA8B003642E4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */; };
 		C7A6D10C1380EDA7003642E4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */; };
 		C7A6D10D1380EDA7003642E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */; };
+		C7A6D1521381121B003642E4 /* NSNotification+MGPAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D1511381121A003642E4 /* NSNotification+MGPAssetDownloader.m */; };
+		C7A6D1531381121B003642E4 /* NSNotification+MGPAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D1511381121A003642E4 /* NSNotification+MGPAssetDownloader.m */; };
 		C7B1E16C137C2D86002935F9 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = C7B1E16B137C2D86002935F9 /* Fixtures */; };
 		C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1E171137C2EB5002935F9 /* TestHelpers.m */; };
 		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
@@ -117,6 +119,8 @@
 		C7A6D1061380EA59003642E4 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		C7A6D1071380EA59003642E4 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
 		C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		C7A6D1501381121A003642E4 /* NSNotification+MGPAssetDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotification+MGPAssetDownloader.h"; sourceTree = "<group>"; };
+		C7A6D1511381121A003642E4 /* NSNotification+MGPAssetDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotification+MGPAssetDownloader.m"; sourceTree = "<group>"; };
 		C7B1E16B137C2D86002935F9 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = "<group>"; };
 		C7B1E170137C2EB5002935F9 /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestHelpers.h; path = Fixtures/TestHelpers.h; sourceTree = "<group>"; };
 		C7B1E171137C2EB5002935F9 /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestHelpers.m; path = Fixtures/TestHelpers.m; sourceTree = "<group>"; };
@@ -374,6 +378,8 @@
 				C7CC2FC4137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib */,
 				C71CC504137F1D71008F156A /* MGPRemoteAssetViewController+Testing.h */,
 				C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */,
+				C7A6D1501381121A003642E4 /* NSNotification+MGPAssetDownloader.h */,
+				C7A6D1511381121A003642E4 /* NSNotification+MGPAssetDownloader.m */,
 			);
 			name = MGPRemoteAssetView;
 			sourceTree = "<group>";
@@ -499,6 +505,7 @@
 				C7A6D0FE1380DE77003642E4 /* DDTTYLogger.m in Sources */,
 				C7A6D1021380DFD3003642E4 /* DDNSLoggerLogger.m in Sources */,
 				C7A6D1081380EA59003642E4 /* LoggerClient.m in Sources */,
+				C7A6D1521381121B003642E4 /* NSNotification+MGPAssetDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +530,7 @@
 				C7A6D0FF1380DE77003642E4 /* DDTTYLogger.m in Sources */,
 				C7A6D1031380DFD3003642E4 /* DDNSLoggerLogger.m in Sources */,
 				C7A6D1091380EA59003642E4 /* LoggerClient.m in Sources */,
+				C7A6D1531381121B003642E4 /* NSNotification+MGPAssetDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

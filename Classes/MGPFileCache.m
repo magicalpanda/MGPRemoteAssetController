@@ -17,21 +17,33 @@
     return [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:subfolder];
 }
 
-- (id) assetForKey:(id)key;
++ (MGPFileCache *) sharedCache;
 {
     return nil;
 }
-
-//- (id) expireAssetForKey:(id)key;
 - (unsigned long long) fileSizeForKey:(id)key;
 {
-    return 0;    
+    return 0;
 }
 
 - (NSDictionary *) metadataForKey:(id)key;
 {
-    return nil;
+    return  nil;
 }
 
+- (void) flushCache;
+{
+    
+}
+
+- (BOOL) setData:(id)data forKey:(id)key;
+{
+    return NO;
+}
+
+- (NSData *) dataForKey:(id)key;
+{
+    return nil;
+}
 
 @end

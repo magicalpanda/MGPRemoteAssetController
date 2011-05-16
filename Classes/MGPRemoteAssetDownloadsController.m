@@ -113,6 +113,7 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url
 {
+    [self.downloads removeObject:downloader];
     [self postNotificationName:kMGPRADownloadsControllerDownloadCompletedNotification withDownloader:downloader];
 }
 

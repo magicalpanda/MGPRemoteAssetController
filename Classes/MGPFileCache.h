@@ -12,10 +12,14 @@
 @interface MGPFileCache : NSObject {}
 
 + (NSString *) cachePath;
++ (MGPFileCache *) sharedCache;
 
-- (id) assetForKey:(id)key;
-//- (id) expireAssetForKey:(id)key;
 - (unsigned long long) fileSizeForKey:(id)key;
 - (NSDictionary *) metadataForKey:(id)key;
+
+- (void) flushCache;
+
+- (BOOL) setData:(id)data forKey:(id)key;
+- (NSData *) dataForKey:(id)key;
 
 @end
