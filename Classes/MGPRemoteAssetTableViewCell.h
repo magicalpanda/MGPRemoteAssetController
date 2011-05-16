@@ -19,11 +19,12 @@
 
 @property (nonatomic, retain) IBOutlet UILabel *fileName;
 @property (nonatomic, retain) IBOutlet UILabel *fileSize;
+@property (nonatomic, retain) IBOutlet UILabel *bytesDownloaded;
 @property (nonatomic, retain) IBOutlet UILabel *timeRemaining;
 @property (nonatomic, retain) IBOutlet UILabel *url;
 @property (nonatomic, retain) IBOutlet UIProgressView *downloadProgress;
 
-- (IBAction) pauseDownload;
-- (IBAction) resumeDownload;
+- (IBAction) pauseDownload:(id)sender;
+- (IBAction) resumeDownload:(id)sender;
 
 @end

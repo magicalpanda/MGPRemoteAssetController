@@ -20,6 +20,9 @@
 		C71CC506137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */; };
 		C71CC50913806CC6008F156A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C71CC50813806CC6008F156A /* NSString+MD5.m */; };
 		C71CC50A13806CC6008F156A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C71CC50813806CC6008F156A /* NSString+MD5.m */; };
+		C7A6D0E61380D8B2003642E4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0E51380D8B2003642E4 /* Reachability.m */; };
+		C7A6D0E71380D8B2003642E4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0E51380D8B2003642E4 /* Reachability.m */; };
+		C7A6D0EA1380D905003642E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */; };
 		C7B1E16C137C2D86002935F9 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = C7B1E16B137C2D86002935F9 /* Fixtures */; };
 		C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1E171137C2EB5002935F9 /* TestHelpers.m */; };
 		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
@@ -78,6 +81,9 @@
 		C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGPRemoteAssetViewController+Testing.m"; sourceTree = "<group>"; };
 		C71CC50713806CC6008F156A /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		C71CC50813806CC6008F156A /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		C7A6D0E41380D8B2003642E4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		C7A6D0E51380D8B2003642E4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C7B1E16B137C2D86002935F9 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = "<group>"; };
 		C7B1E170137C2EB5002935F9 /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestHelpers.h; path = Fixtures/TestHelpers.h; sourceTree = "<group>"; };
 		C7B1E171137C2EB5002935F9 /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestHelpers.m; path = Fixtures/TestHelpers.m; sourceTree = "<group>"; };
@@ -113,6 +119,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				C7A6D0EA1380D905003642E4 /* SystemConfiguration.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 			);
@@ -153,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				C7044C721359328B0012F27A /* Unit Tests */,
+				C7A6D0E21380D8B2003642E4 /* Third Party */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -184,6 +192,7 @@
 		C7044A9413592B2C0012F27A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */,
 				C7044BEF135930270012F27A /* Testing */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -238,6 +247,23 @@
 				C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */,
 			);
 			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		C7A6D0E21380D8B2003642E4 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				C7A6D0E31380D8B2003642E4 /* Reachability */,
+			);
+			path = "Third Party";
+			sourceTree = "<group>";
+		};
+		C7A6D0E31380D8B2003642E4 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				C7A6D0E41380D8B2003642E4 /* Reachability.h */,
+				C7A6D0E51380D8B2003642E4 /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		C7C5E4EA1378A7E8005EA662 /* Download View Controller */ = {
@@ -397,6 +423,7 @@
 				C7CC2FC9137E61030025E8E4 /* MGPFileCache.m in Sources */,
 				C71CC506137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m in Sources */,
 				C71CC50913806CC6008F156A /* NSString+MD5.m in Sources */,
+				C7A6D0E61380D8B2003642E4 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +440,7 @@
 				C7EF65A6137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */,
 				C7CC2FCA137E61030025E8E4 /* MGPFileCache.m in Sources */,
 				C71CC50A13806CC6008F156A /* NSString+MD5.m in Sources */,
+				C7A6D0E71380D8B2003642E4 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

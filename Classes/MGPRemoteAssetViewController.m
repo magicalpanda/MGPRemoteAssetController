@@ -104,6 +104,11 @@
     return YES;
 }
 
+- (MGPRemoteAssetDownloader *) downloaderAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [[self.downloadController.activeDownloads allObjects] objectAtIndex:indexPath.row];
+}
+
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.downloadController.activeDownloads count];
@@ -113,6 +118,7 @@
 {
     MGPRemoteAssetTableViewCell *cell = [MGPRemoteAssetTableViewCell cellForTableView:tableView
                                                                   fromNib:[MGPRemoteAssetTableViewCell nib]];
+    cell.downloader = [self downloaderAtIndexPath:indexPath];
     return cell;
 }
 

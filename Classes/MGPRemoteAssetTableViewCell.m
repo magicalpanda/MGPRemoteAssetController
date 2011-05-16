@@ -19,9 +19,11 @@ static void const * kMGPRemoteAssetTableViewCellObservingContext = &kMGPRemoteAs
 @synthesize url = url_;
 @synthesize timeRemaining = timeRemaining_;
 @synthesize downloadProgress = downloadProgress_;
+@synthesize bytesDownloaded = bytesDownloaded_;
 
 - (void) dealloc
 {
+    self.bytesDownloaded = nil;
     self.downloader = nil;
     self.fileName = nil;
     self.fileSize = nil;
@@ -54,8 +56,7 @@ static void const * kMGPRemoteAssetTableViewCellObservingContext = &kMGPRemoteAs
     [downloader_ release];
     downloader_ = [downloader retain];
     
-    self.fileName.text = nil;
-    self.fileSize.text = [NSString stringWithFormat:@"%lld bytes", self.downloader.expectedFileSize];
+    self.bytesDownloaded.text = @"";
     self.url.text = [self.downloader.URL absoluteString];
     
     [self.downloader addObserver:self 
@@ -66,6 +67,9 @@ static void const * kMGPRemoteAssetTableViewCellObservingContext = &kMGPRemoteAs
 
 - (void) updateDownloadProgress
 {
+    self.fileName.text = self.downloader.fileName;
+    self.fileSize.text = [NSString stringWithFormat:@"%lld bytes", self.downloader.expectedFileSize];
+    self.bytesDownloaded.text = [NSString stringWithFormat:@"%lld bytes", self.downloader.currentFileSize];
     self.downloadProgress.progress = self.downloader.downloadProgress;
     self.timeRemaining.text = nil;
 }
@@ -88,14 +92,22 @@ static void const * kMGPRemoteAssetTableViewCellObservingContext = &kMGPRemoteAs
     }
 }
 
-- (IBAction) pauseDownload
+- (void) swapAction:(SEL)newAction forAction:(SEL)oldAction onControl:(UIControl *)control
 {
-    
+    [control removeTarget:self action:oldAction forControlEvents:UIControlEventAllEvents];
+    [control addTarget:self action:newAction forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (IBAction) resumeDownload
+- (IBAction) pauseDownload:(id)sender
 {
-    
+    [self.downloader pause];
+    [self swapAction:@selector(resume) forAction:@selector(pause) onControl:sender];
+}
+
+- (IBAction) resumeDownload:(id)sender
+{
+    [self.downloader resume];
+    [self swapAction:@selector(pause) forAction:@selector(resume) onControl:sender];
 }
 
 @end

@@ -11,10 +11,10 @@
 
 extern NSString * const kMGPRADownloadsControllerDownloadAddedNotification;
 extern NSString * const kMGPRADownloadsControlelrDownloadStartedNotification;
-extern NSString * const kMGPRADownloadsControllerDownloadRemovedNotifiction;
-extern NSString * const kMGPRADownloadsControllerDownloadPausedNotifiction;
-extern NSString * const kMGPRADownloadsControllerDownloadResumedNotifiction;
-extern NSString * const kMGPRADownloadsControllerDownloadFailedNotifiction;
+extern NSString * const kMGPRADownloadsControllerDownloadRemovedNotification;
+extern NSString * const kMGPRADownloadsControllerDownloadPausedNotification;
+extern NSString * const kMGPRADownloadsControllerDownloadResumedNotification;
+extern NSString * const kMGPRADownloadsControllerDownloadFailedNotification;
 extern NSString * const kMGPRADownloadsControllerDownloadCompletedNotification;
 
 
@@ -29,5 +29,9 @@ extern NSString * const kMGPRADownloadsControllerDownloadCompletedNotification;
 - (MGPRemoteAssetDownloader *) downloadAudioAssetAtURL:(NSURL *)url;
 - (MGPRemoteAssetDownloader *) downloadVideoAssetAtURL:(NSURL *)url;
 - (MGPRemoteAssetDownloader *) downloadCoreDataStoreAssetAtURL:(NSURL *)url;
+
+- (void) pauseAllDownloads;
+- (void) resumeAllDownloads;
+- (void) cancelAllDownloads;
 
 @end

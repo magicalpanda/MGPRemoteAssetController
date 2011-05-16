@@ -42,6 +42,18 @@ static id mockFileHandle_;
     assertThat(self.testDownloader, is(notNilValue()));
 }
 
+- (void) testEquals
+{
+    NSURL *testURL = [NSURL URLWithString:@"http://www.apple.com"];
+    MGPRemoteAssetDownloader *firstDownloader = [[[MGPRemoteAssetDownloader alloc] init] autorelease];
+    firstDownloader.URL = testURL;
+    
+    MGPRemoteAssetDownloader *secondDownloader = [[[MGPRemoteAssetDownloader alloc] init] autorelease];
+    secondDownloader.URL = testURL;
+    
+    assertThat(firstDownloader, is(equalTo(secondDownloader)));
+}
+
 - (void) testShouldRequireDownloadPath
 {
     @try 
@@ -93,6 +105,11 @@ static id mockFileHandle_;
     GHFail(@"Should have thrown an exception");
 }
 
+- (void) testShouldTriggerFailedDownloadWhenFileIsNotReachable
+{
+    GHFail(@"Not Implemented");
+}
+
 - (void) testShouldDownloadCreateNewFileWhenItDoesNotExist
 {
     NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
@@ -125,8 +142,6 @@ static id mockFileHandle_;
     NSString *expectedOutputFilePath = [downloadPath stringByAppendingPathComponent:expectedOutfileFileName];
 
     id mockFileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
-
-//    [[[mockFileManager stub] andReturnValue:[NSNumber numberWithBool:NO]] fileExistsAtPath:expectedOutputFilePath];
     [[mockFileManager expect] createFileAtPath:expectedOutputFilePath contents:[OCMArg isNil] attributes:[OCMArg any]];
     
     NSDictionary *fileAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:@"NSFileSize"];
@@ -166,9 +181,6 @@ static id mockFileHandle_;
     NSDictionary *fileAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:123] forKey:@"NSFileSize"];
     
     id mockFileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
-//    BOOL isDir;
-//    [[[mockFileManager stub] andReturnValue:[NSNumber numberWithBool:NO]] fileExistsAtPath:downloadPath isDirectory:nil];
-//    [[[mockFileManager stub] andReturnValue:[NSNumber numberWithBool:NO]] fileExistsAtPath:expectedOutputFilePath];
     [[[mockFileManager expect] andReturn:fileAttributes] attributesOfItemAtPath:expectedOutputFilePath error:nil];
     [[mockFileManager expect] createFileAtPath:expectedOutputFilePath contents:[OCMArg isNil] attributes:[OCMArg any]];
 
@@ -204,17 +216,20 @@ static id mockFileHandle_;
     NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
     self.testDownloader.URL = testUrl;
 
-    id downloaderDelegate = [OCMockObject mockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
+    id downloaderDelegate = [OCMockObject niceMockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didBeginDownloadingURL:)];
     [[downloaderDelegate expect] downloader:self.testDownloader didBeginDownloadingURL:testUrl];
     self.testDownloader.delegate = downloaderDelegate;
-    
-    
     
     [self.testDownloader beginDownload];
     [self.testDownloader connection:nil didReceiveResponse:nil];
     
     [downloaderDelegate verify];
+}
+
+- (void) testShouldSendDownloadResumedCallbackToDelegate
+{
+    
 }
 
 - (void) testShouldSendProgressCallbacksWhileDownloading
@@ -225,7 +240,7 @@ static id mockFileHandle_;
     NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
     self.testDownloader.URL = testUrl;
     
-    id downloaderDelegate = [OCMockObject mockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
+    id downloaderDelegate = [OCMockObject niceMockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didBeginDownloadingURL:)];
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didCompleteDownloadingURL:)];
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:dataDidProgress:remaining:)];

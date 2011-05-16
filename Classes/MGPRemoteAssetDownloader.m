@@ -25,6 +25,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @property (nonatomic, assign) unsigned long long currentFileSize;
 @property (nonatomic, assign) long long expectedFileSize;
 @property (nonatomic, readonly) NSString *targetFile;
+@property (nonatomic, assign) BOOL serverAllowsResume;
 
 - (void) resume;
 
@@ -34,6 +35,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 @synthesize delegate = delegate_;
 
+@synthesize serverAllowsResume = serverAllowsResume;
 @synthesize fileName = fileName_;
 @synthesize downloadProgress = downloadProgress_;
 @synthesize expectedFileSize = expectedFileSize_;
@@ -72,6 +74,21 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     return self;
 }
 
+- (NSUInteger) hash
+{
+    return [self.URL hash];
+}
+
+- (BOOL) isEqual:(id)object
+{
+    if ([object isKindOfClass:[self class]])
+    {
+        MGPRemoteAssetDownloader *other = object;
+        return [self.URL isEqual:other.URL];
+    }
+    return NO;
+}
+
 - (NSString *) targetFile
 {
     return [self.downloadPath stringByAppendingPathComponent:[[self.URL absoluteString] mgp_md5]];
@@ -108,20 +125,28 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    NSHTTPURLResponse *httpResonse = (NSHTTPURLResponse *)response;
+    NSLog(@"Response Headers: %@", [httpResonse allHeaderFields]);
+    
     self.expectedFileSize = [response expectedContentLength];
     self.fileName = [response suggestedFilename];
+    self.serverAllowsResume = [[[httpResonse allHeaderFields] valueForKey:@"Accept-Ranges"] isEqual:@"bytes"];
 
     self.writeHandle = [NSFileHandle fileHandleForWritingAtPath:self.targetFile];
-    
-    if (self.currentFileSize > 0)
+
+    if (([[httpResonse allHeaderFields] valueForKey:@"Content-Range"]) && (self.currentFileSize > 0))
     {
         [self.writeHandle seekToEndOfFile];
     }
     
-    if ([self.delegate respondsToSelector:@selector(downloader:didBeginDownloadingURL:)])
+    if (self.currentFileSize == 0 && [self.delegate respondsToSelector:@selector(downloader:didBeginDownloadingURL:)])
     {
         [self.delegate downloader:self didBeginDownloadingURL:self.URL];
-    } 
+    }
+    else if ([self.delegate respondsToSelector:@selector(downloader:didResumeDownloadingURL:)])
+    {
+        [self.delegate downloader:self didResumeDownloadingURL:self.URL];
+    }
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -129,12 +154,13 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     [self.writeHandle writeData:data];
     
     self.currentFileSize += [data length];
-    self.downloadProgress = self.currentFileSize / (self.expectedFileSize ?: 1);
+    self.downloadProgress = ((float)self.currentFileSize / (float)(self.expectedFileSize ?: 1));
     
     if ([self.delegate respondsToSelector:@selector(downloader:dataDidProgress:remaining:)])
     {
         NSNumber *progress = [NSNumber numberWithFloat:self.downloadProgress];
         NSNumber *bytesRemaining = [NSNumber numberWithFloat:self.expectedFileSize - self.currentFileSize];
+        //TODO: Also include estimated bandwidth, time remaining
         [self.delegate downloader:self dataDidProgress:progress remaining:bytesRemaining];
     }
 }
@@ -158,9 +184,18 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     self.connection = nil;
 }
 
+- (void) cancel
+{
+    //make download so that it cannot be resumed...downloader must be dealloced to restart
+}
+
 - (void) pause
 {
     [self.connection cancel];
+    if ([self.delegate respondsToSelector:@selector(downloader:didPauseDownloadingURL:)])
+    {
+        [self.delegate downloader:self didPauseDownloadingURL:self.URL];
+    }
 }
 
 - (void) resume
@@ -169,10 +204,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
                                                            cachePolicy:NSURLCacheStorageNotAllowed 
                                                        timeoutInterval:self.requestTimeout];
     
-    if (self.currentFileSize > 0)
-    {
-        [request addValue:[NSString stringWithFormat:@"bytes=%ull-", self.currentFileSize] forHTTPHeaderField:@"Range"];
-    }
+    [request addValue:[NSString stringWithFormat:@"bytes=%ull-", self.currentFileSize] forHTTPHeaderField:@"Range"];
     
     self.request = request;
     
@@ -180,7 +212,6 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
     [self.connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 #endif
-
 }
 
 @end

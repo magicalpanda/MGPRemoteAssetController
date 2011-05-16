@@ -16,6 +16,9 @@ extern NSString * const kMGPDownloaderKey;
 @optional
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didBeginDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url;
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader didPauseDownloadingURL:(NSURL *)url;
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader didResumeDownloadingURL:(NSURL *)url;
+
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSNumber *)currentProgress remaining:(NSNumber *)remaining;
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader failedToDownloadURL:(NSURL *)url;
@@ -33,12 +36,15 @@ extern NSString * const kMGPDownloaderKey;
 @property (nonatomic, readonly, retain) NSFileHandle *writeHandle;
 @property (nonatomic, readonly, copy) NSString *fileName;
 
-@property (nonatomic, readonly, assign) float downloadProgress;
-@property (nonatomic, readonly, assign) long long expectedFileSize;
+@property (nonatomic, assign, readonly) float downloadProgress;
+@property (nonatomic, assign, readonly) unsigned long long currentFileSize;
+@property (nonatomic, assign, readonly) long long expectedFileSize;
 
 //estimated download speed
 //estimated completion time
 
 - (void) beginDownload;
+- (void) pause;
+- (void) resume;
 
 @end

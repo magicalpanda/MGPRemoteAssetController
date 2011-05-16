@@ -61,11 +61,38 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
     return downloader;
 }
 
--(void)downloader:(MGPRemoteAssetDownloader *)downloader didBeginDownloadingURL:(NSURL *)url
+- (void) postNotificationName:(NSString *)notificationName withDownloader:(MGPRemoteAssetDownloader *)downloader;
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMGPRADownloadsControlelrDownloadStartedNotification 
-                                                        object:self
-                                                      userInfo:[NSDictionary dictionaryWithObject:downloader forKey:kMGPDownloaderKey]];
+    NSNotification *notification = [NSNotification notificationWithName:notificationName 
+                                                                 object:self
+                                                               userInfo:[NSDictionary dictionaryWithObject:downloader forKey:kMGPDownloaderKey]];
+    
+    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
+}
+
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader didBeginDownloadingURL:(NSURL *)url
+{
+    [self postNotificationName:kMGPRADownloadsControlelrDownloadStartedNotification withDownloader:downloader];
+}
+
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader didResumeDownloadingURL:(NSURL *)url
+{
+    [self postNotificationName:kMGPRADownloadsControllerDownloadAddedNotification withDownloader:downloader];
+}
+
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url
+{
+    [self postNotificationName:kMGPRADownloadsControllerDownloadCompletedNotification withDownloader:downloader];
+}
+
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSNumber *)currentProgress remaining:(NSNumber *)remaining
+{
+    NSLog(@"Data progress: %@", currentProgress);
+}
+
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader failedToDownloadURL:(NSURL *)url
+{
+    [self postNotificationName:kMGPRADownloadsControllerDownloadFailedNotification withDownloader:downloader];
 }
 
 - (MGPRemoteAssetDownloader *) downloadAssetAtURL:(NSURL *)url;
@@ -75,9 +102,7 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
     if (![self.downloads containsObject:downloader]) 
     {
         [self.downloads addObject:downloader];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kMGPRADownloadsControllerDownloadAddedNotification 
-                                                            object:self
-                                                          userInfo:[NSDictionary dictionaryWithObject:downloader forKey:kMGPDownloaderKey]];
+        [self postNotificationName:kMGPRADownloadsControllerDownloadAddedNotification withDownloader:downloader];
         [downloader beginDownload];
     }
     return downloader;
@@ -98,6 +123,21 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 - (MGPRemoteAssetDownloader *) downloadCoreDataStoreAssetAtURL:(NSURL *)url;
 {
     return  nil;
+}
+
+- (void) pauseAllDownloads;
+{
+//    [self.downloads makeObjectsPerformSelector:@selector(pause)];
+}
+
+- (void) resumeAllDownloads;
+{
+//    [self.downloads makeObjectsPerformSelector:@selector(resume)];
+}
+
+- (void) cancelAllDownloads;
+{
+//    [self.downloads makeObjectsPerformSelector:@selector(cancel)];
 }
 
 @end
