@@ -38,6 +38,8 @@
 		C7A6D1081380EA59003642E4 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D1061380EA59003642E4 /* LoggerClient.m */; };
 		C7A6D1091380EA59003642E4 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D1061380EA59003642E4 /* LoggerClient.m */; };
 		C7A6D10B1380EA8B003642E4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */; };
+		C7A6D10C1380EDA7003642E4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */; };
+		C7A6D10D1380EDA7003642E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */; };
 		C7B1E16C137C2D86002935F9 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = C7B1E16B137C2D86002935F9 /* Fixtures */; };
 		C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1E171137C2EB5002935F9 /* TestHelpers.m */; };
 		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
@@ -163,6 +165,8 @@
 			files = (
 				C7044BFC135930270012F27A /* GHUnitIOS.framework in Frameworks */,
 				C7044BFD135930270012F27A /* OCHamcrestIOS.framework in Frameworks */,
+				C7A6D10C1380EDA7003642E4 /* CFNetwork.framework in Frameworks */,
+				C7A6D10D1380EDA7003642E4 /* SystemConfiguration.framework in Frameworks */,
 				C7044BFE135930270012F27A /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

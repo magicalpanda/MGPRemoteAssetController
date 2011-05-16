@@ -51,6 +51,7 @@ static id mockFileHandle_;
     MGPRemoteAssetDownloader *secondDownloader = [[[MGPRemoteAssetDownloader alloc] init] autorelease];
     secondDownloader.URL = testURL;
     
+    assertThat(firstDownloader, isNot(sameInstance(secondDownloader)));
     assertThat(firstDownloader, is(equalTo(secondDownloader)));
 }
 
@@ -107,7 +108,21 @@ static id mockFileHandle_;
 
 - (void) testShouldTriggerFailedDownloadWhenFileIsNotReachable
 {
-    GHFail(@"Not Implemented");
+    NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
+    self.testDownloader.downloadPath = downloadPath;
+    self.testDownloader.fileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
+    NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
+    self.testDownloader.URL = testUrl;
+    
+    id downloaderDelegate = [OCMockObject niceMockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
+    [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:failedToDownloadURL:)];
+    [[[downloaderDelegate expect] andReturnValue:[NSNumber numberWithBool:NO]] isURLReachable:testUrl];
+    [[downloaderDelegate expect] downloader:self.testDownloader failedToDownloadURL:testUrl];
+    self.testDownloader.delegate = downloaderDelegate;
+    
+    [self.testDownloader beginDownload];
+    
+    [downloaderDelegate verify];
 }
 
 - (void) testShouldDownloadCreateNewFileWhenItDoesNotExist
@@ -121,8 +136,9 @@ static id mockFileHandle_;
     
     
     [self.testDownloader beginDownload];
-    NSURLResponse *testResponse = [[NSURLResponse alloc] initWithURL:nil MIMEType:@"text/html" expectedContentLength:123 textEncodingName:nil];
-    [self.testDownloader connection:nil didReceiveResponse:testResponse];
+    id mockResponse = [OCMockObject niceMockForClass:[NSHTTPURLResponse class]];
+
+    [self.testDownloader connection:nil didReceiveResponse:mockResponse];
     
     assertThat(self.testDownloader.writeHandle, is(notNilValue()));
     
@@ -150,6 +166,7 @@ static id mockFileHandle_;
     id mockFileHandler = [OCMockObject mockForClass:[NSFileHandle class]];
     mockFileHandle_ = [mockFileHandler retain];
     [[mockFileHandler expect] writeData:[OCMArg isNotNil]];
+    [[mockFileHandler expect] synchronizeFile];
     [[mockFileHandler expect] closeFile];
 
     [self swizzle:[NSFileHandle class] selector:@selector(fileHandleForWritingAtPath:)];
@@ -160,9 +177,9 @@ static id mockFileHandle_;
     self.testDownloader.URL = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];    
     
     [self.testDownloader beginDownload];
-    
-    NSURLResponse *testResponse = [[NSURLResponse alloc] initWithURL:nil MIMEType:@"text/html" expectedContentLength:123 textEncodingName:nil];
-    [self.testDownloader connection:nil didReceiveResponse:testResponse];
+
+    id mockResponse = [OCMockObject niceMockForClass:[NSHTTPURLResponse class]];
+    [self.testDownloader connection:nil didReceiveResponse:mockResponse];
     [self.testDownloader connection:nil didReceiveData:[TestHelpers dataForFixtureNamed:@"nsbrief_logo.png"]];
     [self.testDownloader connectionDidFinishLoading:nil];
     
@@ -189,6 +206,7 @@ static id mockFileHandle_;
     mockFileHandle_ = mockFileHandler;
     [[mockFileHandler expect] seekToEndOfFile];
     [[mockFileHandler expect] writeData:[OCMArg isNotNil]];
+    [[mockFileHandler expect] synchronizeFile];
     [[mockFileHandler expect] closeFile];
     [self swizzle:[NSFileHandle class] selector:@selector(fileHandleForWritingAtPath:)];
     
@@ -197,8 +215,11 @@ static id mockFileHandle_;
 
     self.testDownloader.URL = testUrl;
         
+    id mockResponse = [OCMockObject niceMockForClass:[NSHTTPURLResponse class]];
+    NSDictionary *mockHeaders = [NSDictionary dictionaryWithObjectsAndKeys:@"123-", @"Content-Range", @"200", @"Content-Length", @"bytes", @"Accept-Ranges", nil];
+    [[[mockResponse expect] andReturn:mockHeaders] allHeaderFields];
     [self.testDownloader beginDownload];
-    [self.testDownloader connection:nil didReceiveResponse:nil];
+    [self.testDownloader connection:nil didReceiveResponse:mockResponse];
     [self.testDownloader connection:nil didReceiveData:[TestHelpers dataForFixtureNamed:@"nsbrief_logo.png"]];
     [self.testDownloader connectionDidFinishLoading:nil];
     
@@ -229,7 +250,7 @@ static id mockFileHandle_;
 
 - (void) testShouldSendDownloadResumedCallbackToDelegate
 {
-    
+    GHFail(@"Not Implemented");
 }
 
 - (void) testShouldSendProgressCallbacksWhileDownloading
@@ -268,6 +289,7 @@ static id mockFileHandle_;
     self.testDownloader.URL = testUrl;
     
     id downloaderDelegate = [OCMockObject mockForProtocol:@protocol(MGPRemoteAssetDownloaderDelegate)];
+    [[[downloaderDelegate stub] andReturnValue:[NSNumber numberWithBool:YES]] isURLReachable:testUrl];
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didBeginDownloadingURL:)];
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didCompleteDownloadingURL:)];
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:dataDidProgress:remaining:)];

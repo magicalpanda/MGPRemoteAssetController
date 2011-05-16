@@ -10,6 +10,10 @@
 #import "NSString+MD5.h"
 
 NSString * const kMGPDownloaderKey = @"kMGPDownloaderKey";
+NSString * const kMGPTimeRemainingKey = @"kMGPTimeRemainingKey";
+NSString * const kMGPBytesRemainingKey = @"kMGPBytesRemainingKey";
+NSString * const kMGPProgressKey = @"kMGPProgressKey";
+NSString * const kMGPEstimatedBandwidthKey = @"kMGPEstimatedBandwidthKey";
 
 static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.;
 
@@ -21,6 +25,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @property (nonatomic, retain) NSURLRequest *request;
 @property (nonatomic, copy) NSString *fileName;
 
+@property (nonatomic, assign) NSTimeInterval lastDataReceiveTime;
 @property (nonatomic, assign) float downloadProgress;
 @property (nonatomic, assign) unsigned long long currentFileSize;
 @property (nonatomic, assign) long long expectedFileSize;
@@ -35,6 +40,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 @synthesize delegate = delegate_;
 
+@synthesize lastDataReceiveTime = lastDataReceiveTime_;
 @synthesize serverAllowsResume = serverAllowsResume;
 @synthesize fileName = fileName_;
 @synthesize downloadProgress = downloadProgress_;
@@ -99,7 +105,6 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     NSAssert(self.downloadPath, @"downloadPath is not set");
     NSAssert(self.URL, @"URL is not set");
     NSAssert(self.fileManager, @"fileManager is not set");
-    
 
     if (![self.fileManager fileExistsAtPath:self.downloadPath])
     {
@@ -126,15 +131,17 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     NSHTTPURLResponse *httpResonse = (NSHTTPURLResponse *)response;
-    DDLogVerbose(@"Response Headers: %@", [httpResonse allHeaderFields]);
+    NSDictionary *headers = [httpResonse allHeaderFields];
+    
+    DDLogVerbose(@"Response Headers: %@", headers);
     
     self.expectedFileSize = [response expectedContentLength];
     self.fileName = [response suggestedFilename];
-    self.serverAllowsResume = [[[httpResonse allHeaderFields] valueForKey:@"Accept-Ranges"] isEqual:@"bytes"];
 
+    self.serverAllowsResume = [[headers valueForKey:@"Accept-Ranges"] isEqual:@"bytes"];
     self.writeHandle = [NSFileHandle fileHandleForWritingAtPath:self.targetFile];
 
-    if (([[httpResonse allHeaderFields] valueForKey:@"Content-Range"]) && (self.currentFileSize > 0))
+    if (([headers valueForKey:@"Content-Range"]) && (self.currentFileSize > 0))
     {
         [self.writeHandle seekToEndOfFile];
     }
@@ -149,19 +156,43 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     }
 }
 
+- (NSDictionary *) receivedDataSummary:(NSData *)data
+{
+    NSNumber *progress = [NSNumber numberWithFloat:self.downloadProgress];
+    NSNumber *bytesRemaining = [NSNumber numberWithFloat:self.expectedFileSize - self.currentFileSize];
+    
+    NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
+    NSTimeInterval timeDelta = self.lastDataReceiveTime - currentTime;
+    float estimatedBandwidth = (float)[data length] / (timeDelta ?: 1);
+    
+    NSNumber *estBandwidth = [NSNumber numberWithFloat:estimatedBandwidth];
+    NSNumber *estTimeRemaining = [NSNumber numberWithFloat: (float)(self.expectedFileSize - self.currentFileSize) / estimatedBandwidth];
+
+    NSDictionary *summary = [NSDictionary dictionaryWithObjectsAndKeys:
+                             progress, kMGPProgressKey, 
+                             bytesRemaining, kMGPBytesRemainingKey, 
+                             estBandwidth, kMGPEstimatedBandwidthKey,
+                             estTimeRemaining, kMGPEstimatedBandwidthKey,
+                             nil];
+    
+    return summary;
+}
+
 - (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [self.writeHandle writeData:data];
+    [self.writeHandle synchronizeFile];
     
     self.currentFileSize += [data length];
     self.downloadProgress = ((float)self.currentFileSize / (float)(self.expectedFileSize ?: 1));
     
     if ([self.delegate respondsToSelector:@selector(downloader:dataDidProgress:remaining:)])
     {
-        NSNumber *progress = [NSNumber numberWithFloat:self.downloadProgress];
-        NSNumber *bytesRemaining = [NSNumber numberWithFloat:self.expectedFileSize - self.currentFileSize];
-        //TODO: Also include estimated bandwidth, time remaining
-        [self.delegate downloader:self dataDidProgress:progress remaining:bytesRemaining];
+        NSDictionary *summary = [self receivedDataSummary:data];
+
+        [self.delegate downloader:self 
+                  dataDidProgress:[summary valueForKey:kMGPProgressKey]
+                        remaining:[summary valueForKey:kMGPBytesRemainingKey]];
     }
 }
 
@@ -200,18 +231,29 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (void) resume
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.URL 
-                                                           cachePolicy:NSURLCacheStorageNotAllowed 
-                                                       timeoutInterval:self.requestTimeout];
-    
-    [request addValue:[NSString stringWithFormat:@"bytes=%ull-", self.currentFileSize] forHTTPHeaderField:@"Range"];
-    
-    self.request = request;
-    
-#ifndef __TESTING__
-    self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
-    [self.connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-#endif
+    if ([self.delegate isURLReachable:self.URL])
+    {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.URL 
+                                                               cachePolicy:NSURLCacheStorageNotAllowed 
+                                                           timeoutInterval:self.requestTimeout];
+        
+        [request addValue:[NSString stringWithFormat:@"bytes=%ull-", self.currentFileSize] forHTTPHeaderField:@"Range"];
+        
+        self.request = request;
+        self.lastDataReceiveTime = [NSDate timeIntervalSinceReferenceDate];
+        
+    #ifndef __TESTING__
+        self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+        [self.connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    #endif
+    }
+    else
+    {
+        if ([self.delegate respondsToSelector:@selector(downloader:failedToDownloadURL:)])
+        {
+            [self.delegate downloader:self failedToDownloadURL:self.URL];
+        }
+    }
 }
 
 @end

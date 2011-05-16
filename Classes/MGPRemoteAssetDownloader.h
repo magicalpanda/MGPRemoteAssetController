@@ -13,7 +13,12 @@ extern NSString * const kMGPDownloaderKey;
 @class MGPRemoteAssetDownloader;
 
 @protocol MGPRemoteAssetDownloaderDelegate <NSObject>
+@required
+
+- (BOOL) isURLReachable:(NSURL *)url;
+
 @optional
+
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didBeginDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didPauseDownloadingURL:(NSURL *)url;

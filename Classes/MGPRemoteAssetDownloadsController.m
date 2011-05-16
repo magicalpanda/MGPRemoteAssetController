@@ -7,6 +7,7 @@
 //
 
 #import "MGPRemoteAssetDownloadsController.h"
+#import "Reachability.h"
 
 NSString * const kMGPRADownloadsControllerDownloadAddedNotification = @"kMGPRADownloadsControllerAddedDownloadNotification";
 NSString * const kMGPRADownloadsControlelrDownloadStartedNotification = @"kMGPRADownloadsControlelrDownloadStartedNotification";
@@ -18,7 +19,7 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 @interface MGPRemoteAssetDownloadsController ()
 
-@property (nonatomic, retain) NSMutableSet *downloads;
+@property (nonatomic, retain) NSMutableArray *downloads;
 
 @end
 
@@ -38,14 +39,44 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
     self = [super init];
     if (self)
     {
-        self.downloads = [NSMutableSet set];
+        self.downloads = [NSMutableArray array];
     }
     return self;
 }
 
-- (NSSet *) activeDownloads
+- (NSArray *) activeDownloads
 {
-    return [NSSet setWithSet:self.downloads];
+    return [NSArray arrayWithArray:self.downloads];
+}
+
+- (BOOL) isURLReachable:(NSURL *)url
+{
+    Reachability *reachability = [Reachability reachabilityWithHostName:[url host]];
+    
+    return [reachability currentReachabilityStatus] != NotReachable;
+}
+
+- (void) registerForNotifications
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(applicationDidEnterBackground:)
+                   name:UIApplicationDidEnterBackgroundNotification 
+                 object:[UIApplication sharedApplication]];
+    [center addObserver:self 
+               selector:@selector(applicationWillEnterForeground:) 
+                   name:UIApplicationWillEnterForegroundNotification 
+                 object:[UIApplication sharedApplication]];
+}
+
+- (void) applicationDidEnterBackground:(NSNotification *)notification
+{
+    [self pauseAllDownloads];
+}
+
+- (void) applicationWillEnterForeground:(NSNotification *)notification
+{
+    [self resumeAllDownloads];
 }
 
 - (MGPRemoteAssetDownloader *) downloaderWithURL:(NSURL *)url
@@ -77,7 +108,7 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didResumeDownloadingURL:(NSURL *)url
 {
-    [self postNotificationName:kMGPRADownloadsControllerDownloadAddedNotification withDownloader:downloader];
+    [self postNotificationName:kMGPRADownloadsControllerDownloadResumedNotification withDownloader:downloader];
 }
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url
@@ -87,12 +118,24 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSNumber *)currentProgress remaining:(NSNumber *)remaining
 {
-    NSLog(@"Data progress: %@", currentProgress);
+    DDLogVerbose(@"Data progress: %@", currentProgress);
 }
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader failedToDownloadURL:(NSURL *)url
 {
     [self postNotificationName:kMGPRADownloadsControllerDownloadFailedNotification withDownloader:downloader];
+}
+
+- (id) assetForURL:(NSURL *)url
+{
+    //if in file cache, load into memory, return right away
+    return nil;
+}
+
+- (void) assetForURL:(NSURL *)url completion:(void(^)(id))callback
+{
+    // if in file cache load into memory, callback(asset)
+    //if not in file cache, download, load into memory, callback(asset)
 }
 
 - (MGPRemoteAssetDownloader *) downloadAssetAtURL:(NSURL *)url;

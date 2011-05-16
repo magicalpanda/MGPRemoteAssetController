@@ -18,11 +18,9 @@ extern NSString * const kMGPRADownloadsControllerDownloadFailedNotification;
 extern NSString * const kMGPRADownloadsControllerDownloadCompletedNotification;
 
 
-@interface MGPRemoteAssetDownloadsController : NSObject<MGPRemoteAssetDownloaderDelegate> {
-    
-}
+@interface MGPRemoteAssetDownloadsController : NSObject<MGPRemoteAssetDownloaderDelegate> {}
 
-@property (nonatomic, readonly) NSSet *activeDownloads;
+@property (nonatomic, readonly) NSArray *activeDownloads;
 
 - (MGPRemoteAssetDownloader *) downloadAssetAtURL:(NSURL *)url;
 - (MGPRemoteAssetDownloader *) downloadImageAssetAtURL:(NSURL *)url;

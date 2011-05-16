@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 
 
-@interface MGPFileCache : NSObject {
-    
-}
+@interface MGPFileCache : NSObject {}
+
++ (NSString *) cachePath;
+
+- (id) assetForKey:(id)key;
+//- (id) expireAssetForKey:(id)key;
+- (unsigned long long) fileSizeForKey:(id)key;
+- (NSDictionary *) metadataForKey:(id)key;
 
 @end

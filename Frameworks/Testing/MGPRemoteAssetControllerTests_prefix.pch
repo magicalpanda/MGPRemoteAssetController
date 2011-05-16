@@ -15,3 +15,14 @@
 
 #import "TestHelpers.h"
 #import "GHTestCase+Swizzle.h"
+
+
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+
+#import "LoggerClient.h"
+#import "LoggerCommon.h"
+
+#import "DDNSLoggerLogger.h"
+
+int ddLogLevel;
