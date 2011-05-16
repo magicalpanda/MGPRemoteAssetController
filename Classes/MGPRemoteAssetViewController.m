@@ -60,6 +60,10 @@
                selector:@selector(downloaderWasAdded:) 
                    name:kMGPRADownloadsControllerDownloadAddedNotification
                  object:self.downloadController];
+    [center addObserver:self
+               selector:@selector(downloadWasAdded:) 
+                   name:kMGPRADownloadsControllerDownloadResumedNotification 
+                 object:self.downloadController];
     [center addObserver:self 
                selector:@selector(downloaderDidComplete:) 
                    name:kMGPRADownloadsControllerDownloadCompletedNotification 
@@ -71,6 +75,9 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self
                       name:kMGPRADownloadsControllerDownloadAddedNotification
+                    object:self.downloadController];
+    [center removeObserver:self
+                      name:kMGPRADownloadsControllerDownloadResumedNotification 
                     object:self.downloadController];
     [center removeObserver:self
                       name:kMGPRADownloadsControllerDownloadCompletedNotification 
@@ -89,14 +96,34 @@
     [super viewDidUnload];
 }
 
+- (NSIndexPath *) indexPathForDownloaderInNotification:(NSNotification *)notification
+{
+    MGPRemoteAssetDownloader *downloader = [[notification userInfo] valueForKey:kMGPDownloaderKey];
+    NSUInteger index = [self.downloadController.activeDownloads indexOfObject:downloader];
+
+    return (index == NSNotFound) ? nil : [NSIndexPath indexPathForRow:index inSection:0];
+}
+
 - (void) downloaderWasAdded:(NSNotification *)notification
 {
-    [self.downloadList reloadData];
+    NSIndexPath *indexPath = [self indexPathForDownloaderInNotification:notification];
+    if (indexPath != nil)
+    {
+        [self.downloadList beginUpdates];
+        [self.downloadList insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
+        [self.downloadList endUpdates];
+    }
 }
 
 - (void) downloaderDidComplete:(NSNotification *)notification
 {
-    //find indexpath, remove cell at indexPath
+    NSIndexPath *indexPath = [self indexPathForDownloaderInNotification:notification];
+    if (indexPath != nil)
+    {
+        [self.downloadList beginUpdates];
+        [self.downloadList deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        [self.downloadList endUpdates];
+    }
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -106,7 +133,7 @@
 
 - (MGPRemoteAssetDownloader *) downloaderAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[self.downloadController.activeDownloads allObjects] objectAtIndex:indexPath.row];
+    return [self.downloadController.activeDownloads objectAtIndex:indexPath.row];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -114,7 +141,7 @@
     return [self.downloadController.activeDownloads count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MGPRemoteAssetTableViewCell *cell = [MGPRemoteAssetTableViewCell cellForTableView:tableView
                                                                   fromNib:[MGPRemoteAssetTableViewCell nib]];

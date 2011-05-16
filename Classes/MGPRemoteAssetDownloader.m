@@ -105,7 +105,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     {
         if (![self.fileManager createDirectoryAtPath:self.downloadPath withIntermediateDirectories:YES attributes:nil error:nil])
         {
-            NSLog(@"Unable to create cache directory: %@", self.downloadPath);
+            DDLogWarn(@"Unable to create cache directory: %@", self.downloadPath);
         }
     }
     
@@ -113,7 +113,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     {
         if (![self.fileManager createFileAtPath:self.targetFile contents:nil attributes:nil])
         {
-            NSLog(@"Unable to create cache download file: %@", self.targetFile);
+            DDLogWarn(@"Unable to create cache download file: %@", self.targetFile);
         }
     }
 
@@ -126,7 +126,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     NSHTTPURLResponse *httpResonse = (NSHTTPURLResponse *)response;
-    NSLog(@"Response Headers: %@", [httpResonse allHeaderFields]);
+    DDLogVerbose(@"Response Headers: %@", [httpResonse allHeaderFields]);
     
     self.expectedFileSize = [response expectedContentLength];
     self.fileName = [response suggestedFilename];

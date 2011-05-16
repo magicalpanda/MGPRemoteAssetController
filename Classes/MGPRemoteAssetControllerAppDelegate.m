@@ -7,6 +7,8 @@
 
 #import "MGPRemoteAssetControllerAppDelegate.h"
 
+int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 @implementation MGPRemoteAssetControllerAppDelegate
 
 @synthesize window = window_;
@@ -24,6 +26,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [DDLog addLogger:[DDNSLoggerLogger sharedInstance]];
+    
     [self.window addSubview:self.viewController.view];
     [self.window makeKeyAndVisible];
     

@@ -25,9 +25,7 @@ extern NSString * const kMGPDownloaderKey;
 
 @end
 
-@interface MGPRemoteAssetDownloader : NSObject {
-    
-}
+@interface MGPRemoteAssetDownloader : NSObject {}
 
 @property (nonatomic, assign) NSObject<MGPRemoteAssetDownloaderDelegate> *delegate;
 @property (nonatomic, copy) NSString *downloadPath;
