@@ -23,6 +23,21 @@
 		C7A6D0E61380D8B2003642E4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0E51380D8B2003642E4 /* Reachability.m */; };
 		C7A6D0E71380D8B2003642E4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0E51380D8B2003642E4 /* Reachability.m */; };
 		C7A6D0EA1380D905003642E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */; };
+		C7A6D0F61380DE77003642E4 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0ED1380DE77003642E4 /* DDAbstractDatabaseLogger.m */; };
+		C7A6D0F71380DE77003642E4 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0ED1380DE77003642E4 /* DDAbstractDatabaseLogger.m */; };
+		C7A6D0F81380DE77003642E4 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0EF1380DE77003642E4 /* DDASLLogger.m */; };
+		C7A6D0F91380DE77003642E4 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0EF1380DE77003642E4 /* DDASLLogger.m */; };
+		C7A6D0FA1380DE77003642E4 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0F11380DE77003642E4 /* DDFileLogger.m */; };
+		C7A6D0FB1380DE77003642E4 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0F11380DE77003642E4 /* DDFileLogger.m */; };
+		C7A6D0FC1380DE77003642E4 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0F31380DE77003642E4 /* DDLog.m */; };
+		C7A6D0FD1380DE77003642E4 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0F31380DE77003642E4 /* DDLog.m */; };
+		C7A6D0FE1380DE77003642E4 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0F51380DE77003642E4 /* DDTTYLogger.m */; };
+		C7A6D0FF1380DE77003642E4 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0F51380DE77003642E4 /* DDTTYLogger.m */; };
+		C7A6D1021380DFD3003642E4 /* DDNSLoggerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D1001380DFD3003642E4 /* DDNSLoggerLogger.m */; };
+		C7A6D1031380DFD3003642E4 /* DDNSLoggerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D1001380DFD3003642E4 /* DDNSLoggerLogger.m */; };
+		C7A6D1081380EA59003642E4 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D1061380EA59003642E4 /* LoggerClient.m */; };
+		C7A6D1091380EA59003642E4 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D1061380EA59003642E4 /* LoggerClient.m */; };
+		C7A6D10B1380EA8B003642E4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */; };
 		C7B1E16C137C2D86002935F9 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = C7B1E16B137C2D86002935F9 /* Fixtures */; };
 		C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1E171137C2EB5002935F9 /* TestHelpers.m */; };
 		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
@@ -84,6 +99,22 @@
 		C7A6D0E41380D8B2003642E4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C7A6D0E51380D8B2003642E4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C7A6D0EC1380DE77003642E4 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		C7A6D0ED1380DE77003642E4 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		C7A6D0EE1380DE77003642E4 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		C7A6D0EF1380DE77003642E4 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		C7A6D0F01380DE77003642E4 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		C7A6D0F11380DE77003642E4 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		C7A6D0F21380DE77003642E4 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		C7A6D0F31380DE77003642E4 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		C7A6D0F41380DE77003642E4 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		C7A6D0F51380DE77003642E4 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		C7A6D1001380DFD3003642E4 /* DDNSLoggerLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNSLoggerLogger.m; sourceTree = "<group>"; };
+		C7A6D1011380DFD3003642E4 /* DDNSLoggerLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNSLoggerLogger.h; sourceTree = "<group>"; };
+		C7A6D1051380EA59003642E4 /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
+		C7A6D1061380EA59003642E4 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
+		C7A6D1071380EA59003642E4 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
+		C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C7B1E16B137C2D86002935F9 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = "<group>"; };
 		C7B1E170137C2EB5002935F9 /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestHelpers.h; path = Fixtures/TestHelpers.h; sourceTree = "<group>"; };
 		C7B1E171137C2EB5002935F9 /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestHelpers.m; path = Fixtures/TestHelpers.m; sourceTree = "<group>"; };
@@ -118,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7A6D10B1380EA8B003642E4 /* CFNetwork.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				C7A6D0EA1380D905003642E4 /* SystemConfiguration.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -192,6 +224,7 @@
 		C7044A9413592B2C0012F27A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */,
 				C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */,
 				C7044BEF135930270012F27A /* Testing */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
@@ -252,6 +285,8 @@
 		C7A6D0E21380D8B2003642E4 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				C7A6D1041380EA59003642E4 /* NSLogger */,
+				C7A6D0EB1380DE77003642E4 /* Lumberjack */,
 				C7A6D0E31380D8B2003642E4 /* Reachability */,
 			);
 			path = "Third Party";
@@ -264,6 +299,35 @@
 				C7A6D0E51380D8B2003642E4 /* Reachability.m */,
 			);
 			path = Reachability;
+			sourceTree = "<group>";
+		};
+		C7A6D0EB1380DE77003642E4 /* Lumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				C7A6D1001380DFD3003642E4 /* DDNSLoggerLogger.m */,
+				C7A6D1011380DFD3003642E4 /* DDNSLoggerLogger.h */,
+				C7A6D0EC1380DE77003642E4 /* DDAbstractDatabaseLogger.h */,
+				C7A6D0ED1380DE77003642E4 /* DDAbstractDatabaseLogger.m */,
+				C7A6D0EE1380DE77003642E4 /* DDASLLogger.h */,
+				C7A6D0EF1380DE77003642E4 /* DDASLLogger.m */,
+				C7A6D0F01380DE77003642E4 /* DDFileLogger.h */,
+				C7A6D0F11380DE77003642E4 /* DDFileLogger.m */,
+				C7A6D0F21380DE77003642E4 /* DDLog.h */,
+				C7A6D0F31380DE77003642E4 /* DDLog.m */,
+				C7A6D0F41380DE77003642E4 /* DDTTYLogger.h */,
+				C7A6D0F51380DE77003642E4 /* DDTTYLogger.m */,
+			);
+			path = Lumberjack;
+			sourceTree = "<group>";
+		};
+		C7A6D1041380EA59003642E4 /* NSLogger */ = {
+			isa = PBXGroup;
+			children = (
+				C7A6D1051380EA59003642E4 /* LoggerClient.h */,
+				C7A6D1061380EA59003642E4 /* LoggerClient.m */,
+				C7A6D1071380EA59003642E4 /* LoggerCommon.h */,
+			);
+			path = NSLogger;
 			sourceTree = "<group>";
 		};
 		C7C5E4EA1378A7E8005EA662 /* Download View Controller */ = {
@@ -424,6 +488,13 @@
 				C71CC506137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m in Sources */,
 				C71CC50913806CC6008F156A /* NSString+MD5.m in Sources */,
 				C7A6D0E61380D8B2003642E4 /* Reachability.m in Sources */,
+				C7A6D0F61380DE77003642E4 /* DDAbstractDatabaseLogger.m in Sources */,
+				C7A6D0F81380DE77003642E4 /* DDASLLogger.m in Sources */,
+				C7A6D0FA1380DE77003642E4 /* DDFileLogger.m in Sources */,
+				C7A6D0FC1380DE77003642E4 /* DDLog.m in Sources */,
+				C7A6D0FE1380DE77003642E4 /* DDTTYLogger.m in Sources */,
+				C7A6D1021380DFD3003642E4 /* DDNSLoggerLogger.m in Sources */,
+				C7A6D1081380EA59003642E4 /* LoggerClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +512,13 @@
 				C7CC2FCA137E61030025E8E4 /* MGPFileCache.m in Sources */,
 				C71CC50A13806CC6008F156A /* NSString+MD5.m in Sources */,
 				C7A6D0E71380D8B2003642E4 /* Reachability.m in Sources */,
+				C7A6D0F71380DE77003642E4 /* DDAbstractDatabaseLogger.m in Sources */,
+				C7A6D0F91380DE77003642E4 /* DDASLLogger.m in Sources */,
+				C7A6D0FB1380DE77003642E4 /* DDFileLogger.m in Sources */,
+				C7A6D0FD1380DE77003642E4 /* DDLog.m in Sources */,
+				C7A6D0FF1380DE77003642E4 /* DDTTYLogger.m in Sources */,
+				C7A6D1031380DFD3003642E4 /* DDNSLoggerLogger.m in Sources */,
+				C7A6D1091380EA59003642E4 /* LoggerClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
