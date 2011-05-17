@@ -245,6 +245,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 - (void) pause
 {
     [self.connection cancel];
+    self.connection = nil;
     if ([self.delegate respondsToSelector:@selector(downloader:didPauseDownloadingURL:)])
     {
         [self.delegate downloader:self didPauseDownloadingURL:self.URL];

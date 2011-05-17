@@ -179,6 +179,10 @@ static id mockFileHandle_;
     [self.testDownloader beginDownload];
 
     id mockResponse = [OCMockObject niceMockForClass:[NSHTTPURLResponse class]];
+    NSDictionary *mockHeaders = [NSDictionary dictionaryWithObjectsAndKeys:@"123-", @"Content-Range", @"200", @"Content-Length", @"bytes", @"Accept-Ranges", nil];
+    [[[mockResponse expect] andReturn:mockHeaders] allHeaderFields];
+    [[[mockResponse expect] andReturnValue:[NSNumber numberWithUnsignedLongLong:200]] expectedContentLength];
+
     [self.testDownloader connection:nil didReceiveResponse:mockResponse];
     [self.testDownloader connection:nil didReceiveData:[TestHelpers dataForFixtureNamed:@"nsbrief_logo.png"]];
     [self.testDownloader connectionDidFinishLoading:nil];
@@ -218,6 +222,8 @@ static id mockFileHandle_;
     id mockResponse = [OCMockObject niceMockForClass:[NSHTTPURLResponse class]];
     NSDictionary *mockHeaders = [NSDictionary dictionaryWithObjectsAndKeys:@"123-", @"Content-Range", @"200", @"Content-Length", @"bytes", @"Accept-Ranges", nil];
     [[[mockResponse expect] andReturn:mockHeaders] allHeaderFields];
+    [[[mockResponse expect] andReturnValue:[NSNumber numberWithUnsignedLongLong:200]] expectedContentLength];
+
     [self.testDownloader beginDownload];
     [self.testDownloader connection:nil didReceiveResponse:mockResponse];
     [self.testDownloader connection:nil didReceiveData:[TestHelpers dataForFixtureNamed:@"nsbrief_logo.png"]];

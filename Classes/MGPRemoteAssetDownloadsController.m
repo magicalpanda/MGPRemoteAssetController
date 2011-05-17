@@ -124,6 +124,7 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader failedToDownloadURL:(NSURL *)url
 {
+    [self.downloads removeObject:downloader];
     [self postNotificationName:kMGPRADownloadsControllerDownloadFailedNotification withDownloader:downloader];
 }
 
@@ -171,12 +172,12 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 - (void) pauseAllDownloads;
 {
-//    [self.downloads makeObjectsPerformSelector:@selector(pause)];
+    [self.downloads makeObjectsPerformSelector:@selector(pause)];
 }
 
 - (void) resumeAllDownloads;
 {
-//    [self.downloads makeObjectsPerformSelector:@selector(resume)];
+    [self.downloads makeObjectsPerformSelector:@selector(resume)];
 }
 
 - (void) cancelAllDownloads;

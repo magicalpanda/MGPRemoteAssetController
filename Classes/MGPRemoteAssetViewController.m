@@ -101,6 +101,11 @@
     [super viewDidUnload];
 }
 
+- (IBAction) togglePauseAndResume:(id)sender;
+{
+//    [self.downloadController pauseAllDownloads];
+}
+
 - (NSIndexPath *) indexPathForDownloaderInNotification:(NSNotification *)notification
 {
     MGPRemoteAssetDownloader *downloader = [notification downloader];
@@ -110,7 +115,10 @@
     {
         NSUInteger index = [self.downloadController.activeDownloads indexOfObject:downloader];
         indexPath = (index == NSNotFound) ? nil : [NSIndexPath indexPathForRow:index inSection:0];
-        [self.indexPaths setObject:indexPath forKey:downloader.URL];
+        if (indexPath)
+        {
+            [self.indexPaths setObject:indexPath forKey:downloader.URL];
+        }
     }
     return indexPath;
 }

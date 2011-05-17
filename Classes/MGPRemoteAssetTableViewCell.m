@@ -37,10 +37,6 @@ static void const * kMGPRemoteAssetTableViewCellObservingContext = &kMGPRemoteAs
 
 - (void) awakeFromNib
 {
-//    self.fileName.text = nil;
-//    self.fileSize.text = nil;
-//    self.url.text = nil;
-//    self.timeRemaining.text = nil;
     self.downloadProgress.progress = 0;
 }
 

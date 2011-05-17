@@ -15,5 +15,6 @@
 @property (nonatomic, retain) IBOutlet UITableView *downloadList;
 @property (nonatomic, readonly, retain) MGPRemoteAssetDownloadsController *downloadController;
 
+- (IBAction) togglePauseAndResume:(id)sender;
 
 @end

@@ -20,6 +20,9 @@
 		C71CC506137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */; };
 		C71CC50913806CC6008F156A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C71CC50813806CC6008F156A /* NSString+MD5.m */; };
 		C71CC50A13806CC6008F156A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C71CC50813806CC6008F156A /* NSString+MD5.m */; };
+		C72B3AEB138225D100EBCC87 /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C72B3AEA138225D100EBCC87 /* NSDate+Helpers.m */; };
+		C72B3AEC138225D100EBCC87 /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C72B3AEA138225D100EBCC87 /* NSDate+Helpers.m */; };
+		C72B3AEF1382278500EBCC87 /* AssetFileCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C72B3AEE1382278500EBCC87 /* AssetFileCacheTests.m */; };
 		C7A6D0E61380D8B2003642E4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0E51380D8B2003642E4 /* Reachability.m */; };
 		C7A6D0E71380D8B2003642E4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A6D0E51380D8B2003642E4 /* Reachability.m */; };
 		C7A6D0EA1380D905003642E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */; };
@@ -100,6 +103,10 @@
 		C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGPRemoteAssetViewController+Testing.m"; sourceTree = "<group>"; };
 		C71CC50713806CC6008F156A /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		C71CC50813806CC6008F156A /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		C72B3AE9138225D100EBCC87 /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
+		C72B3AEA138225D100EBCC87 /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
+		C72B3AED1382278500EBCC87 /* AssetFileCacheTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetFileCacheTests.h; sourceTree = "<group>"; };
+		C72B3AEE1382278500EBCC87 /* AssetFileCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetFileCacheTests.m; sourceTree = "<group>"; };
 		C7A6D0E41380D8B2003642E4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C7A6D0E51380D8B2003642E4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -286,6 +293,8 @@
 				C7C5E4E81378A7AA005EA662 /* RemoteAssetDownloaderTests.m */,
 				C7EF659E137CF767003F7856 /* RemoteAssetControllerTests.h */,
 				C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */,
+				C72B3AED1382278500EBCC87 /* AssetFileCacheTests.h */,
+				C72B3AEE1382278500EBCC87 /* AssetFileCacheTests.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -361,6 +370,8 @@
 				C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */,
 				C71CC50713806CC6008F156A /* NSString+MD5.h */,
 				C71CC50813806CC6008F156A /* NSString+MD5.m */,
+				C72B3AE9138225D100EBCC87 /* NSDate+Helpers.h */,
+				C72B3AEA138225D100EBCC87 /* NSDate+Helpers.m */,
 			);
 			name = "Remote Asset Controller";
 			sourceTree = "<group>";
@@ -506,6 +517,7 @@
 				C7A6D1021380DFD3003642E4 /* DDNSLoggerLogger.m in Sources */,
 				C7A6D1081380EA59003642E4 /* LoggerClient.m in Sources */,
 				C7A6D1521381121B003642E4 /* NSNotification+MGPAssetDownloader.m in Sources */,
+				C72B3AEB138225D100EBCC87 /* NSDate+Helpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +543,8 @@
 				C7A6D1031380DFD3003642E4 /* DDNSLoggerLogger.m in Sources */,
 				C7A6D1091380EA59003642E4 /* LoggerClient.m in Sources */,
 				C7A6D1531381121B003642E4 /* NSNotification+MGPAssetDownloader.m in Sources */,
+				C72B3AEC138225D100EBCC87 /* NSDate+Helpers.m in Sources */,
+				C72B3AEF1382278500EBCC87 /* AssetFileCacheTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
