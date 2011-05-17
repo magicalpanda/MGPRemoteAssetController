@@ -8,12 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol MGPFileCacheItem <NSObject>
+
+- (id) fileCacheKey;
+
+@end
 
 @interface MGPFileCache : NSObject {}
 
-+ (NSString *) cachePath;
+@property (nonatomic, readonly, retain) NSFileManager *fileManager;
+
 + (MGPFileCache *) sharedCache;
 
+- (BOOL) assetValidForKey:(id)key;
+
+- (NSString *) cachePath;
 - (unsigned long long) fileSizeForKey:(id)key;
 - (NSDictionary *) metadataForKey:(id)key;
 

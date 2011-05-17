@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MGPFileCache.h"
 
 extern NSString * const kMGPDownloaderKey;
 
@@ -30,7 +31,7 @@ extern NSString * const kMGPDownloaderKey;
 
 @end
 
-@interface MGPRemoteAssetDownloader : NSObject {}
+@interface MGPRemoteAssetDownloader : NSObject<MGPFileCacheItem> {}
 
 @property (nonatomic, assign) NSObject<MGPRemoteAssetDownloaderDelegate> *delegate;
 @property (nonatomic, copy) NSString *downloadPath;

@@ -7,7 +7,9 @@
 //
 
 #import "MGPRemoteAssetDownloadsController.h"
+#import "MGPFileCache.h"
 #import "Reachability.h"
+#import "NSString+MD5.h"
 
 NSString * const kMGPRADownloadsControllerDownloadAddedNotification = @"kMGPRADownloadsControllerAddedDownloadNotification";
 NSString * const kMGPRADownloadsControlelrDownloadStartedNotification = @"kMGPRADownloadsControlelrDownloadStartedNotification";
@@ -16,6 +18,7 @@ NSString * const kMGPRADownloadsControllerDownloadPausedNotification = @"kMGPRAD
 NSString * const kMGPRADownloadsControllerDownloadResumedNotification = @"kMGPRADownloadsControllerDownloadResumedNotification";
 NSString * const kMGPRADownloadsControllerDownloadFailedNotification = @"kMGPRADownloadsControllerDownloadFailedNotification";
 NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGPRADownloadsControllerDownloadCompletedNotification";
+NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"kMGPRADownloadsControllerAllDownloadsCompletedNotification";
 
 @interface MGPRemoteAssetDownloadsController ()
 
@@ -27,9 +30,11 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 @synthesize activeDownloads = activeDownloads_;
 @synthesize downloads = downloads_;
+@synthesize fileCache = fileCache_;
 
 - (void) dealloc
 {
+    self.fileCache = nil;
     self.downloads = nil;
     [super dealloc];
 }
@@ -83,9 +88,8 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 {
     MGPRemoteAssetDownloader *downloader = [[MGPRemoteAssetDownloader alloc] init];
     
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-    downloader.downloadPath = cachePath;
-    downloader.fileManager = [NSFileManager defaultManager];
+    downloader.downloadPath = self.fileCache.cachePath;
+    downloader.fileManager = self.fileCache.fileManager;
     downloader.URL = url;
     downloader.delegate = self;
     
@@ -94,11 +98,22 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 - (void) postNotificationName:(NSString *)notificationName withDownloader:(MGPRemoteAssetDownloader *)downloader;
 {
+    NSDictionary *userInfo = downloader ? [NSDictionary dictionaryWithObject:downloader forKey:kMGPDownloaderKey] : nil;
     NSNotification *notification = [NSNotification notificationWithName:notificationName 
                                                                  object:self
-                                                               userInfo:[NSDictionary dictionaryWithObject:downloader forKey:kMGPDownloaderKey]];
+                                                               userInfo:userInfo];
     
     [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
+}
+
+- (void) downloaderComplete:(MGPRemoteAssetDownloader *)downloader
+{
+    [self.downloads removeObject:downloader];
+//    [self.fileCache setMetadataForKey:[downloader fileCacheKey]];
+    if ([self.downloads count] == 0)
+    {
+        [self postNotificationName:kMGPRADownloadsControllerAllDownloadsCompletedNotification withDownloader:nil];
+    }
 }
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didBeginDownloadingURL:(NSURL *)url
@@ -113,7 +128,7 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url
 {
-    [self.downloads removeObject:downloader];
+    [self downloaderComplete:downloader];
     [self postNotificationName:kMGPRADownloadsControllerDownloadCompletedNotification withDownloader:downloader];
 }
 
@@ -124,7 +139,7 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader failedToDownloadURL:(NSURL *)url
 {
-    [self.downloads removeObject:downloader];
+    [self downloaderComplete:downloader];
     [self postNotificationName:kMGPRADownloadsControllerDownloadFailedNotification withDownloader:downloader];
 }
 
@@ -140,34 +155,21 @@ NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGP
     //if not in file cache, download, load into memory, callback(asset)
 }
 
-- (MGPRemoteAssetDownloader *) downloadAssetAtURL:(NSURL *)url;
+- (MGPRemoteAssetDownloader *) downloaderForURL:(NSURL *)url;
 {
+    if ([self.fileCache assetValidForKey:[[url absoluteString] mgp_md5]])
+    {
+        return nil;
+    }
+    
     MGPRemoteAssetDownloader *downloader = [self downloaderWithURL:url];
     
     if (![self.downloads containsObject:downloader]) 
     {
         [self.downloads addObject:downloader];
         [self postNotificationName:kMGPRADownloadsControllerDownloadAddedNotification withDownloader:downloader];
-        [downloader beginDownload];
     }
     return downloader;
-}
-
-- (MGPRemoteAssetDownloader *) downloadImageAssetAtURL:(NSURL *)url;
-{
-    return  nil;    
-}
-- (MGPRemoteAssetDownloader *) downloadAudioAssetAtURL:(NSURL *)url;
-{
-    return  nil;
-}
-- (MGPRemoteAssetDownloader *) downloadVideoAssetAtURL:(NSURL *)url;
-{
-    return  nil;
-}
-- (MGPRemoteAssetDownloader *) downloadCoreDataStoreAssetAtURL:(NSURL *)url;
-{
-    return  nil;
 }
 
 - (void) pauseAllDownloads;

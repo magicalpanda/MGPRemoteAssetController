@@ -13,12 +13,12 @@
 
 @synthesize testCache;
 
--(void)setUp
+- (void) setUp
 {
     self.testCache = [[[MGPFileCache alloc] init] autorelease];
 }
 
--(void)tearDown
+- (void) tearDown
 {
     self.testCache = nil;
 }
@@ -26,6 +26,26 @@
 - (void) testShouldBeCreated
 {
     assertThat(self.testCache, is(notNilValue()));
+}
+
+- (void) testShouldRemoveExpiredAssetsWhenEnteringBackground
+{
+    GHFail(@"Not Implemented");
+}
+
+- (void) testShouldRetrieveFileForKey
+{
+    GHFail(@"Not Implemented");
+}
+
+- (void) testShouldRetrieveMetadataForKey
+{
+    GHFail(@"Not Implemented");
+}
+
+- (void) testShouldRetrieveFileSizeForKey
+{
+    GHFail(@"Not Implemented");
 }
 
 @end

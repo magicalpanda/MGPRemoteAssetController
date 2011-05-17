@@ -104,9 +104,14 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     return NO;
 }
 
+- (id) fileCacheKey
+{
+    return [[self.URL absoluteString] mgp_md5];
+}
+
 - (NSString *) targetFile
 {
-    return [self.downloadPath stringByAppendingPathComponent:[[self.URL absoluteString] mgp_md5]];
+    return [self.downloadPath stringByAppendingPathComponent:[self fileCacheKey]];
 }
 
 - (void) beginDownload

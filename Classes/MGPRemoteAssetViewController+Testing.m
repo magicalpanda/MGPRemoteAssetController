@@ -33,7 +33,7 @@ static NSMutableArray *urls = nil;
         [urls removeLastObject];
         
         NSURL *url = [NSURL URLWithString:nextUrl];
-        [self.downloadController downloadAssetAtURL:url];
+        [self.downloadController downloaderForURL:url];
      }
 }
 

@@ -60,6 +60,8 @@
 		C7CC2FC9137E61030025E8E4 /* MGPFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */; };
 		C7CC2FCA137E61030025E8E4 /* MGPFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */; };
 		C7CC2FCC137EFEFF0025E8E4 /* MainWindow~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7CC2FCB137EFEFF0025E8E4 /* MainWindow~ipad.xib */; };
+		C7D64D3E1382312D00408799 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D64D3D1382312D00408799 /* ImageIO.framework */; };
+		C7D64D411382314A00408799 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D64D3D1382312D00408799 /* ImageIO.framework */; };
 		C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */; };
 		C7EF65A0137CF768003F7856 /* RemoteAssetControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */; };
 		C7EF65A5137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */; };
@@ -148,6 +150,7 @@
 		C7CC2FC7137E61030025E8E4 /* MGPFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPFileCache.h; sourceTree = "<group>"; };
 		C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPFileCache.m; sourceTree = "<group>"; };
 		C7CC2FCB137EFEFF0025E8E4 /* MainWindow~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow~ipad.xib"; sourceTree = "<group>"; };
+		C7D64D3D1382312D00408799 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C7EF6555137CC7B8003F7856 /* GHTestCase+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHTestCase+Swizzle.h"; sourceTree = "<group>"; };
 		C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHTestCase+Swizzle.m"; sourceTree = "<group>"; };
 		C7EF659E137CF767003F7856 /* RemoteAssetControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAssetControllerTests.h; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				C7A6D0EA1380D905003642E4 /* SystemConfiguration.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				C7D64D411382314A00408799 /* ImageIO.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -174,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7D64D3E1382312D00408799 /* ImageIO.framework in Frameworks */,
 				C7044BFC135930270012F27A /* GHUnitIOS.framework in Frameworks */,
 				C7044BFD135930270012F27A /* OCHamcrestIOS.framework in Frameworks */,
 				C7A6D10C1380EDA7003642E4 /* CFNetwork.framework in Frameworks */,
@@ -239,6 +244,7 @@
 		C7044A9413592B2C0012F27A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7D64D3D1382312D00408799 /* ImageIO.framework */,
 				C7A6D10A1380EA8B003642E4 /* CFNetwork.framework */,
 				C7A6D0E81380D8D2003642E4 /* SystemConfiguration.framework */,
 				C7044BEF135930270012F27A /* Testing */,
