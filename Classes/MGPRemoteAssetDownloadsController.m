@@ -22,21 +22,39 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 @interface MGPRemoteAssetDownloadsController ()
 
+@property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskId;
 @property (nonatomic, retain) NSMutableArray *downloads;
+@property (nonatomic, assign) BOOL networkIsReachable;
+
+- (void) reachabilityChanged;
 
 @end
 
 @implementation MGPRemoteAssetDownloadsController
 
+@synthesize networkIsReachable = networkIsReachable_;
+@synthesize backgroundTaskId = backgroundTaskId_;
 @synthesize activeDownloads = activeDownloads_;
 @synthesize downloads = downloads_;
 @synthesize fileCache = fileCache_;
 
 - (void) dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    
     self.fileCache = nil;
     self.downloads = nil;
     [super dealloc];
+}
+
+- (void) initController
+{
+    self.downloads = [NSMutableArray array];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged) 
+                                                 name:kReachabilityChangedNotification 
+                                               object:nil];
+    [self reachabilityChanged];
 }
 
 - (id) init
@@ -44,21 +62,30 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
     self = [super init];
     if (self)
     {
-        self.downloads = [NSMutableArray array];
+        [self initController];
     }
     return self;
 }
 
-- (NSArray *) activeDownloads
+- (void) reachabilityChanged
+{
+    self.networkIsReachable = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
+}
+
+- (NSArray *) allDownloads
 {
     return [NSArray arrayWithArray:self.downloads];
 }
 
+- (NSArray *) activeDownloads
+{
+    NSPredicate *activeDownloadQuery = [NSPredicate predicateWithFormat:@"status = MGPRemoteAssetDownloaderStatusDownloading"];
+    return [self.downloads filteredArrayUsingPredicate:activeDownloadQuery];
+}
+
 - (BOOL) isURLReachable:(NSURL *)url
 {
-    Reachability *reachability = [Reachability reachabilityWithHostName:[url host]];
-    
-    return [reachability currentReachabilityStatus] != NotReachable;
+    return self.networkIsReachable;
 }
 
 - (void) registerForNotifications
@@ -76,6 +103,12 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (void) applicationDidEnterBackground:(NSNotification *)notification
 {
+    if ([self.activeDownloads count])
+    {
+        self.backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^(void) {
+           //what to do when time expired? 
+        }];
+    }    
     [self pauseAllDownloads];
 }
 
@@ -112,6 +145,10 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 //    [self.fileCache setMetadataForKey:[downloader fileCacheKey]];
     if ([self.downloads count] == 0)
     {
+        if (self.backgroundTaskId)
+        {
+            [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];
+        }
         [self postNotificationName:kMGPRADownloadsControllerAllDownloadsCompletedNotification withDownloader:nil];
     }
 }
@@ -132,7 +169,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
     [self postNotificationName:kMGPRADownloadsControllerDownloadCompletedNotification withDownloader:downloader];
 }
 
-- (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSNumber *)currentProgress remaining:(NSNumber *)remaining
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSDictionary *)currentProgress
 {
     DDLogVerbose(@"Data progress: %@", currentProgress);
 }

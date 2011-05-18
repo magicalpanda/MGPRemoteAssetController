@@ -113,7 +113,7 @@
     
     if (indexPath == nil)
     {
-        NSUInteger index = [self.downloadController.activeDownloads indexOfObject:downloader];
+        NSUInteger index = [self.downloadController.allDownloads indexOfObject:downloader];
         indexPath = (index == NSNotFound) ? nil : [NSIndexPath indexPathForRow:index inSection:0];
         if (indexPath)
         {
@@ -131,6 +131,10 @@
         [self.downloadList beginUpdates];
         [self.downloadList insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
         [self.downloadList endUpdates];
+        
+        // Only start if we can see it!
+        MGPRemoteAssetDownloader *downloader = [notification downloader];
+        [downloader beginDownload]; 
     }
 }
 
@@ -139,7 +143,9 @@
     NSIndexPath *indexPath = [self indexPathForDownloaderInNotification:notification];
     if (indexPath != nil)
     {
-        [self.indexPaths removeObjectForKey:[notification downloader].URL];
+        MGPRemoteAssetDownloader *downloader = [notification downloader];
+        [self.indexPaths removeObjectForKey:downloader.URL];
+        
         [self.downloadList beginUpdates];
         [self.downloadList deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
         [self.downloadList endUpdates];
@@ -153,18 +159,17 @@
 
 - (MGPRemoteAssetDownloader *) downloaderAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.downloadController.activeDownloads objectAtIndex:indexPath.row];
+    return [self.downloadController.allDownloads objectAtIndex:indexPath.row];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.downloadController.activeDownloads count];
+    return [self.downloadController.allDownloads count];
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MGPRemoteAssetTableViewCell *cell = [MGPRemoteAssetTableViewCell cellForTableView:tableView
-                                                                              fromNib:[MGPRemoteAssetTableViewCell nib]];
+    MGPRemoteAssetTableViewCell *cell = [MGPRemoteAssetTableViewCell cellForTableView:tableView];
     cell.downloader = [self downloaderAtIndexPath:indexPath];
     return cell;
 }

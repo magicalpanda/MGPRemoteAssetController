@@ -10,6 +10,8 @@
 #import "MGPFileCache.h"
 #import "NSDate+Helpers.h"
 
+static NSString * kMGPFileCacheDefaultCacheFolder = @"MGPAssetCache";
+
 CGSize sizeForImageAtURL(NSURL *imageFileURL)
 {
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)imageFileURL, NULL);
@@ -53,7 +55,7 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
 
 - (NSString *) cachePath;
 {
-    NSString *subfolder = @"MGPAssetCache";
+    NSString *subfolder = kMGPFileCacheDefaultCacheFolder;
     return [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:subfolder];
 }
 

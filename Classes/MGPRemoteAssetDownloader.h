@@ -11,6 +11,17 @@
 
 extern NSString * const kMGPDownloaderKey;
 
+typedef enum
+{
+    MGPRemoteAssetDownloaderStateFailed             =   0,
+    MGPRemoteAssetDownloaderStateNotStarted         =   1 << 0,
+    MGPRemoteAssetDownloaderStateRequestSent        =   1 << 1,
+    MGPRemoteAssetDownloaderStateDownloading        =   1 << 2,
+    MGPRemoteAssetDownloaderStateComplete           =   1 << 3,
+    MGPRemoteAssetDownloaderStatePaused             =   1 << 4,
+    MGPRemoteAssetDownloaderStateCanceled           =   1 << 5
+} MGPRemoteAssetDownloaderState;
+
 @class MGPRemoteAssetDownloader;
 
 @protocol MGPRemoteAssetDownloaderDelegate <NSObject>
@@ -24,15 +35,14 @@ extern NSString * const kMGPDownloaderKey;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didPauseDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didResumeDownloadingURL:(NSURL *)url;
-
-- (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSNumber *)currentProgress remaining:(NSNumber *)remaining;
-
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSDictionary *)progressSummary;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader failedToDownloadURL:(NSURL *)url;
 
 @end
 
 @interface MGPRemoteAssetDownloader : NSObject<MGPFileCacheItem> {}
 
+@property (nonatomic, assign, readonly) MGPRemoteAssetDownloaderState status;
 @property (nonatomic, assign) NSObject<MGPRemoteAssetDownloaderDelegate> *delegate;
 @property (nonatomic, copy) NSString *downloadPath;
 @property (nonatomic, retain) NSURL *URL;
@@ -47,8 +57,10 @@ extern NSString * const kMGPDownloaderKey;
 @property (nonatomic, assign, readonly) unsigned long long bytesRemaining;
 @property (nonatomic, assign, readonly) NSTimeInterval timeRemaining;
 
-//estimated download speed
-//estimated completion time
+- (id) initWithURL:(NSURL *)url destinationPath:(NSString *)destinationPath;
+
++ (MGPRemoteAssetDownloader *) downloaderForAssetAtURL:(NSURL *)sourceURL toDestinationPath:(NSString *)destinationPath;
++ (NSString *) fileKeyForURL:(NSURL *)url;
 
 - (void) beginDownload;
 - (void) pause;

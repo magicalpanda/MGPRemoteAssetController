@@ -23,6 +23,7 @@ extern NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotificati
 
 @interface MGPRemoteAssetDownloadsController : NSObject<MGPRemoteAssetDownloaderDelegate> {}
 
+@property (nonatomic, readonly) NSArray *allDownloads;
 @property (nonatomic, readonly) NSArray *activeDownloads;
 @property (nonatomic, retain) MGPFileCache *fileCache;
 

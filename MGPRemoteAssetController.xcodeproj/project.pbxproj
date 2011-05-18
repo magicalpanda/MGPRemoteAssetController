@@ -48,8 +48,6 @@
 		C7B1E16C137C2D86002935F9 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = C7B1E16B137C2D86002935F9 /* Fixtures */; };
 		C7B1E172137C2EB5002935F9 /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1E171137C2EB5002935F9 /* TestHelpers.m */; };
 		C7C5E4E41378A761005EA662 /* MGPRemoteAssetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */; };
-		C7C5E4E51378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */; };
-		C7C5E4E61378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */; };
 		C7C5E4E91378A7AA005EA662 /* RemoteAssetDownloaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4E81378A7AA005EA662 /* RemoteAssetDownloaderTests.m */; };
 		C7C5E4EE1378A886005EA662 /* MGPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4ED1378A886005EA662 /* MGPTableViewCell.m */; };
 		C7C5E4F11378A8AA005EA662 /* MGPRemoteAssetDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */; };
@@ -62,6 +60,9 @@
 		C7CC2FCC137EFEFF0025E8E4 /* MainWindow~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7CC2FCB137EFEFF0025E8E4 /* MainWindow~ipad.xib */; };
 		C7D64D3E1382312D00408799 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D64D3D1382312D00408799 /* ImageIO.framework */; };
 		C7D64D411382314A00408799 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D64D3D1382312D00408799 /* ImageIO.framework */; };
+		C7D64D7D138343FE00408799 /* MGPDownloaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D64D7C138343FE00408799 /* MGPDownloaderViewController.m */; };
+		C7D64D7F1383465000408799 /* MGPDownloaderView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7D64D7E1383465000408799 /* MGPDownloaderView~ipad.xib */; };
+		C7D64D821383467300408799 /* MGPDownloaderView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7D64D811383467300408799 /* MGPDownloaderView~iphone.xib */; };
 		C7EF6557137CC7B9003F7856 /* GHTestCase+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */; };
 		C7EF65A0137CF768003F7856 /* RemoteAssetControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF659F137CF768003F7856 /* RemoteAssetControllerTests.m */; };
 		C7EF65A5137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */; };
@@ -135,8 +136,6 @@
 		C7B1E171137C2EB5002935F9 /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestHelpers.m; path = Fixtures/TestHelpers.m; sourceTree = "<group>"; };
 		C7C5E4E01378A761005EA662 /* MGPRemoteAssetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPRemoteAssetTableViewCell.h; sourceTree = "<group>"; };
 		C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPRemoteAssetTableViewCell.m; sourceTree = "<group>"; };
-		C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetTableViewCell~ipad.xib"; sourceTree = "<group>"; };
-		C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPRemoteAssetTableViewCell~iphone.xib"; sourceTree = "<group>"; };
 		C7C5E4E71378A7AA005EA662 /* RemoteAssetDownloaderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAssetDownloaderTests.h; sourceTree = "<group>"; };
 		C7C5E4E81378A7AA005EA662 /* RemoteAssetDownloaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteAssetDownloaderTests.m; sourceTree = "<group>"; };
 		C7C5E4EC1378A886005EA662 /* MGPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPTableViewCell.h; sourceTree = "<group>"; };
@@ -151,6 +150,11 @@
 		C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPFileCache.m; sourceTree = "<group>"; };
 		C7CC2FCB137EFEFF0025E8E4 /* MainWindow~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow~ipad.xib"; sourceTree = "<group>"; };
 		C7D64D3D1382312D00408799 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		C7D64D7B138343FD00408799 /* MGPDownloaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPDownloaderViewController.h; sourceTree = "<group>"; };
+		C7D64D7C138343FE00408799 /* MGPDownloaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPDownloaderViewController.m; sourceTree = "<group>"; };
+		C7D64D7E1383465000408799 /* MGPDownloaderView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPDownloaderView~ipad.xib"; sourceTree = "<group>"; };
+		C7D64D811383467300408799 /* MGPDownloaderView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGPDownloaderView~iphone.xib"; sourceTree = "<group>"; };
+		C7D64D841383594200408799 /* MGPRemoteAssetDownloader+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGPRemoteAssetDownloader+Protected.h"; sourceTree = "<group>"; };
 		C7EF6555137CC7B8003F7856 /* GHTestCase+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHTestCase+Swizzle.h"; sourceTree = "<group>"; };
 		C7EF6556137CC7B8003F7856 /* GHTestCase+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHTestCase+Swizzle.m"; sourceTree = "<group>"; };
 		C7EF659E137CF767003F7856 /* RemoteAssetControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAssetControllerTests.h; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C7D64D831383544200408799 /* Categories */,
 				C7C5E4EB1378A806005EA662 /* Remote Asset Controller */,
 				C7C5E4EA1378A7E8005EA662 /* Download View Controller */,
 			);
@@ -369,15 +374,12 @@
 			isa = PBXGroup;
 			children = (
 				C7C5E4EF1378A8AA005EA662 /* MGPRemoteAssetDownloader.h */,
+				C7D64D841383594200408799 /* MGPRemoteAssetDownloader+Protected.h */,
 				C7C5E4F01378A8AA005EA662 /* MGPRemoteAssetDownloader.m */,
 				C7EF65A3137CF97B003F7856 /* MGPRemoteAssetDownloadsController.h */,
 				C7EF65A4137CF97B003F7856 /* MGPRemoteAssetDownloadsController.m */,
 				C7CC2FC7137E61030025E8E4 /* MGPFileCache.h */,
 				C7CC2FC8137E61030025E8E4 /* MGPFileCache.m */,
-				C71CC50713806CC6008F156A /* NSString+MD5.h */,
-				C71CC50813806CC6008F156A /* NSString+MD5.m */,
-				C72B3AE9138225D100EBCC87 /* NSDate+Helpers.h */,
-				C72B3AEA138225D100EBCC87 /* NSDate+Helpers.m */,
 			);
 			name = "Remote Asset Controller";
 			sourceTree = "<group>";
@@ -385,20 +387,41 @@
 		C7CC2FC6137E60840025E8E4 /* MGPRemoteAssetView */ = {
 			isa = PBXGroup;
 			children = (
+				C7D64D801383465900408799 /* Downloader View Controller */,
 				C7C5E4E01378A761005EA662 /* MGPRemoteAssetTableViewCell.h */,
 				C7C5E4E11378A761005EA662 /* MGPRemoteAssetTableViewCell.m */,
-				C7C5E4E21378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib */,
-				C7C5E4E31378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib */,
 				C7CC2FBF137E5FF10025E8E4 /* MGPRemoteAssetViewController.h */,
 				C7CC2FC0137E5FF10025E8E4 /* MGPRemoteAssetViewController.m */,
 				C7CC2FC1137E5FF10025E8E4 /* MGPRemoteAssetView~iphone.xib */,
 				C7CC2FC4137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib */,
 				C71CC504137F1D71008F156A /* MGPRemoteAssetViewController+Testing.h */,
 				C71CC505137F1D71008F156A /* MGPRemoteAssetViewController+Testing.m */,
+			);
+			name = MGPRemoteAssetView;
+			sourceTree = "<group>";
+		};
+		C7D64D801383465900408799 /* Downloader View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C7D64D7B138343FD00408799 /* MGPDownloaderViewController.h */,
+				C7D64D7C138343FE00408799 /* MGPDownloaderViewController.m */,
+				C7D64D7E1383465000408799 /* MGPDownloaderView~ipad.xib */,
+				C7D64D811383467300408799 /* MGPDownloaderView~iphone.xib */,
+			);
+			name = "Downloader View Controller";
+			sourceTree = "<group>";
+		};
+		C7D64D831383544200408799 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C71CC50713806CC6008F156A /* NSString+MD5.h */,
+				C71CC50813806CC6008F156A /* NSString+MD5.m */,
+				C72B3AE9138225D100EBCC87 /* NSDate+Helpers.h */,
+				C72B3AEA138225D100EBCC87 /* NSDate+Helpers.m */,
 				C7A6D1501381121A003642E4 /* NSNotification+MGPAssetDownloader.h */,
 				C7A6D1511381121A003642E4 /* NSNotification+MGPAssetDownloader.m */,
 			);
-			name = MGPRemoteAssetView;
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		C7EF6558137CC918003F7856 /* Helpers */ = {
@@ -481,11 +504,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow~iphone.xib in Resources */,
-				C7C5E4E51378A761005EA662 /* MGPRemoteAssetTableViewCell~ipad.xib in Resources */,
-				C7C5E4E61378A761005EA662 /* MGPRemoteAssetTableViewCell~iphone.xib in Resources */,
 				C7CC2FC3137E5FF10025E8E4 /* MGPRemoteAssetView~iphone.xib in Resources */,
 				C7CC2FC5137E60110025E8E4 /* MGPRemoteAssetView~ipad.xib in Resources */,
 				C7CC2FCC137EFEFF0025E8E4 /* MainWindow~ipad.xib in Resources */,
+				C7D64D7F1383465000408799 /* MGPDownloaderView~ipad.xib in Resources */,
+				C7D64D821383467300408799 /* MGPDownloaderView~iphone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +547,7 @@
 				C7A6D1081380EA59003642E4 /* LoggerClient.m in Sources */,
 				C7A6D1521381121B003642E4 /* NSNotification+MGPAssetDownloader.m in Sources */,
 				C72B3AEB138225D100EBCC87 /* NSDate+Helpers.m in Sources */,
+				C7D64D7D138343FE00408799 /* MGPDownloaderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
