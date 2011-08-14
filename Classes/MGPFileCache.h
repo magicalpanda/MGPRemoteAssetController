@@ -18,7 +18,7 @@
 
 @property (nonatomic, readonly, retain) NSFileManager *fileManager;
 
-+ (MGPFileCache *) sharedCache;
++ (MGPFileCache *) defaultCache;
 
 - (BOOL) assetValidForKey:(id)key;
 

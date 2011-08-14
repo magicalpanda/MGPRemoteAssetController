@@ -273,8 +273,8 @@ static id mockFileHandle_;
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:dataDidProgress:remaining:)];
     [[downloaderDelegate stub] downloader:self.testDownloader didBeginDownloadingURL:testUrl];
     [[downloaderDelegate stub] downloader:self.testDownloader didCompleteDownloadingURL:testUrl];
-    [[downloaderDelegate expect] downloader:self.testDownloader dataDidProgress:[OCMArg any] remaining:[OCMArg any]];
-    [[downloaderDelegate expect] downloader:self.testDownloader dataDidProgress:[OCMArg any] remaining:[OCMArg any]]; //yeap, twice
+    [[downloaderDelegate expect] downloader:self.testDownloader dataDidProgress:[OCMArg any]];
+    [[downloaderDelegate expect] downloader:self.testDownloader dataDidProgress:[OCMArg any]]; //yeap, twice
     self.testDownloader.delegate = downloaderDelegate;
     
     [self.testDownloader beginDownload];
@@ -300,7 +300,7 @@ static id mockFileHandle_;
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:didCompleteDownloadingURL:)];
     [[[downloaderDelegate stub] andReturn:[NSNumber numberWithBool:YES]] respondsToSelector:@selector(downloader:dataDidProgress:remaining:)];
     [[downloaderDelegate stub] downloader:self.testDownloader didBeginDownloadingURL:testUrl];
-    [[downloaderDelegate stub] downloader:self.testDownloader dataDidProgress:[OCMArg any] remaining:[OCMArg any]];
+    [[downloaderDelegate stub] downloader:self.testDownloader dataDidProgress:[OCMArg any]];
     [[downloaderDelegate expect] downloader:self.testDownloader didCompleteDownloadingURL:testUrl];
     self.testDownloader.delegate = downloaderDelegate;
     

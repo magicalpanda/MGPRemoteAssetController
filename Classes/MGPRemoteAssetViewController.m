@@ -129,7 +129,7 @@
     if (indexPath != nil)
     {
         [self.downloadList beginUpdates];
-        [self.downloadList insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
+        [self.downloadList insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
         [self.downloadList endUpdates];
         
         // Only start if we can see it!

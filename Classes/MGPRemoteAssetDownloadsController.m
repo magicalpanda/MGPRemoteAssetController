@@ -10,6 +10,7 @@
 #import "MGPFileCache.h"
 #import "Reachability.h"
 #import "NSString+MD5.h"
+#import "MGPFileCache.h"
 
 NSString * const kMGPRADownloadsControllerDownloadAddedNotification = @"kMGPRADownloadsControllerAddedDownloadNotification";
 NSString * const kMGPRADownloadsControlelrDownloadStartedNotification = @"kMGPRADownloadsControlelrDownloadStartedNotification";
@@ -49,6 +50,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (void) initController
 {
+    self.fileCache = [MGPFileCache defaultCache];
     self.downloads = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged) 

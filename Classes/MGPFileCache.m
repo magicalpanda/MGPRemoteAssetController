@@ -59,7 +59,22 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
     return [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:subfolder];
 }
 
-+ (MGPFileCache *) sharedCache;
+- (void) setupCache
+{
+    self.fileManager = [NSFileManager defaultManager];
+}
+
+-(id)init
+{
+    self = [super init];
+    if (self) 
+    {
+        [self setupCache];
+    }
+    return self;
+}
+
++ (MGPFileCache *) defaultCache;
 {
     static dispatch_once_t pred;
     static MGPFileCache *fileCache = nil;
