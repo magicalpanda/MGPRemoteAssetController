@@ -61,7 +61,7 @@
 
     [self.testController resumeAllDownloads];
     
-    assertThatInteger([self.testController.allDownloads count], is(equalToInteger(1)));
+    assertThat(self.testController.allDownloads, hasCountOf(1));
     assertThatInteger(downloader.status, is(equalToInteger(MGPRemoteAssetDownloaderStateRequestSent)));
 
     [mockFileCache verify];

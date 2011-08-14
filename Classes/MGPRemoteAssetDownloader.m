@@ -202,17 +202,12 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     //parse content range, setup file pointers
     if (([headers valueForKey:@"Content-Range"]) && (self.currentFileSize > 0))
     {
-        [self.writeHandle seekToEndOfFile];
+        [self.writeHandle seekToEndOfFile]; //TODO: seek to proper point in file
     }
 
-    if (self.currentFileSize == 0)
-    {
-        [self performActionOnDelegate:@selector(downloader:didBeginDownloadingURL:) withObject:self.URL];
-    }
-    else
-    {
-        [self performActionOnDelegate:@selector(downloader:didResumeDownloadingURL:) withObject:self.URL];
-    }
+    SEL startNotificationAction = self.currentFileSize == 0 ? @selector(downloader:didBeginDownloadingURL:) : @selector(downloader:didResumeDownloadingURL:);
+    
+    [self performActionOnDelegate:startNotificationAction withObject:self.URL];
 }
 
 - (NSDictionary *) receivedDataSummary:(NSData *)data
@@ -300,7 +295,10 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
                                                                cachePolicy:NSURLCacheStorageNotAllowed 
                                                            timeoutInterval:self.requestTimeout];
         
-        [request addValue:[NSString stringWithFormat:@"bytes=%ull-", self.currentFileSize] forHTTPHeaderField:@"Range"];
+        if (self.serverAllowsResume)
+        {
+            [request addValue:[NSString stringWithFormat:@"bytes=%ull-", self.currentFileSize] forHTTPHeaderField:@"Range"];
+        }
         
         self.request = request;
         self.lastDataReceiveTime = [NSDate timeIntervalSinceReferenceDate];

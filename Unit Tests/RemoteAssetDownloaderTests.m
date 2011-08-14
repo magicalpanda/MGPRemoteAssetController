@@ -312,4 +312,24 @@ static id mockFileHandle_;
     [downloaderDelegate verify];
 }
 
+- (void) testShouldNotBeginDownloadAfterStarted
+{
+    GHFail(@"Not Implemented");
+}
+
+- (void) testShouldNotStartDownloadThatHasCanceled
+{
+    GHFail(@"Not Implemented");    
+}
+
+- (void) testShouldNotResumeDownloadThatHasCanceled
+{
+    GHFail(@"Not Implemented");   
+}
+
+- (void) testShouldNotResumeDownloadThatHasCompletedSuccessfully
+{
+    GHFail(@"Not Implemented");
+}
+
 @end
