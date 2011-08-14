@@ -33,6 +33,8 @@ extern NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotificati
 //- (MGPRemoteAssetDownloader *) downloadVideoAssetAtURL:(NSURL *)url;
 //- (MGPRemoteAssetDownloader *) downloadCoreDataStoreAssetAtURL:(NSURL *)url;
 
++ (id) controller;
+
 - (void) pauseAllDownloads;
 - (void) resumeAllDownloads;
 - (void) cancelAllDownloads;

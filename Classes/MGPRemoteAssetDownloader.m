@@ -87,7 +87,6 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     {
         self.requestTimeout = kMGPRemoteAssetDownloaderDefaultRequestTimeout;
         self.status = MGPRemoteAssetDownloaderStateNotStarted;
-        self.fileManager = [NSFileManager defaultManager];
     }
     return self;
 }
@@ -96,6 +95,14 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 {
     return [NSString stringWithFormat:@"<%@ [url: %@] [downloadPath: %@] [fileName: %@] [cachedFileName: %@] [status: %d]>",
             NSStringFromClass([self class]), self.URL, self.downloadPath, self.fileName, self.fileCacheKey, self.status];
+}
+
+- (void) performActionOnDelegate:(SEL)selector withObject:(id)parameter
+{
+    if ([self.delegate respondsToSelector:selector]) 
+    {
+        [self.delegate performSelector:selector withObject:self withObject:parameter];
+    }
 }
 
 - (id) initWithURL:(NSURL *)url destinationPath:(NSString *)destinationPath
@@ -192,18 +199,19 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
         [self.writeHandle truncateFileAtOffset:0];
     }
     
+    //parse content range, setup file pointers
     if (([headers valueForKey:@"Content-Range"]) && (self.currentFileSize > 0))
     {
         [self.writeHandle seekToEndOfFile];
     }
 
-    if (self.currentFileSize == 0 && [self.delegate respondsToSelector:@selector(downloader:didBeginDownloadingURL:)])
+    if (self.currentFileSize == 0)
     {
-        [self.delegate downloader:self didBeginDownloadingURL:self.URL];
+        [self performActionOnDelegate:@selector(downloader:didBeginDownloadingURL:) withObject:self.URL];
     }
-    else if ([self.delegate respondsToSelector:@selector(downloader:didResumeDownloadingURL:)])
+    else
     {
-        [self.delegate downloader:self didResumeDownloadingURL:self.URL];
+        [self performActionOnDelegate:@selector(downloader:didResumeDownloadingURL:) withObject:self.URL];
     }
 }
 
@@ -247,10 +255,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     self.timeRemaining = [[summary valueForKey:kMGPTimeRemainingKey] doubleValue];
     self.bandwidth = [[summary valueForKey:kMGPEstimatedBandwidthKey] floatValue];
     
-    if ([self.delegate respondsToSelector:@selector(downloader:dataDidProgress:)])
-    {
-        [self.delegate downloader:self dataDidProgress:summary];
-    }
+    [self performActionOnDelegate:@selector(downloader:dataDidProgress:) withObject:summary];
 }
 
 - (void) connectionDidFinishLoading:(NSURLConnection *)connection
@@ -259,10 +264,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     [self.writeHandle closeFile];
     
     self.status = MGPRemoteAssetDownloaderStateComplete;
-    if ([self.delegate respondsToSelector:@selector(downloader:didCompleteDownloadingURL:)])
-    {
-        [self.delegate downloader:self didCompleteDownloadingURL:self.URL];
-    }
+    [self performActionOnDelegate:@selector(downloader:didCompleteDownloadingURL:) withObject:self.URL];
     
     //TODO: do NOT restart downloader if this INSTANCE has completed successfully!
 }
@@ -285,10 +287,8 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     [self.connection cancel];
     self.connection = nil;
     self.status = MGPRemoteAssetDownloaderStatePaused;
-    if ([self.delegate respondsToSelector:@selector(downloader:didPauseDownloadingURL:)])
-    {
-        [self.delegate downloader:self didPauseDownloadingURL:self.URL];
-    }
+    
+    [self performActionOnDelegate:@selector(downloader:didPauseDownloadingURL:) withObject:self.URL];
 }
 
 - (void) resume
@@ -315,10 +315,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     else
     {
         self.status = MGPRemoteAssetDownloaderStateFailed;
-        if ([self.delegate respondsToSelector:@selector(downloader:failedToDownloadURL:)])
-        {
-            [self.delegate downloader:self failedToDownloadURL:self.URL];
-        }
+        [self performActionOnDelegate:@selector(downloader:failedToDownloadURL:) withObject:self.URL];
     }
 }
 

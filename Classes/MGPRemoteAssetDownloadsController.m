@@ -7,6 +7,7 @@
 //
 
 #import "MGPRemoteAssetDownloadsController.h"
+#import "MGPRemoteAssetDownloader.h"
 #import "MGPFileCache.h"
 #import "Reachability.h"
 #import "NSString+MD5.h"
@@ -69,6 +70,11 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
     return self;
 }
 
++ (id) controller;
+{
+    return [[[self alloc] init] autorelease];
+}
+
 - (void) reachabilityChanged
 {
     self.networkIsReachable = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
@@ -81,7 +87,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (NSArray *) activeDownloads
 {
-    NSPredicate *activeDownloadQuery = [NSPredicate predicateWithFormat:@"status = MGPRemoteAssetDownloaderStatusDownloading"];
+    NSPredicate *activeDownloadQuery = [NSPredicate predicateWithFormat:@"status = %d", MGPRemoteAssetDownloaderStateDownloading];
     return [self.downloads filteredArrayUsingPredicate:activeDownloadQuery];
 }
 
@@ -117,18 +123,6 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 - (void) applicationWillEnterForeground:(NSNotification *)notification
 {
     [self resumeAllDownloads];
-}
-
-- (MGPRemoteAssetDownloader *) downloaderWithURL:(NSURL *)url
-{
-    MGPRemoteAssetDownloader *downloader = [[MGPRemoteAssetDownloader alloc] init];
-    
-    downloader.downloadPath = self.fileCache.cachePath;
-    downloader.fileManager = self.fileCache.fileManager;
-    downloader.URL = url;
-    downloader.delegate = self;
-    
-    return downloader;
 }
 
 - (void) postNotificationName:(NSString *)notificationName withDownloader:(MGPRemoteAssetDownloader *)downloader;
@@ -194,6 +188,18 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
     //if not in file cache, download, load into memory, callback(asset)
 }
 
+- (MGPRemoteAssetDownloader *) createDownloaderWithURL:(NSURL *)url
+{
+    MGPRemoteAssetDownloader *downloader = [[MGPRemoteAssetDownloader alloc] init];
+    
+    downloader.downloadPath = self.fileCache.cachePath;
+    downloader.fileManager = self.fileCache.fileManager;
+    downloader.URL = url;
+    downloader.delegate = self;
+    
+    return downloader;
+}
+
 - (MGPRemoteAssetDownloader *) downloaderForURL:(NSURL *)url;
 {
     if ([self.fileCache assetValidForKey:[[url absoluteString] mgp_md5]])
@@ -201,9 +207,17 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
         return nil;
     }
     
-    MGPRemoteAssetDownloader *downloader = [self downloaderWithURL:url];
+    NSUInteger downloaderIndex = [self.downloads indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) 
+    {
+        MGPRemoteAssetDownloader *downloader = (MGPRemoteAssetDownloader *)obj;
+        return [downloader.URL isEqual:url];
+    }];
+
+    MGPRemoteAssetDownloader *downloader = downloaderIndex == NSNotFound ? 
+                                            [self createDownloaderWithURL:url] : 
+                                            [self.downloads objectAtIndex:downloaderIndex];
     
-    if (![self.downloads containsObject:downloader]) 
+    if (downloaderIndex == NSNotFound) 
     {
         [self.downloads addObject:downloader];
         [self postNotificationName:kMGPRADownloadsControllerDownloadAddedNotification withDownloader:downloader];

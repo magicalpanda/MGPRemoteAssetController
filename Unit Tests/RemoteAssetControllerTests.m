@@ -58,8 +58,12 @@
     assertThat(downloader.fileManager, is(equalTo([NSFileManager defaultManager])));
     assertThat(downloader.URL, is(equalTo(testUrl)));
     assertThat(downloader.downloadPath, is(equalTo(expectedCachePath)));
+
+    [self.testController resumeAllDownloads];
     
-    assertThatInteger([self.testController.activeDownloads count], is(equalToInteger(1)));
+    assertThatInteger([self.testController.allDownloads count], is(equalToInteger(1)));
+    assertThatInteger(downloader.status, is(equalToInteger(MGPRemoteAssetDownloaderStateRequestSent)));
+
     [mockFileCache verify];
     
     [self deswizzle];
