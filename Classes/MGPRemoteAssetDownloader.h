@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MGPFileCache.h"
+#import "MGPAssetCacheManager.h"
 
 extern NSString * const kMGPDownloaderKey;
 

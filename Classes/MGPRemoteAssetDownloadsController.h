@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MGPRemoteAssetDownloader.h"
 
-@class MGPFileCache;
+@class MGPAssetCacheManager;
 
 extern NSString * const kMGPRADownloadsControllerDownloadAddedNotification;
 extern NSString * const kMGPRADownloadsControlelrDownloadStartedNotification;
@@ -25,7 +25,7 @@ extern NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotificati
 
 @property (nonatomic, readonly) NSArray *allDownloads;
 @property (nonatomic, readonly) NSArray *activeDownloads;
-@property (nonatomic, retain) MGPFileCache *fileCache;
+@property (nonatomic, retain) MGPAssetCacheManager *fileCache;
 
 - (MGPRemoteAssetDownloader *) downloaderForURL:(NSURL *)url;
 //- (MGPRemoteAssetDownloader *) downloadImageAssetAtURL:(NSURL *)url;

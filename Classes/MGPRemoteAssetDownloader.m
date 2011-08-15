@@ -15,6 +15,17 @@ NSString * const kMGPBytesRemainingKey =        @"kMGPBytesRemainingKey";
 NSString * const kMGPProgressKey =              @"kMGPProgressKey";
 NSString * const kMGPEstimatedBandwidthKey =    @"kMGPEstimatedBandwidthKey";
 
+void scanContentRange(NSString *contentRange, long long *startOfRange, long long *endOfRange, long long *totalContentLength)
+{
+    NSScanner *contentRangeScanner = [NSScanner scannerWithString:contentRange];
+    [contentRangeScanner scanString:@"bytes" intoString:nil];
+    [contentRangeScanner scanLongLong:startOfRange];
+    [contentRangeScanner scanString:@"-" intoString:nil];
+    [contentRangeScanner scanLongLong:endOfRange];
+    [contentRangeScanner scanString:@"/" intoString:nil];
+    [contentRangeScanner scanLongLong:totalContentLength];
+}
+
 static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.;
 
 @interface MGPRemoteAssetDownloader ()
@@ -26,7 +37,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @property (nonatomic, retain) NSURLRequest *request;
 @property (nonatomic, copy) NSString *fileName;
 
-@property (nonatomic, assign) NSTimeInterval lastDataReceiveTime;
+@property (nonatomic, assign) NSTimeInterval downloadStartTime;
 @property (nonatomic, assign) float downloadProgress;
 @property (nonatomic, assign) unsigned long long currentFileSize;
 @property (nonatomic, assign) long long expectedFileSize;
@@ -50,7 +61,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @synthesize bandwidth = bandwidth_;
 @synthesize bytesRemaining = bytesRemaining_;
 
-@synthesize lastDataReceiveTime = lastDataReceiveTime_;
+@synthesize downloadStartTime = lastDataReceiveTime_;
 @synthesize serverAllowsResume = serverAllowsResume;
 @synthesize fileName = fileName_;
 @synthesize downloadProgress = downloadProgress_;
@@ -93,8 +104,8 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (NSString *) description
 {
-    return [NSString stringWithFormat:@"<%@ [url: %@] [downloadPath: %@] [fileName: %@] [cachedFileName: %@] [status: %d]>",
-            NSStringFromClass([self class]), self.URL, self.downloadPath, self.fileName, self.fileCacheKey, self.status];
+    return [NSString stringWithFormat:@"<%@ [url: %@] [downloadPath: %@] [fileName: %@] [currentFileSize: %u] [cachedFileName: %@] [status: %d]>",
+            NSStringFromClass([self class]), self.URL, self.downloadPath, self.fileName, self.currentFileSize, self.fileCacheKey, self.status];
 }
 
 - (void) performActionOnDelegate:(SEL)selector withObject:(id)parameter
@@ -123,7 +134,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 + (NSString *) fileKeyForURL:(NSURL *)url
 {
-    return [[url absoluteString] mgp_md5];
+    return [[[url absoluteString] mgp_md5] stringByAppendingPathExtension:[url pathExtension]];
 }
 
 - (NSUInteger) hash
@@ -141,14 +152,14 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     return NO;
 }
 
-- (id) fileCacheKey
+- (id) cacheKey
 {
     return [[self class] fileKeyForURL:self.URL];
 }
 
 - (NSString *) targetFile
 {
-    return [self.downloadPath stringByAppendingPathComponent:[self fileCacheKey]];
+    return [self.downloadPath stringByAppendingPathComponent:[self cacheKey]];
 }
 
 - (void) beginDownload
@@ -173,14 +184,14 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
         }
     }
 
-    NSDictionary *attributes = [self.fileManager attributesOfItemAtPath:self.targetFile error:nil];
-    self.currentFileSize = [attributes fileSize];
-    
     [self resume];
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    NSDictionary *attributes = [self.fileManager attributesOfItemAtPath:self.targetFile error:nil];
+    self.currentFileSize = [attributes fileSize];
+    
     NSHTTPURLResponse *httpResonse = (NSHTTPURLResponse *)response;
     NSDictionary *headers = [httpResonse allHeaderFields];
     
@@ -190,21 +201,27 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     self.expectedFileSize = [response expectedContentLength];
     self.fileName = [response suggestedFilename];
 
-    self.serverAllowsResume = [[headers valueForKey:@"Accept-Ranges"] isEqual:@"bytes"];
+    self.serverAllowsResume = [[headers valueForKey:@"Accept-Ranges"] hasSuffix:@"bytes"];
     self.writeHandle = [NSFileHandle fileHandleForWritingAtPath:self.targetFile];
     
-    if (self.currentFileSize >= self.expectedFileSize) 
-    {
-        self.currentFileSize = 0;
-        [self.writeHandle truncateFileAtOffset:0];
-    }
+//    if (self.currentFileSize >= self.expectedFileSize) 
+//    {
+//        self.currentFileSize = 0;
+//        [self.writeHandle truncateFileAtOffset:0];
+//    }
     
     //parse content range, setup file pointers
-    if (([headers valueForKey:@"Content-Range"]) && (self.currentFileSize > 0))
+    NSString *contentRange = [headers valueForKey:@"Content-Range"];
+    if (contentRange && (self.currentFileSize > 0))
     {
-        [self.writeHandle seekToEndOfFile]; //TODO: seek to proper point in file
-    }
+        long long startOfRange = NSNotFound, endOfRange = NSNotFound, totalContentLength = NSNotFound;
+        scanContentRange(contentRange, &startOfRange, &endOfRange, &totalContentLength);
 
+        [self.writeHandle seekToFileOffset:startOfRange];
+    }
+    
+    self.downloadStartTime = [NSDate timeIntervalSinceReferenceDate];
+    
     SEL startNotificationAction = self.currentFileSize == 0 ? @selector(downloader:didBeginDownloadingURL:) : @selector(downloader:didResumeDownloadingURL:);
     
     [self performActionOnDelegate:startNotificationAction withObject:self.URL];
@@ -212,12 +229,12 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (NSDictionary *) receivedDataSummary:(NSData *)data
 {
-    NSNumber *progress = [NSNumber numberWithFloat:((float)self.currentFileSize / (float)(self.expectedFileSize ?: 1))];
+    NSNumber *progress = [NSNumber numberWithFloat:((float)self.currentFileSize / (float)(self.expectedFileSize ?: MAXFLOAT))];
     NSNumber *bytesRemaining = [NSNumber numberWithFloat:self.expectedFileSize - self.currentFileSize];
     
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-    NSTimeInterval timeDelta = currentTime - self.lastDataReceiveTime;
-    float estimatedBandwidth = (float)[data length] / (timeDelta ?: 1);
+    NSTimeInterval timeDelta = currentTime - self.downloadStartTime;
+    float estimatedBandwidth = (float)self.currentFileSize / (timeDelta ?: MAXFLOAT);
     
     NSNumber *estBandwidth = [NSNumber numberWithFloat:estimatedBandwidth];
     NSNumber *estTimeRemaining = [NSNumber numberWithFloat: (float)(self.expectedFileSize - self.currentFileSize) / estimatedBandwidth];
@@ -228,8 +245,6 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
                              estTimeRemaining, kMGPTimeRemainingKey,
                              estBandwidth, kMGPEstimatedBandwidthKey,
                              nil];
-    
-    self.lastDataReceiveTime = currentTime;
     
     DDLogVerbose(@"Download Status: %@", summary);
     
@@ -260,8 +275,6 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     
     self.status = MGPRemoteAssetDownloaderStateComplete;
     [self performActionOnDelegate:@selector(downloader:didCompleteDownloadingURL:) withObject:self.URL];
-    
-    //TODO: do NOT restart downloader if this INSTANCE has completed successfully!
 }
 
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -273,7 +286,6 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (void) cancel
 {
-    //make downloader so that it cannot be resumed...downloader must be dealloced to restart
     self.status = MGPRemoteAssetDownloaderStateCanceled;
 }
 
@@ -286,8 +298,18 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
     [self performActionOnDelegate:@selector(downloader:didPauseDownloadingURL:) withObject:self.URL];
 }
 
-- (void) resume
+- (BOOL) shouldResumeDownloader
 {
+    return YES;
+}
+
+- (void) resume
+{    
+    //TODO: do NOT restart downloader if this INSTANCE has completed successfully!
+    //make downloader so that it cannot be resumed...downloader must be dealloced to restart
+
+    if (![self shouldResumeDownloader]) return;
+    
     //if status != Canclled && != Completed && networkIsConnected
     if ([self.delegate isURLReachable:self.URL])
     {
@@ -301,7 +323,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
         }
         
         self.request = request;
-        self.lastDataReceiveTime = [NSDate timeIntervalSinceReferenceDate];
+        self.downloadStartTime = [NSDate timeIntervalSinceReferenceDate];
         
     #ifndef __TESTING__
         self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];

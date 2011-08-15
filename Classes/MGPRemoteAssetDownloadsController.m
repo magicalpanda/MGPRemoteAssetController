@@ -8,10 +8,10 @@
 
 #import "MGPRemoteAssetDownloadsController.h"
 #import "MGPRemoteAssetDownloader.h"
-#import "MGPFileCache.h"
+#import "MGPAssetCacheManager.h"
 #import "Reachability.h"
 #import "NSString+MD5.h"
-#import "MGPFileCache.h"
+#import "MGPAssetCacheManager.h"
 
 NSString * const kMGPRADownloadsControllerDownloadAddedNotification = @"kMGPRADownloadsControllerAddedDownloadNotification";
 NSString * const kMGPRADownloadsControlelrDownloadStartedNotification = @"kMGPRADownloadsControlelrDownloadStartedNotification";
@@ -51,7 +51,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (void) initController
 {
-    self.fileCache = [MGPFileCache defaultCache];
+    self.fileCache = [MGPAssetCacheManager defaultCache];
     self.downloads = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged) 
@@ -93,7 +93,9 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (BOOL) isURLReachable:(NSURL *)url
 {
-    return self.networkIsReachable;
+    Reachability *hostReachability = [Reachability reachabilityWithHostName:[url host]];
+
+    return hostReachability.currentReachabilityStatus != NotReachable;
 }
 
 - (void) registerForNotifications
@@ -138,7 +140,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 - (void) downloaderComplete:(MGPRemoteAssetDownloader *)downloader
 {
     [self.downloads removeObject:downloader];
-//    [self.fileCache setMetadataForKey:[downloader fileCacheKey]];
+//    [self.fileCache setMetadataForKey:[downloader cacheKey]];
     if ([self.downloads count] == 0)
     {
         if (self.backgroundTaskId)
@@ -190,11 +192,9 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (MGPRemoteAssetDownloader *) createDownloaderWithURL:(NSURL *)url
 {
-    MGPRemoteAssetDownloader *downloader = [[MGPRemoteAssetDownloader alloc] init];
+    MGPRemoteAssetDownloader *downloader = [[MGPRemoteAssetDownloader alloc] initWithURL:url destinationPath:self.fileCache.cachePath];
     
-    downloader.downloadPath = self.fileCache.cachePath;
     downloader.fileManager = self.fileCache.fileManager;
-    downloader.URL = url;
     downloader.delegate = self;
     
     return downloader;
@@ -237,7 +237,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (void) cancelAllDownloads;
 {
-//    [self.downloads makeObjectsPerformSelector:@selector(cancel)];
+    [self.downloads makeObjectsPerformSelector:@selector(cancel)];
 }
 
 @end

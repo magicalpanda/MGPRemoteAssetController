@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class MGPFileCache;
+@class MGPAssetCacheManager;
 
-@interface AssetFileCacheTests : GHTestCase {}
+@interface AssetCacheManagerTests : GHTestCase {}
 
-@property (nonatomic, retain) MGPFileCache *testCache;
+@property (nonatomic, retain) MGPAssetCacheManager *testCache;
 
 @end

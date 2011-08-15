@@ -36,16 +36,6 @@ static void const * kMGPRemoteAssetDownloaderObservingContext = &kMGPRemoteAsset
     self.downloadProgress = nil;
     [super dealloc];
 }
-//
-//- (id) initWithCoder:(NSCoder *)aDecoder
-//{
-//    self = [super initWithCoder:aDecoder];
-//    if (self) 
-//    {
-//        
-//    }
-//    return self;
-//}
 
 - (void) awakeFromNib
 {
@@ -70,27 +60,22 @@ static void const * kMGPRemoteAssetDownloaderObservingContext = &kMGPRemoteAsset
                          context:&kMGPRemoteAssetDownloaderObservingContext];
 }
 
-- (void) updateDownloadProgress
+- (void) observedownloadProgress
 {
     self.fileName.text = self.downloader.fileName;
     self.fileSize.text = [NSString stringWithFormat:@"%qi bytes", self.downloader.expectedFileSize];
-    self.bytesDownloaded.text = [NSString stringWithFormat:@"%qu bytes", self.downloader.currentFileSize];
-    self.timeRemaining.text = [NSString stringWithFormat:@"%f seconds", self.downloader.timeRemaining];
-    self.bandwidth.text = [NSString stringWithFormat:@"%f kbps", self.downloader.bandwidth];
+    self.bytesDownloaded.text = [NSString stringWithFormat:@"%.1qu bytes", self.downloader.currentFileSize];
+    self.timeRemaining.text = [NSString stringWithFormat:@"%.1f seconds", self.downloader.timeRemaining];
+    self.bandwidth.text = [NSString stringWithFormat:@"%.1f kbps", self.downloader.bandwidth];
     self.downloadProgress.progress = self.downloader.downloadProgress;
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (context == kMGPRemoteAssetDownloaderObservingContext) 
+    if (context == kMGPRemoteAssetDownloaderObservingContext && object == self.downloader) 
     {
-        if (object == self.downloader)
-        {
-            if ([keyPath isEqualToString:@"downloadProgress"])
-            {
-                [self updateDownloadProgress];
-            }
-        }
+        SEL selector = NSSelectorFromString([NSString stringWithFormat:@"observe%@", keyPath]);
+        [self performSelector:selector];
     }
     else
     {

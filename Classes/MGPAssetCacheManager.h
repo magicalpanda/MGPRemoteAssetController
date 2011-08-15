@@ -8,17 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const kMGPFileCacheDefaultCacheFolder;
+
 @protocol MGPFileCacheItem <NSObject>
 
-- (id) fileCacheKey;
+- (id) cacheKey;
 
 @end
 
-@interface MGPFileCache : NSObject {}
+@interface MGPAssetCacheManager : NSObject {}
 
 @property (nonatomic, readonly, retain) NSFileManager *fileManager;
 
-+ (MGPFileCache *) defaultCache;
++ (MGPAssetCacheManager *) defaultCache;
 
 - (BOOL) assetValidForKey:(id)key;
 

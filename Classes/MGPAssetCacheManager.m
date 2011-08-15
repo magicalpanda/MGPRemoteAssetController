@@ -7,10 +7,10 @@
 //
 
 #import <ImageIO/ImageIO.h>
-#import "MGPFileCache.h"
+#import "MGPAssetCacheManager.h"
 #import "NSDate+Helpers.h"
 
-static NSString * kMGPFileCacheDefaultCacheFolder = @"MGPAssetCache";
+NSString * const kMGPFileCacheDefaultCacheFolder = @"MGPAssetCache";
 
 CGSize sizeForImageAtURL(NSURL *imageFileURL)
 {
@@ -43,15 +43,33 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
     return CGSizeMake(width, height);
 }
 
-@interface MGPFileCache ()
+@interface MGPAssetCacheManager ()
 
 @property (nonatomic, retain) NSFileManager *fileManager;
+@property (nonatomic, retain) NSCache *memoryCache;
 
 @end
 
-@implementation MGPFileCache
+@implementation MGPAssetCacheManager
 
 @synthesize fileManager = fileManager_;
+@synthesize memoryCache = memoryCache_;
+
+- (void) dealloc
+{
+    self.fileManager = nil;
+    self.memoryCache = nil;
+    [super dealloc];
+}
+
++ (MGPAssetCacheManager *) defaultCache;
+{
+    static dispatch_once_t pred;
+    static MGPAssetCacheManager *fileCache = nil;
+    
+    dispatch_once(&pred, ^{ fileCache = [[self alloc] init]; });
+    return fileCache;
+}
 
 - (NSString *) cachePath;
 {
@@ -74,14 +92,7 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
     return self;
 }
 
-+ (MGPFileCache *) defaultCache;
-{
-    static dispatch_once_t pred;
-    static MGPFileCache *fileCache = nil;
-    
-    dispatch_once(&pred, ^{ fileCache = [[self alloc] init]; });
-    return fileCache;
-}
+
 
 - (BOOL) assetValidForKey:(id)key;
 {

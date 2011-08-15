@@ -8,7 +8,7 @@
 
 #import "RemoteAssetControllerTests.h"
 #import "MGPRemoteAssetDownloadsController.h"
-#import "MGPFileCache.h"
+#import "MGPAssetCacheManager.h"
 #import "NSString+MD5.h"
 
 @implementation RemoteAssetControllerTests
@@ -44,7 +44,7 @@
 {
     NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
     
-    id mockFileCache = [OCMockObject niceMockForClass:[MGPFileCache class]];
+    id mockFileCache = [OCMockObject niceMockForClass:[MGPAssetCacheManager class]];
 
     NSString *expectedCachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
     [[[mockFileCache expect] andReturn:expectedCachePath] cachePath];
@@ -131,7 +131,7 @@
 
 - (void) testShouldNotDownloadIfAlreadyInCacheAndNotExpired
 {
-    id mockFileCache = [OCMockObject niceMockForClass:[MGPFileCache class]];
+    id mockFileCache = [OCMockObject niceMockForClass:[MGPAssetCacheManager class]];
     NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
     self.testController.fileCache = mockFileCache;
     [[[mockFileCache expect] andReturnValue:[NSNumber numberWithBool:YES]] assetValidForKey:[[testUrl absoluteString] mgp_md5]];
