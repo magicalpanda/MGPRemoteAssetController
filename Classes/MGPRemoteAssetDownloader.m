@@ -164,6 +164,8 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (void) beginDownload
 {
+    self.status = MGPRemoteAssetDownloaderStateNotStarted;
+    
     NSAssert(self.downloadPath, @"downloadPath is not set");
     NSAssert(self.URL, @"URL is not set");
     NSAssert(self.fileManager, @"fileManager is not set");
@@ -286,7 +288,11 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (void) cancel
 {
+    [self.connection cancel];
+    self.connection = nil;
     self.status = MGPRemoteAssetDownloaderStateCanceled;
+    
+    [self performActionOnDelegate:@selector(downloader:didCancelDownloadingURL:) withObject:self.URL];
 }
 
 - (void) pause
@@ -300,7 +306,18 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (BOOL) shouldResumeDownloader
 {
-    return YES;
+    NSInteger nonResumingStates[4] = 
+        {MGPRemoteAssetDownloaderStateComplete,
+         MGPRemoteAssetDownloaderStateDownloading, 
+         MGPRemoteAssetDownloaderStateRequestSent,
+         MGPRemoteAssetDownloaderStateCanceled};
+    
+    BOOL shouldResume = YES;
+    for (int i=0; i < 4; i++) 
+    {
+        shouldResume &= (self.status != nonResumingStates[i]);
+    }
+    return shouldResume;
 }
 
 - (void) resume

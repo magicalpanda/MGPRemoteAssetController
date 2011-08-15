@@ -283,13 +283,22 @@ static id mockFileHandle_;
     [downloaderDelegate verify];
 }
 
-- (void) testShouldSendDownloadResumedCallbackToDelegate
+- (void) setupDownloadWithValidValues:(MGPRemoteAssetDownloader *)downloader forUrl:(NSURL *)testUrl
 {
     NSString *downloadPath = [[TestHelpers scratchPath] stringByAppendingPathComponent:@"test.download"];
-    self.testDownloader.downloadPath = downloadPath;
+    downloader.downloadPath = downloadPath;
     
+    testUrl = testUrl ?: [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
+    downloader.URL = testUrl;
+
+    NSFileManager *fileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
+    downloader.fileManager = fileManager;
+}
+
+- (void) testShouldSendDownloadResumedCallbackToDelegate
+{
     NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
-    self.testDownloader.URL = testUrl;
+    [self setupDownloadWithValidValues:self.testDownloader forUrl:testUrl];
     
     id mockFileManager = [OCMockObject niceMockForClass:[NSFileManager class]];
     NSDictionary *mockFileAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:100] forKey:NSFileSize];
@@ -310,24 +319,48 @@ static id mockFileHandle_;
     [downloaderDelegate verify];
 }
 
-- (void) ignoretestShouldNotBeginDownloadAfterStarted
+- (void) testShouldNotBeginDownloadAfterStarted
 {
-    //    GHFail(@"Not Implemented");
+    NSURL *testUrl = [TestHelpers fileURLForFixtureNamed:@"nsbrief_logo.png"];
+    [self setupDownloadWithValidValues:self.testDownloader forUrl:testUrl];
+    
+    id downloaderDelegate = [self mockDownloaderDelegateForUrl:testUrl];
+    
+    self.testDownloader.delegate = downloaderDelegate;
+    [self.testDownloader beginDownload];
+    [self.testDownloader resume];
+    
+    assertThatInteger(self.testDownloader.status, is(equalToInteger(MGPRemoteAssetDownloaderStateRequestSent)));
 }
 
 - (void) testShouldNotStartDownloadThatHasCanceled
 {
-    //    GHFail(@"Not Implemented");    
-}
-
-- (void) testShouldNotResumeDownloadThatHasCanceled
-{
-    //    GHFail(@"Not Implemented");   
+    [self setupDownloadWithValidValues:self.testDownloader forUrl:nil];
+    
+    id downloaderDelegate = [self mockDownloaderDelegateForUrl:nil];
+    
+    self.testDownloader.delegate = downloaderDelegate;
+    [self.testDownloader beginDownload];
+    [self.testDownloader cancel];
+    [self.testDownloader resume];
+    
+    assertThatInteger(self.testDownloader.status, is(equalToInteger(MGPRemoteAssetDownloaderStateCanceled)));
 }
 
 - (void) testShouldNotResumeDownloadThatHasCompletedSuccessfully
 {
-    //    GHFail(@"Not Implemented");
+    [self setupDownloadWithValidValues:self.testDownloader forUrl:nil];
+    
+    id downloaderDelegate = [self mockDownloaderDelegateForUrl:nil];
+    
+    self.testDownloader.delegate = downloaderDelegate;
+    [self.testDownloader beginDownload];
+    [self.testDownloader connection:nil didReceiveResponse:nil];
+    [self.testDownloader connection:nil didReceiveData:nil];
+    [self.testDownloader connectionDidFinishLoading:nil];
+    [self.testDownloader resume];
+    
+    assertThatInteger(self.testDownloader.status, is(equalToInteger(MGPRemoteAssetDownloaderStateComplete)));
 }
 
 @end

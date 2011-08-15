@@ -34,6 +34,7 @@ typedef enum
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didBeginDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didCompleteDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didPauseDownloadingURL:(NSURL *)url;
+- (void) downloader:(MGPRemoteAssetDownloader *)downloader didCancelDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader didResumeDownloadingURL:(NSURL *)url;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSDictionary *)progressSummary;
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader failedToDownloadURL:(NSURL *)url;
@@ -65,5 +66,6 @@ typedef enum
 - (void) beginDownload;
 - (void) pause;
 - (void) resume;
+- (void) cancel;
 
 @end
