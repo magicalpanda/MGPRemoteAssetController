@@ -157,7 +157,8 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 - (NSString *) targetFile
 {
-    return [self.downloadPath stringByAppendingPathComponent:[self cacheKey]];
+    return [self.cacheManager cachePathForURL:self.URL];
+    //    return [self.downloadPath stringByAppendingPathComponent:[self cacheKey]];
 }
 
 - (void) beginDownload

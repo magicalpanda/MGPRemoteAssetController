@@ -153,9 +153,10 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
     }
 }
 
-- (BOOL) setData:(id)data forKey:(id)key;
+- (NSInputStream *) dataStreamForURL:(NSURL *)url;
 {
-    return NO;
+    NSString *filePath = [self cachePathForURL:url];
+    return [[NSInputStream alloc] initWithFileAtPath:filePath];
 }
 
 - (NSData *) dataForURL:(NSURL *)url;

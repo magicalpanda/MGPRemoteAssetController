@@ -24,13 +24,14 @@ extern NSString * const kMGPFileCacheDefaultCacheFolder;
 + (MGPAssetCacheManager *) defaultCache;
 
 - (void) prepareCacheFileForURL:(NSURL *)url;
+- (NSString *)cachePathForURL:(NSURL *)url;
 
 - (unsigned long long) fileSizeForURL:(NSURL *)url;
 
 - (void) flushCache;
 
-- (BOOL) setData:(id)data forKey:(id)key;
 - (NSData *) dataForURL:(NSURL *)url;
+- (NSInputStream *) dataStreamForURL:(NSURL *)url;
 
 - (BOOL) hasURLBeenCached:(NSURL *)url;
 
