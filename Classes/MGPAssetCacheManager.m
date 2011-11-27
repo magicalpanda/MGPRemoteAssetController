@@ -9,6 +9,7 @@
 #import <ImageIO/ImageIO.h>
 #import "MGPAssetCacheManager.h"
 #import "NSDate+Helpers.h"
+#import "NSString+MD5.h"
 
 NSString * const kMGPFileCacheDefaultCacheFolder = @"MGPAssetCache";
 
@@ -64,10 +65,17 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
     return fileCache;
 }
 
-- (NSString *) cachePath;
++ (NSString *) cachePath;
 {
     NSString *subfolder = kMGPFileCacheDefaultCacheFolder;
     return [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:subfolder];
+}
+
+- (NSString *)cachePathForURL:(NSURL *)url
+{
+    NSString *fileName = [[url absoluteString] mgp_md5];
+    NSString *filePath = [[[self class] cachePath] stringByAppendingPathComponent:fileName];
+    return filePath;
 }
 
 - (void) setupCache
@@ -85,26 +93,33 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
     return self;
 }
 
-
-
-- (BOOL) assetValidForKey:(id)key;
+- (void) prepareCacheFileForURL:(NSURL *)url;
 {
-    return NO;
-}
-
-- (unsigned long long) fileSizeForKey:(id)key;
-{
-    return 0;
-}
-
-- (NSDictionary *) metadataForKey:(id)key;
-{
-    return  nil;
-}
-
-- (void) setMetadataForKey:(id)key;
-{
+    NSString *cachePath = [[self class] cachePath];
     
+    if (![self.fileManager fileExistsAtPath:cachePath])
+    {
+        if (![self.fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:nil])
+        {
+            DDLogWarn(@"Unable to create cache directory: %@", cachePath);
+        }
+    }
+
+    NSString *filePath = [self cachePathForURL:url];
+    if (![self.fileManager fileExistsAtPath:filePath])
+    {
+        if (![self.fileManager createFileAtPath:filePath contents:nil attributes:nil])
+        {
+            DDLogWarn(@"Unable to create cache download file: %@", filePath);
+        }
+    }    
+}
+
+- (unsigned long long) fileSizeForURL:(NSURL *)url
+{
+    NSError *error = nil;
+    NSDictionary *fileAttributes = [self.fileManager attributesOfItemAtPath:[self cachePathForURL:url] error:&error];
+    return [fileAttributes fileSize];
 }
 
 - (void) flushCache;
@@ -112,19 +127,20 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
     
-    [fileManager removeItemAtPath:[self cachePath] error:&error];
+    [fileManager removeItemAtPath:[[self class] cachePath] error:&error];
 }
 
 - (void) expireItemsInCache
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
-    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:[self cachePath]];
+    NSString *cachePath = [[self class] cachePath];
+    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:cachePath];
     NSError *error = nil;
     NSDate *expirationDate;
     for (NSString *fileName in enumerator)
     {
-        NSString *filePath = [[self cachePath] stringByAppendingPathComponent:fileName];
+        NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
         NSDictionary *attributes = [fileManager attributesOfItemAtPath:filePath error:&error];
         
         if ([[attributes fileModificationDate] mgp_isBefore:expirationDate])
@@ -142,9 +158,20 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
     return NO;
 }
 
-- (NSData *) dataForKey:(id)key;
+- (NSData *) dataForURL:(NSURL *)url;
 {
-    return nil;
+    NSData *fileData = nil;
+    if ([self hasURLBeenCached:url])
+    {
+        fileData = [NSData dataWithContentsOfFile:[self cachePathForURL:url]];
+    }
+
+    return fileData;
+}
+
+- (BOOL) hasURLBeenCached:(NSURL *)url;
+{
+    return [self.fileManager fileExistsAtPath:[self cachePathForURL:url]];
 }
 
 @end

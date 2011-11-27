@@ -20,17 +20,18 @@ extern NSString * const kMGPFileCacheDefaultCacheFolder;
 
 @property (nonatomic, readonly, retain) NSFileManager *fileManager;
 
++ (NSString *) cachePath;
 + (MGPAssetCacheManager *) defaultCache;
 
-- (BOOL) assetValidForKey:(id)key;
+- (void) prepareCacheFileForURL:(NSURL *)url;
 
-- (NSString *) cachePath;
-- (unsigned long long) fileSizeForKey:(id)key;
-- (NSDictionary *) metadataForKey:(id)key;
+- (unsigned long long) fileSizeForURL:(NSURL *)url;
 
 - (void) flushCache;
 
 - (BOOL) setData:(id)data forKey:(id)key;
-- (NSData *) dataForKey:(id)key;
+- (NSData *) dataForURL:(NSURL *)url;
+
+- (BOOL) hasURLBeenCached:(NSURL *)url;
 
 @end

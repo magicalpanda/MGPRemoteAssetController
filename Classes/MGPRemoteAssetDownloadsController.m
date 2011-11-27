@@ -175,23 +175,23 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
     [self postNotificationName:kMGPRADownloadsControllerDownloadFailedNotification withDownloader:downloader];
 }
 
-- (id) assetForURL:(NSURL *)url
-{
-    //if in file cache, load into memory, return right away
-    return nil;
-}
+//- (id) assetForURL:(NSURL *)url
+//{
+//    //if in file cache, load into memory, return right away
+//    return nil;
+//}
+//
+//- (void) assetForURL:(NSURL *)url completion:(void(^)(id))callback
+//{
+//    // if in file cache load into memory, callback(asset)
+//    //if not in file cache, download, load into memory, callback(asset)
+//}
 
-- (void) assetForURL:(NSURL *)url completion:(void(^)(id))callback
+- (MGPRemoteAssetDownloader *) createDownloaderWithURL:(NSURL *)url;
 {
-    // if in file cache load into memory, callback(asset)
-    //if not in file cache, download, load into memory, callback(asset)
-}
-
-- (MGPRemoteAssetDownloader *) createDownloaderWithURL:(NSURL *)url
-{
-    MGPRemoteAssetDownloader *downloader = [[MGPRemoteAssetDownloader alloc] initWithURL:url destinationPath:self.fileCache.cachePath];
+    MGPRemoteAssetDownloader *downloader = [MGPRemoteAssetDownloader downloaderForAssetAtURL:url];
     
-    downloader.fileManager = self.fileCache.fileManager;
+    //    downloader.fileManager = self.fileCache.fileManager;
     downloader.delegate = self;
     
     return downloader;
@@ -199,7 +199,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (MGPRemoteAssetDownloader *) downloaderForURL:(NSURL *)url;
 {
-    if ([self.fileCache assetValidForKey:[[url absoluteString] mgp_md5]])
+    if ([self.fileCache hasURLBeenCached:url])
     {
         return nil;
     }

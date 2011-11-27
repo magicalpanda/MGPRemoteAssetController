@@ -47,7 +47,7 @@ typedef enum
 @property (nonatomic, assign) NSObject<MGPRemoteAssetDownloaderDelegate> *delegate;
 @property (nonatomic, copy) NSString *downloadPath;
 @property (nonatomic, retain) NSURL *URL;
-@property (nonatomic, retain) NSFileManager *fileManager;
+//@property (nonatomic, retain) NSFileManager *fileManager;
 @property (nonatomic, readonly, retain) NSFileHandle *writeHandle;
 @property (nonatomic, readonly, copy) NSString *fileName;
 
@@ -60,6 +60,7 @@ typedef enum
 
 - (id) initWithURL:(NSURL *)url destinationPath:(NSString *)destinationPath;
 
++ (MGPRemoteAssetDownloader *) downloaderForAssetAtURL:(NSURL *)sourceURL;
 + (MGPRemoteAssetDownloader *) downloaderForAssetAtURL:(NSURL *)sourceURL toDestinationPath:(NSString *)destinationPath;
 + (NSString *) fileKeyForURL:(NSURL *)url;
 
