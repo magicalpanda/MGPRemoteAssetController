@@ -12,9 +12,7 @@
 @class MGPRemoteAssetDownloader;
 @class MGPDownloaderViewController;
 
-@interface MGPRemoteAssetTableViewCell : MGPTableViewCell {
-    
-}
+@interface MGPRemoteAssetTableViewCell : MGPTableViewCell 
 
 @property (nonatomic, retain) MGPRemoteAssetDownloader *downloader;
 

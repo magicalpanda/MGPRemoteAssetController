@@ -20,21 +20,13 @@
 
 @implementation MGPRemoteAssetViewController
 
-@synthesize downloadList = downloadList_;
-@synthesize downloadController = downloadController_;
-@synthesize indexPaths = indexPaths_;
-
-- (void) dealloc
-{
-    self.indexPaths = nil;
-    self.downloadController = nil;
-    self.downloadList = nil;
-    [super dealloc];
-}
+@synthesize downloadList = _downloadList;
+@synthesize downloadController = _downloadController;
+@synthesize indexPaths = _indexPaths;
 
 - (void) setupViewController
 {
-    self.downloadController = [[[MGPRemoteAssetDownloadsController alloc] init] autorelease];    
+    self.downloadController = [[MGPRemoteAssetDownloadsController alloc] init];
     self.indexPaths = [NSMutableDictionary dictionary];
 }
 

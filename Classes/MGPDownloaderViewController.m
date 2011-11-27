@@ -15,27 +15,14 @@ static void const * kMGPRemoteAssetDownloaderObservingContext = &kMGPRemoteAsset
 
 @implementation MGPDownloaderViewController
 
-@synthesize downloader = downloader_;
-@synthesize fileName = fileName_;
-@synthesize fileSize = fileSize_;
-@synthesize url = url_;
-@synthesize timeRemaining = timeRemaining_;
-@synthesize downloadProgress = downloadProgress_;
-@synthesize bytesDownloaded = bytesDownloaded_;
-@synthesize bandwidth = bandwidth_;
-
-- (void) dealloc
-{
-    self.bandwidth = nil;
-    self.bytesDownloaded = nil;
-    
-    self.fileName = nil;
-    self.fileSize = nil;
-    self.url = nil;
-    self.timeRemaining = nil;
-    self.downloadProgress = nil;
-    [super dealloc];
-}
+@synthesize downloader = _downloader;
+@synthesize fileName = _fileName;
+@synthesize fileSize = _fileSize;
+@synthesize url = _url;
+@synthesize timeRemaining = _timeRemaining;
+@synthesize downloadProgress = _downloadProgress;
+@synthesize bytesDownloaded = _bytesDownloaded;
+@synthesize bandwidth = _bandwidth;
 
 - (void) awakeFromNib
 {
@@ -44,13 +31,10 @@ static void const * kMGPRemoteAssetDownloaderObservingContext = &kMGPRemoteAsset
 
 - (void) setDownloader:(MGPRemoteAssetDownloader *)downloader
 {
-    if (downloader == downloader_) return;
+    if (downloader == _downloader) return;
     
-    [downloader_ removeObserver:self forKeyPath:@"downloadProgress"];
-    
-    [downloader_ release];
-    downloader_ = [downloader retain];
-    
+    [_downloader removeObserver:self forKeyPath:@"downloadProgress"];
+        
     self.bytesDownloaded.text = @"";
     self.url.text = [self.downloader.URL absoluteString];
     

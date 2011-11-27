@@ -10,7 +10,7 @@
 
 @class MGPRemoteAssetDownloadsController;
 
-@interface MGPRemoteAssetViewController : UIViewController<UITableViewDelegate, UITableViewDataSource> {}
+@interface MGPRemoteAssetViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) IBOutlet UITableView *downloadList;
 @property (nonatomic, readonly, retain) MGPRemoteAssetDownloadsController *downloadController;

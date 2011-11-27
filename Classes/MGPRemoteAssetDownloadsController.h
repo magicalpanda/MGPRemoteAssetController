@@ -21,11 +21,11 @@ extern NSString * const kMGPRADownloadsControllerDownloadCompletedNotification;
 extern NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification;
 
 
-@interface MGPRemoteAssetDownloadsController : NSObject<MGPRemoteAssetDownloaderDelegate> {}
+@interface MGPRemoteAssetDownloadsController : NSObject<MGPRemoteAssetDownloaderDelegate>
 
-@property (nonatomic, readonly) NSArray *allDownloads;
-@property (nonatomic, readonly) NSArray *activeDownloads;
-@property (nonatomic, retain) MGPAssetCacheManager *fileCache;
+@property (nonatomic, strong, readonly) NSArray *allDownloads;
+@property (nonatomic, strong, readonly) NSArray *activeDownloads;
+@property (nonatomic, strong) MGPAssetCacheManager *fileCache;
 
 - (MGPRemoteAssetDownloader *) downloaderForURL:(NSURL *)url;
 //- (MGPRemoteAssetDownloader *) downloadImageAssetAtURL:(NSURL *)url;

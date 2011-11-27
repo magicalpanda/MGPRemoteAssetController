@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MGPTableViewCell : UITableViewCell {
-    
-}
+@interface MGPTableViewCell : UITableViewCell
 
 + (UINib *) nib;
 

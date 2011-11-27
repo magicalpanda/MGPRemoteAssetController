@@ -16,7 +16,7 @@ extern NSString * const kMGPFileCacheDefaultCacheFolder;
 
 @end
 
-@interface MGPAssetCacheManager : NSObject {}
+@interface MGPAssetCacheManager : NSObject
 
 @property (nonatomic, readonly, retain) NSFileManager *fileManager;
 

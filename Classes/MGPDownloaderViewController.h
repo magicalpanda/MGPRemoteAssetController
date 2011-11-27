@@ -10,11 +10,9 @@
 
 @class MGPRemoteAssetDownloader;
 
-@interface MGPDownloaderViewController : UIViewController {}
-
+@interface MGPDownloaderViewController : UIViewController
 
 @property (nonatomic, retain) MGPRemoteAssetDownloader *downloader;
-
 
 @property (nonatomic, retain) IBOutlet UILabel *fileName;
 @property (nonatomic, retain) IBOutlet UILabel *fileSize;

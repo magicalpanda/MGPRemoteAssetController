@@ -6,10 +6,10 @@
 //  Copyright 2011 Magical Panda Software LLC. All rights reserved.
 //
 
+#import "NPReachability.h"
 #import "MGPRemoteAssetDownloadsController.h"
 #import "MGPRemoteAssetDownloader.h"
 #import "MGPAssetCacheManager.h"
-#import "Reachability.h"
 #import "NSString+MD5.h"
 #import "MGPAssetCacheManager.h"
 
@@ -34,19 +34,15 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 @implementation MGPRemoteAssetDownloadsController
 
-@synthesize networkIsReachable = networkIsReachable_;
-@synthesize backgroundTaskId = backgroundTaskId_;
-@synthesize activeDownloads = activeDownloads_;
-@synthesize downloads = downloads_;
-@synthesize fileCache = fileCache_;
+@synthesize networkIsReachable = _networkIsReachable;
+@synthesize backgroundTaskId = _backgroundTaskId;
+@synthesize activeDownloads = _activeDownloads;
+@synthesize downloads = _downloads;
+@synthesize fileCache = _fileCache;
 
 - (void) dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
-    
-    self.fileCache = nil;
-    self.downloads = nil;
-    [super dealloc];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NPReachabilityChangedNotification object:nil];
 }
 
 - (void) initController
@@ -55,7 +51,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
     self.downloads = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged) 
-                                                 name:kReachabilityChangedNotification 
+                                                 name:NPReachabilityChangedNotification 
                                                object:nil];
     [self reachabilityChanged];
 }
@@ -72,12 +68,12 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 + (id) controller;
 {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 - (void) reachabilityChanged
 {
-    self.networkIsReachable = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
+    self.networkIsReachable = [[NPReachability sharedInstance] isCurrentlyReachable];
 }
 
 - (NSArray *) allDownloads
@@ -93,9 +89,10 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (BOOL) isURLReachable:(NSURL *)url
 {
-    Reachability *hostReachability = [Reachability reachabilityWithHostName:[url host]];
-
-    return hostReachability.currentReachabilityStatus != NotReachable;
+    return self.networkIsReachable;
+//    Reachability *hostReachability = [Reachability reachabilityWithHostName:[url host]];
+//
+//    return hostReachability.currentReachabilityStatus != NotReachable;
 }
 
 - (void) registerForNotifications

@@ -41,7 +41,7 @@ typedef enum
 
 @end
 
-@interface MGPRemoteAssetDownloader : NSObject<MGPFileCacheItem> {}
+@interface MGPRemoteAssetDownloader : NSObject<MGPFileCacheItem>
 
 @property (nonatomic, assign, readonly) MGPRemoteAssetDownloaderState status;
 @property (nonatomic, assign) NSObject<MGPRemoteAssetDownloaderDelegate> *delegate;

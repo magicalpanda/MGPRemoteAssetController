@@ -47,7 +47,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @property (nonatomic, assign) float bandwidth;
 @property (nonatomic, assign) unsigned long long bytesRemaining;
 @property (nonatomic, assign) NSTimeInterval timeRemaining;
-@property (nonatomic, readonly) NSString *fileCacheKey;
+@property (nonatomic, copy, readonly) NSString *fileCacheKey;
 
 @end
 
@@ -77,19 +77,6 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 @synthesize URL = URL_;
 @synthesize downloadPath = downloadPath_;
 @synthesize fileManager = fileManager_;
-
-- (void) dealloc
-{
-    self.fileName = nil;
-    self.request = nil;
-    self.delegate = nil;
-    self.connection = nil;
-    self.writeHandle = nil;
-    self.URL = nil;
-    self.downloadPath = nil;
-    self.fileManager = nil;
-    [super dealloc];
-}
 
 - (id) init
 {
@@ -129,7 +116,7 @@ static const NSTimeInterval kMGPRemoteAssetDownloaderDefaultRequestTimeout = 30.
 
 + (MGPRemoteAssetDownloader *) downloaderForAssetAtURL:(NSURL *)sourceURL toDestinationPath:(NSString *)destinationPath
 {
-    return [[[self alloc] initWithURL:sourceURL destinationPath:destinationPath] autorelease];
+    return [[self alloc] initWithURL:sourceURL destinationPath:destinationPath];
 }
 
 + (NSString *) fileKeyForURL:(NSURL *)url

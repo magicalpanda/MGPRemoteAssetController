@@ -14,7 +14,7 @@ NSString * const kMGPFileCacheDefaultCacheFolder = @"MGPAssetCache";
 
 CGSize sizeForImageAtURL(NSURL *imageFileURL)
 {
-    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)imageFileURL, NULL);
+    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)imageFileURL, NULL);
     if (imageSource == NULL) 
     {
         // Error loading image
@@ -54,13 +54,6 @@ CGSize sizeForImageAtURL(NSURL *imageFileURL)
 
 @synthesize fileManager = fileManager_;
 @synthesize memoryCache = memoryCache_;
-
-- (void) dealloc
-{
-    self.fileManager = nil;
-    self.memoryCache = nil;
-    [super dealloc];
-}
 
 + (MGPAssetCacheManager *) defaultCache;
 {

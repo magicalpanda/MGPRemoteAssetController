@@ -19,19 +19,12 @@
 
 @implementation MGPRemoteAssetTableViewCell
 
-@synthesize downloader = downloader_;
-@synthesize downloadViewController = downloadViewController_;
-
-- (void) dealloc
-{
-    self.downloadViewController = nil;
-    self.downloader = nil;
-    [super dealloc];
-}
+@synthesize downloader = _downloader;
+@synthesize downloadViewController = _downloadViewController;
 
 - (void) initCell
 {
-    self.downloadViewController = [[[MGPDownloaderViewController alloc] init] autorelease];
+    self.downloadViewController = [[MGPDownloaderViewController alloc] init];
     [self.downloadViewController.view setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
     
     [self.contentView addSubview:self.downloadViewController.view];
@@ -63,12 +56,9 @@
 
 - (void) setDownloader:(MGPRemoteAssetDownloader *)downloader
 {
-    if (downloader == downloader_) return;
+    if (downloader == _downloader) return;
     
-    [downloader_ release];
-    downloader_ = [downloader retain];
-    
-    self.downloadViewController.downloader = downloader_;
+    self.downloadViewController.downloader = _downloader;
 }
 
 @end
