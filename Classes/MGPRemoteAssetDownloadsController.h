@@ -28,12 +28,11 @@ extern NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotificati
 @property (nonatomic, strong) MGPAssetCacheManager *fileCache;
 
 - (MGPRemoteAssetDownloader *) downloaderForURL:(NSURL *)url;
-//- (MGPRemoteAssetDownloader *) downloadImageAssetAtURL:(NSURL *)url;
-//- (MGPRemoteAssetDownloader *) downloadAudioAssetAtURL:(NSURL *)url;
-//- (MGPRemoteAssetDownloader *) downloadVideoAssetAtURL:(NSURL *)url;
-//- (MGPRemoteAssetDownloader *) downloadCoreDataStoreAssetAtURL:(NSURL *)url;
+
+- (void) downloadAssetAtURL:(NSURL *)url progress:(void(^)(NSDictionary *))progressCallback completion:(void(^)(BOOL))completion;
 
 + (id) controller;
++ (id) sharedController;
 
 - (void) pauseAllDownloads;
 - (void) resumeAllDownloads;

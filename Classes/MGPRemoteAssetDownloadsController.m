@@ -22,6 +22,8 @@ NSString * const kMGPRADownloadsControllerDownloadFailedNotification = @"kMGPRAD
 NSString * const kMGPRADownloadsControllerDownloadCompletedNotification = @"kMGPRADownloadsControllerDownloadCompletedNotification";
 NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"kMGPRADownloadsControllerAllDownloadsCompletedNotification";
 
+//need private download queue
+
 @interface MGPRemoteAssetDownloadsController ()
 
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskId;
@@ -71,6 +73,16 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
     return [[self alloc] init];
 }
 
++ (id) sharedController;
+{
+    static MGPRemoteAssetDownloadsController *controller = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        controller = [self controller];
+    });
+    return controller;
+}
+
 - (void) reachabilityChanged
 {
     self.networkIsReachable = [[NPReachability sharedInstance] isCurrentlyReachable];
@@ -90,9 +102,6 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 - (BOOL) isURLReachable:(NSURL *)url
 {
     return self.networkIsReachable;
-//    Reachability *hostReachability = [Reachability reachabilityWithHostName:[url host]];
-//
-//    return hostReachability.currentReachabilityStatus != NotReachable;
 }
 
 - (void) registerForNotifications
@@ -166,7 +175,7 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader dataDidProgress:(NSDictionary *)currentProgress
 {
-    DDLogVerbose(@"Data progress: %@", currentProgress);
+    //    DDLogVerbose(@"Data progress: %@", currentProgress);
 }
 
 - (void) downloader:(MGPRemoteAssetDownloader *)downloader failedToDownloadURL:(NSURL *)url
@@ -175,23 +184,19 @@ NSString * const kMGPRADownloadsControllerAllDownloadsCompletedNotification = @"
     [self postNotificationName:kMGPRADownloadsControllerDownloadFailedNotification withDownloader:downloader];
 }
 
-//- (id) assetForURL:(NSURL *)url
-//{
-//    //if in file cache, load into memory, return right away
-//    return nil;
-//}
-//
-//- (void) assetForURL:(NSURL *)url completion:(void(^)(id))callback
-//{
-//    // if in file cache load into memory, callback(asset)
-//    //if not in file cache, download, load into memory, callback(asset)
-//}
+- (void) downloadAssetAtURL:(NSURL *)url progress:(void(^)(NSDictionary *))progressCallback completion:(void(^)(BOOL))completion;
+{
+    MGPRemoteAssetDownloader *downloader = [self downloaderForURL:url];
+    if (downloader.status != MGPRemoteAssetDownloaderStateDownloading) 
+    {
+        [downloader beginDownload:progressCallback completion:completion];
+    }
+}
 
 - (MGPRemoteAssetDownloader *) createDownloaderWithURL:(NSURL *)url;
 {
     MGPRemoteAssetDownloader *downloader = [MGPRemoteAssetDownloader downloaderForAssetAtURL:url];
-    
-    //    downloader.fileManager = self.fileCache.fileManager;
+
     downloader.delegate = self;
     
     return downloader;

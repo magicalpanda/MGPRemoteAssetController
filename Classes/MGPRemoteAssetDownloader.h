@@ -10,6 +10,11 @@
 #import "MGPAssetCacheManager.h"
 
 extern NSString * const kMGPDownloaderKey;
+extern NSString * const kMGPTimeRemainingKey;
+extern NSString * const kMGPBytesRemainingKey;
+extern NSString * const kMGPDownloadPercentCompleteKey;
+extern NSString * const kMGPEstimatedBandwidthKey;
+
 
 typedef enum
 {
@@ -47,7 +52,7 @@ typedef enum
 @property (nonatomic, assign) NSObject<MGPRemoteAssetDownloaderDelegate> *delegate;
 @property (nonatomic, copy) NSString *downloadPath;
 @property (nonatomic, retain) NSURL *URL;
-//@property (nonatomic, retain) NSFileManager *fileManager;
+
 @property (nonatomic, readonly, retain) NSFileHandle *writeHandle;
 @property (nonatomic, readonly, copy) NSString *fileName;
 
@@ -64,6 +69,8 @@ typedef enum
 + (MGPRemoteAssetDownloader *) downloaderForAssetAtURL:(NSURL *)sourceURL toDestinationPath:(NSString *)destinationPath;
 + (NSString *) fileKeyForURL:(NSURL *)url;
 
+- (void) beginDownload:(void(^)(NSDictionary *))progress completion:(void(^)(BOOL success))completion;
+- (void) beginDownloadCompletion:(void(^)(BOOL successful))completion;
 - (void) beginDownload;
 - (void) pause;
 - (void) resume;
